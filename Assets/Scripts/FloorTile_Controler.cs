@@ -6,6 +6,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	public float TileGapDistance = 1.0f;
 	public GameObject Player;
 	public GameObject Node;
+	public GameObject Floor;
 
 	//Movement Avalability list
 	public bool ForwardAvailable = false;
@@ -39,8 +40,9 @@ public class FloorTile_Controler : MonoBehaviour {
 		TileDetector();
 		AvailabilityChecker();
 	}
+	//this makes sure all tiles are detected at all times.
 
-	//Raycasts, to detect tiles in all directions
+	//START. Raycasts, to detect tiles in all directions
 	//This allows us to check all tile variables using tags! 
 	void TileDetector(){
 		RaycastHit HitUp;
@@ -66,7 +68,7 @@ public class FloorTile_Controler : MonoBehaviour {
 			if(HitBack.collider.tag == "Available"){
 				BackAvailable = true;
 				//this section will be repeated for all rays.
-				//it tells the adjacent block the the player is next to it.
+				//it tells the adjacent block the the player is next to it or not.
 				if(PlayerIsOnThisBlock == true){
 					HitBack.collider.SendMessage ("NextToPlayer");
 				}
@@ -100,23 +102,38 @@ public class FloorTile_Controler : MonoBehaviour {
 		if(Physics.Raycast(TileCheckBack, out HitBack, TileGapDistance)){ 
 			if(HitBack.collider.tag == "UnAvailable"){
 				BackAvailable = false;
+				if(PlayerIsOnThisBlock == true){
+					HitBack.collider.SendMessage ("NextToPlayer");
+				}
 			}
 		}
 		if(Physics.Raycast(TileCheckForward, out HitForward, TileGapDistance)){ 
 			if(HitForward.collider.tag == "UnAvailable"){
 				ForwardAvailable = false;
+				if(PlayerIsOnThisBlock == true){
+					HitForward.collider.SendMessage ("NextToPlayer");
+				}
 			}
 		}
 		if(Physics.Raycast(TileCheckLeft, out HitLeft, TileGapDistance)){ 
 			if(HitLeft.collider.tag == "UnAvailable"){
 				LeftAvailable = false;
+				if(PlayerIsOnThisBlock == true){
+					HitLeft.collider.SendMessage ("NextToPlayer");
+				}
 			}
 		}
 		if(Physics.Raycast(TileCheckRight, out HitRight, TileGapDistance)){ 
 			if(HitRight.collider.tag == "UnAvailable"){
 				RightAvailable = false;
+				if(PlayerIsOnThisBlock == true){
+					HitRight.collider.SendMessage ("NextToPlayer");
+				}
 			}
 		}
+		//END of RayCasting
+
+
 		//Checks for any form of player or Ai.  
 		//*IMPORTANT* it is possible to have the player RayDown, then send Messagse.
 		//Keep this in mind for future reference!! could be usefull.
@@ -166,10 +183,23 @@ public class FloorTile_Controler : MonoBehaviour {
 	//When Clicked, do something
 	void OnMouseUp() {
 		Debug.Log("Drag ended!");
-		Player.transform.position = Node.transform.position;
+		if(NextToPlayersTile == true && gameObject.tag == "Available"){
+			Player.transform.position = Node.transform.position;
+			StartCoroutine(WaitAndGo(0.1F));
+		}
+	}
+	//fixes a bug with selectable tiles
+	IEnumerator WaitAndGo(float waitTime) {
+		yield return new WaitForSeconds(waitTime);
+		Floor.BroadcastMessage ("NotNextToPlayer");
 	}
 
 	void NextToPlayer(){
 		NextToPlayersTile = true;
+	}
+
+	void NotNextToPlayer(){
+		print ("got it");
+		NextToPlayersTile = false;
 	}
 }
