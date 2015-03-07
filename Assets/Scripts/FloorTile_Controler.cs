@@ -2,15 +2,19 @@
 using System.Collections;
 
 public class FloorTile_Controler : MonoBehaviour {
-
-	//public FloorTile_Controler forward, back, left, right;
+	
 	public float TileGapDistance = 1.0f;
 
+	//Movement Avalability list
 	public bool ForwardAvailable = false;
 	public bool BackAvailable = false;
 	public bool LeftAvailable = false;
 	public bool RightAvailable = false;
 
+
+	//Materials List
+	public Material Tile_Concrete_1;
+	public Material Tile_Path_1;
 
 	void Start(){
 		//set bools to false, so there's no bugs
@@ -23,6 +27,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	// Run every update
 	void Update () {
 		TileDetector();
+		AvailabilityChecker();
 	}
 
 	//Raycasts, to detect tiles in all directions
@@ -85,6 +90,12 @@ public class FloorTile_Controler : MonoBehaviour {
 			if(HitRight.collider.tag == "UnAvailable"){
 				RightAvailable = false;
 			}
+		}
+	}
+
+	void AvailabilityChecker(){
+		if(gameObject.tag == "UnAvailable"){
+			gameObject.renderer.material.color = Color.grey;
 		}
 	}
 }
