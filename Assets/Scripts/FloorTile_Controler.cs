@@ -142,6 +142,7 @@ public class FloorTile_Controler : MonoBehaviour {
 				NextToPlayersTile = false;
 			}
 		}
+		//sets everythign to false if the ray missed.
 		else{
 			PlayerIsOnThisBlock = false;
 			HeroIsOnThisBlock = false;
