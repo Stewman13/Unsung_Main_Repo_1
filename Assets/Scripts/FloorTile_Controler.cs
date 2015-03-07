@@ -152,6 +152,7 @@ public class FloorTile_Controler : MonoBehaviour {
 		}
 	}
 
+	//checks the tag of this tile, then sets colour accordingly
 	void AvailabilityChecker(){
 		if(gameObject.tag == "UnAvailable"){
 			gameObject.renderer.material.color = Color.grey;
