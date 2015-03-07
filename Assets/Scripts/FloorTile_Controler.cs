@@ -17,6 +17,8 @@ public class FloorTile_Controler : MonoBehaviour {
 	public bool HeroIsOnThisBlock = false;
 	public bool AiIsOnThisBlock = false;
 	public bool BoxIsOnThisBlock = false;
+
+	public bool NextToPlayersTile = false;
 	
 
 	void Start(){
@@ -29,6 +31,7 @@ public class FloorTile_Controler : MonoBehaviour {
 		HeroIsOnThisBlock = false;
 		AiIsOnThisBlock = false;
 		BoxIsOnThisBlock = false;
+		NextToPlayersTile = false;
 	}
 
 	// Run every update
@@ -62,21 +65,35 @@ public class FloorTile_Controler : MonoBehaviour {
 		if(Physics.Raycast(TileCheckBack, out HitBack, TileGapDistance)){ 
 			if(HitBack.collider.tag == "Available"){
 				BackAvailable = true;
+				//this section will be repeated for all rays.
+				//it tells the adjacent block the the player is next to it.
+				if(PlayerIsOnThisBlock == true){
+					HitBack.collider.SendMessage ("NextToPlayer");
+				}
 			}
 		}
 		if(Physics.Raycast(TileCheckForward, out HitForward, TileGapDistance)){ 
 			if(HitForward.collider.tag == "Available"){
 				ForwardAvailable = true;
+				if(PlayerIsOnThisBlock == true){
+					HitForward.collider.SendMessage ("NextToPlayer");
+				}
 			}
 		}
 		if(Physics.Raycast(TileCheckLeft, out HitLeft, TileGapDistance)){ 
 			if(HitLeft.collider.tag == "Available"){
 				LeftAvailable = true;
+				if(PlayerIsOnThisBlock == true){
+					HitLeft.collider.SendMessage ("NextToPlayer");
+				}
 			}
 		}
 		if(Physics.Raycast(TileCheckRight, out HitRight, TileGapDistance)){ 
 			if(HitRight.collider.tag == "Available"){
 				RightAvailable = true;
+				if(PlayerIsOnThisBlock == true){
+					HitRight.collider.SendMessage ("NextToPlayer");
+				}
 			}
 		}
 		//Checks if UnAvailable
@@ -107,18 +124,22 @@ public class FloorTile_Controler : MonoBehaviour {
 			if(HitUp.collider.tag == "Player"){
 				PlayerIsOnThisBlock = true;
 				gameObject.tag = "UnAvailable";
+				NextToPlayersTile = false;
 			}
 			if(HitUp.collider.tag == "Hero"){
 				HeroIsOnThisBlock = true;
 				gameObject.tag = "UnAvailable";
+				NextToPlayersTile = false;
 			}
 			if(HitUp.collider.tag == "Ai"){
 				AiIsOnThisBlock = true;
 				gameObject.tag = "UnAvailable";
+				NextToPlayersTile = false;
 			}
 			if(HitUp.collider.tag == "Box"){
 				BoxIsOnThisBlock = true;
 				gameObject.tag = "UnAvailable";
+				NextToPlayersTile = false;
 			}
 		}
 		else{
@@ -144,5 +165,9 @@ public class FloorTile_Controler : MonoBehaviour {
 	void OnMouseUp() {
 		Debug.Log("Drag ended!");
 		Player.transform.position = Node.transform.position;
+	}
+
+	void NextToPlayer(){
+		NextToPlayersTile = true;
 	}
 }

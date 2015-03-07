@@ -1,8 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\FloorTile_Controler.cs">
     <Files>
-      <File FileName="Assets\Scripts\FloorTile_Controler.cs" Line="119" Column="36" />
+      <File FileName="Assets\Scripts\FloorTile_Controler.cs" Line="148" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
