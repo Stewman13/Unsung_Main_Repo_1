@@ -4,6 +4,8 @@ using System.Collections;
 public class FloorTile_Controler : MonoBehaviour {
 	
 	public float TileGapDistance = 1.0f;
+	public GameObject Player;
+	public GameObject Node;
 
 	//Movement Avalability list
 	public bool ForwardAvailable = false;
@@ -135,5 +137,12 @@ public class FloorTile_Controler : MonoBehaviour {
 		if(gameObject.tag == "Available"){
 			gameObject.renderer.material.color = Color.white;
 		}
+	}
+
+	
+	//When Clicked, do something
+	void OnMouseUp() {
+		Debug.Log("Drag ended!");
+		Player.transform.position = Node.transform.position;
 	}
 }
