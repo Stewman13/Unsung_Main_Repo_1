@@ -49,7 +49,7 @@ public class TransperantWalls : MonoBehaviour {
 		if(other.gameObject.tag == "Wall")
 		{			
 			Color newColour = other.renderer.material.color;
-			newColour.a = 0.2f;
+			newColour.a = 0.5f;
 			other.renderer.material.color = newColour;
 		}
 	}
