@@ -45,12 +45,14 @@ public class TransperantWalls : MonoBehaviour {
 			Color newColour = other.renderer.material.color;
 			newColour.a = 0.2f;
 			other.renderer.material.color = newColour;
+			other.renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		}
 		if(other.gameObject.tag == "Wall")
 		{			
 			Color newColour = other.renderer.material.color;
 			newColour.a = 0.5f;
 			other.renderer.material.color = newColour;
+			other.renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		}
 	}
 
@@ -62,12 +64,14 @@ public class TransperantWalls : MonoBehaviour {
 			Color newColour = other.renderer.material.color;
 			newColour.a = 1.0f;
 			other.renderer.material.color = newColour;
+			other.renderer.material.shader = Shader.Find("Diffuse");
 		}
 		if(other.gameObject.tag == "Wall")
 		{
 			Color newColour = other.renderer.material.color;
 			newColour.a = 1.0f;
 			other.renderer.material.color = newColour;
+			other.renderer.material.shader = Shader.Find("Diffuse");
 		}
 	}
 }
