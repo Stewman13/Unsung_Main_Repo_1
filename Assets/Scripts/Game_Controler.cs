@@ -17,10 +17,17 @@ public class Game_Controler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
 	}
 
 	void MovePlayer(){
-		AP -= 1;
+		if(Stance == "Standard"){
+			AP -= 2;
+		}
+		if(Stance == "Stealth"){
+			AP -= 3;
+		}
+		if(Stance == "Running"){
+			AP -= 1;
+		}
 	}
 }

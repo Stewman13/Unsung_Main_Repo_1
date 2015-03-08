@@ -8,6 +8,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	public GameObject Node;
 	public GameObject Floor;
 	public GameObject ThisTile;
+	public GameObject Controller;
 
 	//Movement Avalability list
 	public bool ForwardAvailable = false;
@@ -21,7 +22,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	public bool BoxIsOnThisBlock = false;
 
 	public bool NextToPlayersTile = false;
-	
+	private int ap;
 
 	void Start(){
 		//set bools to false, so there's no bugs
@@ -184,14 +185,16 @@ public class FloorTile_Controler : MonoBehaviour {
 	//Uses Raycast collison with layer 8 (Tiles) then moves player to clicked tile.
 	//Note, this also only allows movement to an adjacent tile.
 	void MouseUp(){
+		ap = Controller.GetComponent<Game_Controler>().AP;
 		RaycastHit HitMe;
 		int layerMask = 1 << 8;
 
 		if (Input.GetButtonDown("Fire1")) {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(ray, out HitMe,Mathf.Infinity,layerMask)){
-				if(HitMe.collider.gameObject == ThisTile && NextToPlayersTile == true ){
+				if(HitMe.collider.gameObject == ThisTile && NextToPlayersTile == true && ap >= 1){
 					Player.transform.position = Node.transform.position;
+					Controller.SendMessage ("MovePlayer");
 					StartCoroutine(WaitAndGo(0.1F));
 				}
 			}
