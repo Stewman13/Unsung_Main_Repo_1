@@ -7,6 +7,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	public GameObject Player;
 	public GameObject Node;
 	public GameObject Floor;
+	public GameObject ThisTile;
 
 	//Movement Avalability list
 	public bool ForwardAvailable = false;
@@ -39,6 +40,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	void Update () {
 		TileDetector();
 		AvailabilityChecker();
+		MouseUp();
 	}
 	//this makes sure all tiles are detected at all times.
 
@@ -179,27 +181,34 @@ public class FloorTile_Controler : MonoBehaviour {
 		}
 	}
 
-	
-	//When Clicked, do something
-	void OnMouseUp() {
-		Debug.Log("Drag ended!");
-		if(NextToPlayersTile == true && gameObject.tag == "Available"){
-			Player.transform.position = Node.transform.position;
-			StartCoroutine(WaitAndGo(0.1F));
+	//Uses Raycast collison with layer 8 (Tiles) then moves player to clicked tile.
+	//Note, this also only allows movement to an adjacent tile.
+	void MouseUp(){
+		RaycastHit HitMe;
+		int layerMask = 1 << 8;
+
+		if (Input.GetButtonDown("Fire1")) {
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast(ray, out HitMe,Mathf.Infinity,layerMask)){
+				if(HitMe.collider.gameObject == ThisTile && NextToPlayersTile == true ){
+					Player.transform.position = Node.transform.position;
+					StartCoroutine(WaitAndGo(0.1F));
+				}
+			}
 		}
 	}
+	
 	//fixes a bug with selectable tiles
 	IEnumerator WaitAndGo(float waitTime) {
 		yield return new WaitForSeconds(waitTime);
 		Floor.BroadcastMessage ("NotNextToPlayer");
 	}
-
+	//message reciver
 	void NextToPlayer(){
 		NextToPlayersTile = true;
 	}
-
+	//message reciver
 	void NotNextToPlayer(){
-		print ("got it");
 		NextToPlayersTile = false;
 	}
 }
