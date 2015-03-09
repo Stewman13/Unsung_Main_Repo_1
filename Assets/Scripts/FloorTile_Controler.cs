@@ -136,7 +136,6 @@ public class FloorTile_Controler : MonoBehaviour {
 				}
 			}
 		}
-		//END of RayCasting
 
 
 		//Checks for any form of player or Ai.  
@@ -173,6 +172,8 @@ public class FloorTile_Controler : MonoBehaviour {
 			gameObject.tag = "Available";
 		}
 	}
+	//END of RayCasting
+
 
 	//checks the tag of this tile, then sets colour accordingly
 	void AvailabilityChecker(){
