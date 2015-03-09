@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+//I added a comment
 public class FloorTile_Controler : MonoBehaviour {
 	
 	public float TileGapDistance = 1.0f;
