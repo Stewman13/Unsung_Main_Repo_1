@@ -18,7 +18,8 @@ public class Game_Controler : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	}
-
+	
+	// Recives message and takes AP when player moves
 	void MovePlayer(){
 		if(Stance == "Standard"){
 			AP -= 2;
