@@ -25,6 +25,7 @@ public class FloorTile_Controler : MonoBehaviour {
 
 	public bool NextToPlayersTile = false;
 	private int ap;
+	private int PlayerMoveNum;
 
 	void Start(){
 		//set bools to false, so there's no bugs
@@ -137,6 +138,13 @@ public class FloorTile_Controler : MonoBehaviour {
 			}
 		}
 
+		//A fix for the 'player on 2 tiles' bug. 
+		//Works with other bug fixer further down.
+		//Has to be here in the script! else it doesn't work.
+		if(PlayerIsOnThisBlock == false && HeroIsOnThisBlock == false && 
+		   AiIsOnThisBlock == false && BoxIsOnThisBlock == false){
+			gameObject.tag = "Available";
+		}
 
 		//Checks for any form of player or Ai.  
 		//*IMPORTANT* it is possible to have the player RayDown, then send Messagse.
@@ -146,6 +154,10 @@ public class FloorTile_Controler : MonoBehaviour {
 				PlayerIsOnThisBlock = true;
 				gameObject.tag = "UnAvailable";
 				NextToPlayersTile = false;
+				if(PlayerMoveNum == 1){
+					Floor.BroadcastMessage ("PlayerNotHere");
+				}
+				PlayerMoveNum = 0;
 			}
 			if(HitUp.collider.tag == "Hero"){
 				HeroIsOnThisBlock = true;
@@ -163,6 +175,7 @@ public class FloorTile_Controler : MonoBehaviour {
 				NextToPlayersTile = false;
 			}
 		}
+
 		//sets everythign to false if the ray missed.
 		else{
 			PlayerIsOnThisBlock = false;
@@ -170,6 +183,7 @@ public class FloorTile_Controler : MonoBehaviour {
 			AiIsOnThisBlock = false;
 			BoxIsOnThisBlock = false;
 			gameObject.tag = "Available";
+			PlayerMoveNum = 1;
 		}
 	}
 	//END of RayCasting
@@ -216,5 +230,9 @@ public class FloorTile_Controler : MonoBehaviour {
 	//message reciver
 	void NotNextToPlayer(){
 		NextToPlayersTile = false;
+	}
+	//message reciever, to fix 'player on 2 tiles' bug
+	void PlayerNotHere(){
+		PlayerIsOnThisBlock = false;
 	}
 }
