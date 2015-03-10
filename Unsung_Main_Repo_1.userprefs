@@ -1,11 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\FloorTile_Controler.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\HeroController.cs">
     <Files>
-      <File FileName="Assets\Scripts\FloorTile_Controler.cs" Line="59" Column="1" />
-      <File FileName="Assets\Scripts\Game_Controler.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SoundTrigger.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\HeroController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\HeroController.cs" Line="50" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
