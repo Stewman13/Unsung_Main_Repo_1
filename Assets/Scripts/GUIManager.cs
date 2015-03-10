@@ -3,6 +3,23 @@ using System.Collections;
 
 public class GUIManager : MonoBehaviour {
 
+    //Gathering up all the public values within this script
+    private static GUIManager _instance;
+
+    //returns the instance
+    public static GUIManager Instance
+    {
+        get                                                         //get public information in this script
+        {
+            //If the game object doesnt exist create one
+            if (_instance == null)
+            {
+                GameObject go = new GameObject("GUIManager");       //creates new "named" gameobject
+                go.AddComponent<GUIManager>();                      //Adds this component to the gameobject once its created
+            }
+            return _instance;                                       //If gameobject already exists return all public info within this script
+        }
+    }
 
     private Game_Controler _isPaused;
     private int _buttonWidth = 200;
