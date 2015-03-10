@@ -5,6 +5,7 @@ public class Game_Controler : MonoBehaviour {
 
 	public GameObject Player;
 	public GameObject Floor;
+	public Texture APTexture;
 
 	public int AP = 4;
 
@@ -15,6 +16,7 @@ public class Game_Controler : MonoBehaviour {
 	public bool playerRunning = false;
 	public bool playerSneaking = false;
 
+
 	public string Stance = "Standard"; //others are, "stealth" and "Running"
 
 	public enum PlayerStances 
@@ -24,6 +26,7 @@ public class Game_Controler : MonoBehaviour {
 		Sneak
 		
 	}
+
 
 	// Use this for initialization
 	void Start () {
@@ -37,7 +40,7 @@ public class Game_Controler : MonoBehaviour {
 
 	//Tells the other stances to deactivate when one is activated
 	void Stances(){
-		Debug.Log (currentStance);
+		//Debug.Log (currentStance);
 		
 		switch (currentStance) 
 		{
@@ -93,7 +96,7 @@ public class Game_Controler : MonoBehaviour {
 			}
 		}
 		
-		if (GUILayout.Button ("Run Stance") && AP >= 5) 
+		if (GUILayout.Button ("Run Stance") && AP >= 1) 
 		{
 			if(currentStance == PlayerStances.Sneak)
 			{
@@ -107,7 +110,7 @@ public class Game_Controler : MonoBehaviour {
 			}
 		}
 		
-		if (GUILayout.Button ("Sneak Stance") && AP >= 5) 
+		if (GUILayout.Button ("Sneak Stance") && AP >= 1) 
 		{
 			if(currentStance == PlayerStances.Walk)
 			{
@@ -119,6 +122,19 @@ public class Game_Controler : MonoBehaviour {
 				currentStance = PlayerStances.Sneak;
 				AP -= 1;
 			}
+		}
+
+		if (!APTexture) 
+		{
+			Debug.LogError ("Assign a texture");
+			return;
+		}
+		GUI.DrawTexture(new Rect(100, 80, 30, AP * -20), APTexture);
+
+
+		if (GUILayout.Button ("End Turn")) 
+		{
+			AP += 4;
 		}
 	}
 }
