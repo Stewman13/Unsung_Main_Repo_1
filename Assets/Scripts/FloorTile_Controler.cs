@@ -12,6 +12,11 @@ public class FloorTile_Controler : MonoBehaviour {
 	public GameObject ThisTile;
 	public GameObject Controller;
 
+	public GameObject TileForward;
+	public GameObject TileBack;
+	public GameObject TileLeft;
+	public GameObject TileRight;
+
 	//Movement Avalability list
 	public bool ForwardAvailable = false;
 	public bool BackAvailable = false;
@@ -27,6 +32,13 @@ public class FloorTile_Controler : MonoBehaviour {
 	private int ap;
 	private int PlayerMoveNum;
     private Game_Controler _gameCon;
+
+	public int HerosPath = 0;
+
+	public RaycastHit HitBack;
+	public RaycastHit HitForward;
+	public RaycastHit HitLeft;
+	public RaycastHit HitRight;
 
 	void Start(){
 		//set bools to false, so there's no bugs
@@ -57,10 +69,6 @@ public class FloorTile_Controler : MonoBehaviour {
 	//This allows us to check all tile variables using tags! 
 	void TileDetector(){
 		RaycastHit HitUp;
-		RaycastHit HitBack;
-		RaycastHit HitForward;
-		RaycastHit HitLeft;
-		RaycastHit HitRight;
 			
 		Ray TileCheckUp = new Ray(transform.position, Vector3.up);	
 		Ray TileCheckForward = new Ray(transform.position, Vector3.forward);
@@ -78,6 +86,7 @@ public class FloorTile_Controler : MonoBehaviour {
 		if(Physics.Raycast(TileCheckBack, out HitBack, TileGapDistance)){ 
 			if(HitBack.collider.tag == "Available"){
 				BackAvailable = true;
+				TileBack = HitBack.transform.gameObject;
 				//this section will be repeated for all rays.
 				//it tells the adjacent block the the player is next to it or not.
 				if(PlayerIsOnThisBlock == true){
@@ -88,6 +97,7 @@ public class FloorTile_Controler : MonoBehaviour {
 		if(Physics.Raycast(TileCheckForward, out HitForward, TileGapDistance)){ 
 			if(HitForward.collider.tag == "Available"){
 				ForwardAvailable = true;
+				TileForward = HitForward.transform.gameObject;
 				if(PlayerIsOnThisBlock == true){
 					HitForward.collider.SendMessage ("NextToPlayer");
 				}
@@ -96,6 +106,7 @@ public class FloorTile_Controler : MonoBehaviour {
 		if(Physics.Raycast(TileCheckLeft, out HitLeft, TileGapDistance)){ 
 			if(HitLeft.collider.tag == "Available"){
 				LeftAvailable = true;
+				TileLeft = HitLeft.transform.gameObject;
 				if(PlayerIsOnThisBlock == true){
 					HitLeft.collider.SendMessage ("NextToPlayer");
 				}
@@ -104,6 +115,7 @@ public class FloorTile_Controler : MonoBehaviour {
 		if(Physics.Raycast(TileCheckRight, out HitRight, TileGapDistance)){ 
 			if(HitRight.collider.tag == "Available"){
 				RightAvailable = true;
+				TileRight = HitRight.transform.gameObject;
 				if(PlayerIsOnThisBlock == true){
 					HitRight.collider.SendMessage ("NextToPlayer");
 				}
@@ -113,6 +125,7 @@ public class FloorTile_Controler : MonoBehaviour {
 		if(Physics.Raycast(TileCheckBack, out HitBack, TileGapDistance)){ 
 			if(HitBack.collider.tag == "UnAvailable"){
 				BackAvailable = false;
+				TileBack = HitBack.transform.gameObject;
 				if(PlayerIsOnThisBlock == true){
 					HitBack.collider.SendMessage ("NextToPlayer");
 				}
@@ -121,6 +134,7 @@ public class FloorTile_Controler : MonoBehaviour {
 		if(Physics.Raycast(TileCheckForward, out HitForward, TileGapDistance)){ 
 			if(HitForward.collider.tag == "UnAvailable"){
 				ForwardAvailable = false;
+				TileForward = HitForward.transform.gameObject;
 				if(PlayerIsOnThisBlock == true){
 					HitForward.collider.SendMessage ("NextToPlayer");
 				}
@@ -129,6 +143,7 @@ public class FloorTile_Controler : MonoBehaviour {
 		if(Physics.Raycast(TileCheckLeft, out HitLeft, TileGapDistance)){ 
 			if(HitLeft.collider.tag == "UnAvailable"){
 				LeftAvailable = false;
+				TileLeft = HitLeft.transform.gameObject;
 				if(PlayerIsOnThisBlock == true){
 					HitLeft.collider.SendMessage ("NextToPlayer");
 				}
@@ -137,6 +152,7 @@ public class FloorTile_Controler : MonoBehaviour {
 		if(Physics.Raycast(TileCheckRight, out HitRight, TileGapDistance)){ 
 			if(HitRight.collider.tag == "UnAvailable"){
 				RightAvailable = false;
+				TileRight = HitRight.transform.gameObject;
 				if(PlayerIsOnThisBlock == true){
 					HitRight.collider.SendMessage ("NextToPlayer");
 				}
