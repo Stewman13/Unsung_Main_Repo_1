@@ -40,6 +40,15 @@ public class FloorTile_Controler : MonoBehaviour {
 	public RaycastHit HitLeft;
 	public RaycastHit HitRight;
 
+	//Stuff For Lerping
+	private float timeStartedLerping;
+	private bool isLerping;
+	private float journeyLength;
+	private Vector3 startPosition;
+	private Vector3 endPosition;
+	private float timeTakenDuringLerp;
+
+
 	void Start(){
 		//set bools to false, so there's no bugs
 		ForwardAvailable = false;
@@ -61,10 +70,23 @@ public class FloorTile_Controler : MonoBehaviour {
             TileDetector();
             AvailabilityChecker();
             MouseUp();
-        }
+			StanceMoveSpeed();
+		}
 	}
-	//this makes sure all tiles are detected at all times.
 
+	void StanceMoveSpeed(){
+		if(_gameCon.playerRunning == true){
+			timeTakenDuringLerp = 0.5f;
+		}
+		if(_gameCon.playerSneaking == true){
+			timeTakenDuringLerp = 1.5f;
+		}
+		if(_gameCon.playerWalking == true){
+			timeTakenDuringLerp = 1.0f;
+		}
+	}
+
+	//this makes sure all tiles are detected at all times.
 	//START. Raycasts, to detect tiles in all directions
 	//This allows us to check all tile variables using tags! 
 	void TileDetector(){
@@ -231,10 +253,37 @@ public class FloorTile_Controler : MonoBehaviour {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(ray, out HitMe,Mathf.Infinity,layerMask)){
 				if(HitMe.collider.gameObject == ThisTile && NextToPlayersTile == true && ap >= _gameCon.CurrentMovementCost){
-					Player.transform.position = Node.transform.position;
+					StartLerping();
+					//Player.transform.position = Vector3.Lerp(Player.transform.position, Node.transform.position, 1.0f);
 					Controller.SendMessage ("MovePlayer");
 					StartCoroutine(WaitAndGo(0.1F));
 				}
+			}
+		}
+	}
+
+	void StartLerping(){
+		journeyLength = Vector3.Distance(Player.transform.position, Node.transform.position);
+
+		isLerping = true;
+		timeStartedLerping = Time.time;
+
+		startPosition = Player.transform.position;
+		endPosition = Node.transform.position /* * journeyLength*/;
+	}
+
+	void FixedUpdate()
+	{
+		if(isLerping)
+		{
+			float timeSinceStarted = Time.time - timeStartedLerping;
+			float percentageComplete = timeSinceStarted / timeTakenDuringLerp;
+
+			Player.transform.position = Vector3.Lerp (startPosition, endPosition, percentageComplete);
+
+			if(percentageComplete >= 1.0f)
+			{
+				isLerping = false;
 			}
 		}
 	}
