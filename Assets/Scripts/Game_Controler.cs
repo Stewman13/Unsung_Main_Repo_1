@@ -25,6 +25,8 @@ public class Game_Controler : MonoBehaviour {
 	public int RunMovementCost = 1;
 	public int CurrentMovementCost;
 
+	public GameObject walkDetection;
+	public GameObject runDetection;
 
 
 	public string Stance = "Standard"; //others are, "stealth" and "Running"
@@ -74,6 +76,8 @@ public class Game_Controler : MonoBehaviour {
 			playerRunning = false;
 			playerSneaking = false;
 			CurrentMovementCost = WalkMovementCost;
+			walkDetection.SetActive(true);
+			runDetection.SetActive(false);
 			
 			break;
 			
@@ -82,6 +86,8 @@ public class Game_Controler : MonoBehaviour {
 			playerRunning = true;
 			playerSneaking = false;
 			CurrentMovementCost = RunMovementCost;
+			walkDetection.SetActive(false);
+			runDetection.SetActive(true);
 			
 			break;
 			
@@ -90,6 +96,8 @@ public class Game_Controler : MonoBehaviour {
 			playerRunning = false;
 			playerSneaking = true;
 			CurrentMovementCost = SneakMovementCost;
+			walkDetection.SetActive(false);
+			runDetection.SetActive(false);
 			
 			break;
 			

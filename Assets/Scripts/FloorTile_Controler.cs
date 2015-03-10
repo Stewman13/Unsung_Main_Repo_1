@@ -27,7 +27,6 @@ public class FloorTile_Controler : MonoBehaviour {
 	private int ap;
 	private int PlayerMoveNum;
     private Game_Controler _gameCon;
-	private 
 
 	void Start(){
 		//set bools to false, so there's no bugs

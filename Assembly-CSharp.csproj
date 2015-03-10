@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\Game_Controler.cs" />
      <Compile Include="Assets\Scripts\MenuOptions.cs" />
      <Compile Include="Assets\Scripts\Player_Controller.cs" />
+     <Compile Include="Assets\Scripts\SoundTrigger.cs" />
      <Compile Include="Assets\Scripts\TransperantWalls.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
