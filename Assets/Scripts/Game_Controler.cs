@@ -76,8 +76,8 @@ public class Game_Controler : MonoBehaviour {
 			playerRunning = false;
 			playerSneaking = false;
 			CurrentMovementCost = WalkMovementCost;
-		//	walkDetection.SetActive(true);
-		//	runDetection.SetActive(false);
+			walkDetection.SetActive(true);
+			runDetection.SetActive(false);
 			
 			break;
 			
@@ -86,8 +86,8 @@ public class Game_Controler : MonoBehaviour {
 			playerRunning = true;
 			playerSneaking = false;
 			CurrentMovementCost = RunMovementCost;
-		//	walkDetection.SetActive(false);
-		//	runDetection.SetActive(true);
+			walkDetection.SetActive(false);
+			runDetection.SetActive(true);
 			
 			break;
 			
@@ -96,8 +96,8 @@ public class Game_Controler : MonoBehaviour {
 			playerRunning = false;
 			playerSneaking = true;
 			CurrentMovementCost = SneakMovementCost;
-		//	walkDetection.SetActive(false);
-		//	runDetection.SetActive(false);
+			walkDetection.SetActive(false);
+			runDetection.SetActive(false);
 			
 			break;
 			
