@@ -27,6 +27,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	private int ap;
 	private int PlayerMoveNum;
     private Game_Controler _gameCon;
+	private 
 
 	void Start(){
 		//set bools to false, so there's no bugs
@@ -214,7 +215,7 @@ public class FloorTile_Controler : MonoBehaviour {
 		if (Input.GetButtonDown("Fire1")) {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(ray, out HitMe,Mathf.Infinity,layerMask)){
-				if(HitMe.collider.gameObject == ThisTile && NextToPlayersTile == true && ap >= 1){
+				if(HitMe.collider.gameObject == ThisTile && NextToPlayersTile == true && ap >= _gameCon.CurrentMovementCost){
 					Player.transform.position = Node.transform.position;
 					Controller.SendMessage ("MovePlayer");
 					StartCoroutine(WaitAndGo(0.1F));

@@ -11,11 +11,20 @@ public class Game_Controler : MonoBehaviour {
 
 	//Used to control Player Stances
 	private PlayerStances currentStance;
-	
+	private PossibleTurns currentTurn;
+
 	public bool playerWalking = false;
 	public bool playerRunning = false;
 	public bool playerSneaking = false;
     public bool paused;
+	public bool isPlayersTurn = false;
+	public bool isAiTurn = false;
+
+	public int SneakMovementCost = 3;
+	public int WalkMovementCost = 2;
+	public int RunMovementCost = 1;
+	public int CurrentMovementCost;
+
 
 
 	public string Stance = "Standard"; //others are, "stealth" and "Running"
@@ -28,15 +37,25 @@ public class Game_Controler : MonoBehaviour {
 		
 	}
 
+	public enum PossibleTurns
+	{
+		PlayerTurn,
+		AiTurn
+	}
+
 
 	// Use this for initialization
 	void Start () {
 		currentStance = PlayerStances.Walk;
+		currentTurn = PossibleTurns.AiTurn;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		Stances();
+		Turns ();
+		HeroTurn();
+		ActivatePlayerTurn();
 
         if (Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.P))
         {
@@ -54,6 +73,7 @@ public class Game_Controler : MonoBehaviour {
 			playerWalking = true;
 			playerRunning = false;
 			playerSneaking = false;
+			CurrentMovementCost = WalkMovementCost;
 			
 			break;
 			
@@ -61,6 +81,7 @@ public class Game_Controler : MonoBehaviour {
 			playerWalking = false;
 			playerRunning = true;
 			playerSneaking = false;
+			CurrentMovementCost = RunMovementCost;
 			
 			break;
 			
@@ -68,28 +89,41 @@ public class Game_Controler : MonoBehaviour {
 			playerWalking = false;
 			playerRunning = false;
 			playerSneaking = true;
+			CurrentMovementCost = SneakMovementCost;
 			
 			break;
 			
 		}
 	}
 
+	//Tells us that when ones turn is running, another is not.
+	void Turns(){
+
+		switch (currentTurn)
+		{
+		case (PossibleTurns.AiTurn):
+			isAiTurn = true;
+			isPlayersTurn = false;
+
+			break;
+
+		case (PossibleTurns.PlayerTurn):
+			isAiTurn = false;
+			isPlayersTurn = true;
+	
+			break;
+		}
+	}
+
 	// Recives message and takes AP when player moves
 	void MovePlayer(){
-		if(currentStance == PlayerStances.Walk){
-			AP -= 2;
-		}
-		if(currentStance == PlayerStances.Sneak){
-			AP -= 3;
-		}
-		if(currentStance == PlayerStances.Run){
-			AP -= 1;
-		}
+		AP -= CurrentMovementCost;
 	}
 
 	//This sections creates/controls the GUI Display for Stances
 	void OnGUI()
 	{
+		//WALK STANCE BUTTON
 		if (GUILayout.Button ("Walk Stance")) 
 		{
 			if(currentStance == PlayerStances.Sneak)
@@ -101,7 +135,7 @@ public class Game_Controler : MonoBehaviour {
 				currentStance = PlayerStances.Walk;
 			}
 		}
-		
+		//RUN STANCE BUTTON
 		if (GUILayout.Button ("Run Stance") && AP >= 1) 
 		{
 			if(currentStance == PlayerStances.Sneak)
@@ -115,7 +149,7 @@ public class Game_Controler : MonoBehaviour {
 				AP -= 1;
 			}
 		}
-		
+		//SNEAK STANCE BUTTON
 		if (GUILayout.Button ("Sneak Stance") && AP >= 1) 
 		{
 			if(currentStance == PlayerStances.Walk)
@@ -129,7 +163,7 @@ public class Game_Controler : MonoBehaviour {
 				AP -= 1;
 			}
 		}
-
+		//BLUE AP BAR
 		if (!APTexture) 
 		{
 			Debug.LogError ("Assign a texture");
@@ -137,13 +171,14 @@ public class Game_Controler : MonoBehaviour {
 		}
 		GUI.DrawTexture(new Rect(100, 80, 30, AP * -20), APTexture);
 
-
-		if (GUILayout.Button ("End Turn")) 
+		//END TURN BUTTON
+		if (GUILayout.Button ("End Turn") && isPlayersTurn == true) 
 		{
-			AP += 4;
+			currentTurn = PossibleTurns.AiTurn;
 		}
 	}
 
+	//Pasue on 'esc' menu
     bool PauseToggle()
     {
         if (Time.timeScale == 0)
@@ -157,4 +192,18 @@ public class Game_Controler : MonoBehaviour {
             return (true);
         }
     }
+	// tells the player to start their turn.
+	void ActivatePlayerTurn(){
+		if(isPlayersTurn == true){
+
+		}
+	}
+
+	void HeroTurn(){
+		if(isAiTurn == true){
+			print ("AI has had their turn");
+			currentTurn = PossibleTurns.PlayerTurn;
+			AP = 4;
+		}
+	}
 }
