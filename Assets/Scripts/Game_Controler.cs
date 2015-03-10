@@ -17,6 +17,9 @@ public class Game_Controler : MonoBehaviour {
 	public bool playerSneaking = false;
     public bool paused;
 
+    public GameObject walkDetection;
+    public GameObject runDetection;
+
 
 	public string Stance = "Standard"; //others are, "stealth" and "Running"
 
@@ -54,6 +57,8 @@ public class Game_Controler : MonoBehaviour {
 			playerWalking = true;
 			playerRunning = false;
 			playerSneaking = false;
+            walkDetection.SetActive(true);
+            runDetection.SetActive(false);
 			
 			break;
 			
@@ -61,6 +66,8 @@ public class Game_Controler : MonoBehaviour {
 			playerWalking = false;
 			playerRunning = true;
 			playerSneaking = false;
+            walkDetection.SetActive(false);
+            runDetection.SetActive(true);
 			
 			break;
 			
@@ -68,6 +75,8 @@ public class Game_Controler : MonoBehaviour {
 			playerWalking = false;
 			playerRunning = false;
 			playerSneaking = true;
+            walkDetection.SetActive(false);
+            runDetection.SetActive(false);
 			
 			break;
 			
