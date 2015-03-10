@@ -15,6 +15,7 @@ public class Game_Controler : MonoBehaviour {
 	public bool playerWalking = false;
 	public bool playerRunning = false;
 	public bool playerSneaking = false;
+    public bool paused;
 
 
 	public string Stance = "Standard"; //others are, "stealth" and "Running"
@@ -36,6 +37,11 @@ public class Game_Controler : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Stances();
+
+        if (Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.P))
+        {
+            paused = PauseToggle();
+        }   
 	}
 
 	//Tells the other stances to deactivate when one is activated
@@ -137,4 +143,18 @@ public class Game_Controler : MonoBehaviour {
 			AP += 4;
 		}
 	}
+
+    bool PauseToggle()
+    {
+        if (Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+            return (false);
+        }
+        else
+        {
+            Time.timeScale = 0;
+            return (true);
+        }
+    }
 }

@@ -26,6 +26,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	public bool NextToPlayersTile = false;
 	private int ap;
 	private int PlayerMoveNum;
+    private Game_Controler _gameCon;
 
 	void Start(){
 		//set bools to false, so there's no bugs
@@ -38,13 +39,17 @@ public class FloorTile_Controler : MonoBehaviour {
 		AiIsOnThisBlock = false;
 		BoxIsOnThisBlock = false;
 		NextToPlayersTile = false;
+        _gameCon = GameObject.Find("Main Camera").GetComponent<Game_Controler>();
 	}
 
 	// Run every update
 	void Update () {
-		TileDetector();
-		AvailabilityChecker();
-		MouseUp();
+        if (_gameCon.paused != true)
+        {
+            TileDetector();
+            AvailabilityChecker();
+            MouseUp();
+        }
 	}
 	//this makes sure all tiles are detected at all times.
 
