@@ -5,6 +5,7 @@ public class Game_Controler : MonoBehaviour {
 
 	public GameObject Player;
 	public GameObject Floor;
+	public GameObject Hero;
 	public Texture APTexture;
 
 	public int AP = 4;
@@ -57,7 +58,6 @@ public class Game_Controler : MonoBehaviour {
 		Stances();
 		Turns ();
 		HeroTurn();
-		ActivatePlayerTurn();
 
         if (Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.P))
         {
@@ -182,6 +182,7 @@ public class Game_Controler : MonoBehaviour {
 		//END TURN BUTTON
 		if (GUILayout.Button ("End Turn") && isPlayersTurn == true) 
 		{
+			Hero.GetComponent<HeroController>().herosMoves = 2;
 			currentTurn = PossibleTurns.AiTurn;
 		}
 	}
@@ -202,15 +203,11 @@ public class Game_Controler : MonoBehaviour {
     }
 	// tells the player to start their turn.
 	void ActivatePlayerTurn(){
-		if(isPlayersTurn == true){
-
-		}
+		currentTurn = PossibleTurns.PlayerTurn;
 	}
 
 	void HeroTurn(){
 		if(isAiTurn == true){
-			print ("AI has had their turn");
-			currentTurn = PossibleTurns.PlayerTurn;
 			AP = 4;
 		}
 	}
