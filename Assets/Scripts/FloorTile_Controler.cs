@@ -33,6 +33,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	private int PlayerMoveNum;
     private Game_Controler _gameCon;
 
+	public int AIPathChannel = 0;
 	public int HerosPath = 0;
 
 	public RaycastHit HitBack;
@@ -308,5 +309,8 @@ public class FloorTile_Controler : MonoBehaviour {
 	//message reciever, to fix 'player on 2 tiles' bug
 	void PlayerNotHere(){
 		PlayerIsOnThisBlock = false;
+	}
+	void AiWasHere(){
+		//change Channel number to 0
 	}
 }

@@ -58,7 +58,6 @@ public class Game_Controler : MonoBehaviour {
 		Stances();
 		Turns ();
 		HeroTurn();
-
         if (Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.P))
         {
             paused = PauseToggle();

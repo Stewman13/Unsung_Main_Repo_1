@@ -14,6 +14,9 @@ public class EnemyPathing : MonoBehaviour {
 	public GameObject TileLeft;
 	public GameObject TileRight;
 	public bool aiTurn;
+	public int AIPathChannel = 1;
+	public int MoveDir;
+	public int ChanceToMove;
 
 
 	public int AIsMoves = 1;
@@ -35,7 +38,11 @@ public class EnemyPathing : MonoBehaviour {
 	void Update () {
 		whereAmI();
 		isItMyTurn();
+		MoveDir = Random.Range(1,5);
+		ChanceToMove = Random.Range(1,3);
 	}
+
+	//Tells the AI what block they are on, where they can move to, and where they are moving.
 	void whereAmI(){
 		RaycastHit HitDown;
 		int layerMask = 1 << 8;
@@ -53,31 +60,40 @@ public class EnemyPathing : MonoBehaviour {
 			
 			if(TileUnderAI.GetComponent<FloorTile_Controler>().AiIsOnThisBlock == true && aiTurn == true && AIsMoves >= 1 && isLerping == false){
 				
-				TileUnderAI.GetComponent<FloorTile_Controler>().HerosPath = 0;
+				//TileUnderAI.GetComponent<FloorTile_Controler>().AIPathChannel = 0;
+				ChanceToMove = Random.Range(1,3);
 				if(TileForward){
-					if(TileForward.GetComponent<FloorTile_Controler>().HerosPath == 1 && TileForward.GetComponent<FloorTile_Controler>().tag == "Available"){
+					if(TileForward.GetComponent<FloorTile_Controler>().AIPathChannel == AIPathChannel && 
+					   TileForward.GetComponent<FloorTile_Controler>().tag == "Available" && MoveDir == 1 /*&& ChanceToMove == 1*/){
 						StartLerpingForward();
 					}
 				}
 				if(TileBack){
-					if(TileBack.GetComponent<FloorTile_Controler>().HerosPath == 1 && TileBack.GetComponent<FloorTile_Controler>().tag == "Available"){
+					if(TileBack.GetComponent<FloorTile_Controler>().AIPathChannel == AIPathChannel && 
+					   TileBack.GetComponent<FloorTile_Controler>().tag == "Available" && MoveDir == 2 /*&& ChanceToMove == 1*/){
 						StartLerpingBack();
 					}
 				}
 				if(TileLeft){
-					if(TileLeft.GetComponent<FloorTile_Controler>().HerosPath == 1 && TileLeft.GetComponent<FloorTile_Controler>().tag == "Available"){
+					if(TileLeft.GetComponent<FloorTile_Controler>().AIPathChannel == AIPathChannel && 
+					   TileLeft.GetComponent<FloorTile_Controler>().tag == "Available" && MoveDir == 3 /*&& ChanceToMove == 1*/){
 						StartLerpingLeft();
 					}
 				}
 				if(TileRight){
-					if(TileRight.GetComponent<FloorTile_Controler>().HerosPath == 1 && TileRight.GetComponent<FloorTile_Controler>().tag == "Available"){
+					if(TileRight.GetComponent<FloorTile_Controler>().AIPathChannel == AIPathChannel && 
+					   TileRight.GetComponent<FloorTile_Controler>().tag == "Available" && MoveDir == 4 /*&& ChanceToMove == 1*/){
 						StartLerpingRight();
 					}
 				}
+			//	if(ChanceToMove == 2){
+			//		AIsMoves = 0;
+			//	}
 			}
 		}
 	}
-	
+
+	//This is Setup information needed before movement can be done in the fixed update.
 	void StartLerpingForward(){
 		journeyLength = Vector3.Distance(AI.transform.position, TileForward.GetComponent<FloorTile_Controler>().Node.transform.position);
 		
@@ -114,7 +130,8 @@ public class EnemyPathing : MonoBehaviour {
 		startPosition = AI.transform.position;
 		endPosition = TileRight.GetComponent<FloorTile_Controler>().Node.transform.position;
 	}
-	
+
+	//This is where movement is done.
 	void FixedUpdate()
 	{
 		if(isLerping)
@@ -131,14 +148,15 @@ public class EnemyPathing : MonoBehaviour {
 			}
 		}
 	}
-	
-	//tells us that it's the heros turn
+
+	//tells us that it's the AI's turn
 	void isItMyTurn(){
-		
+		if(aiTurn == false){
+			AIsMoves = 1;
+		}
 		aiTurn = Controller.GetComponent<Game_Controler>().isAiTurn;
 		if(AIsMoves <= 0){
 			AIsMoves = 0;
-			Controller.SendMessage ("ActivatePlayerTurn");
 		}
 	}
 }
