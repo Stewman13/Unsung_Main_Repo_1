@@ -249,21 +249,20 @@ public class FloorTile_Controler : MonoBehaviour {
 		RaycastHit HitMe;
 		int layerMask = 1 << 8;
 
-		if (Input.GetButtonDown("Fire1")) {
+		if (Input.GetButtonDown("Fire1") && _gameCon.isPlayersTurn == true) {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(ray, out HitMe,Mathf.Infinity,layerMask)){
 				if(HitMe.collider.gameObject == ThisTile && NextToPlayersTile == true && ap >= _gameCon.CurrentMovementCost){
 					StartLerping();
 					Controller.SendMessage ("MovePlayer");
-					StartCoroutine(WaitAndGo(0.1F));
+					StartCoroutine(WaitAndGo(0.01F));
 				}
 			}
 		}
 	}
-
+	//This gathers the required information to move, before the fixd update begins.
 	void StartLerping(){
 		journeyLength = Vector3.Distance(Player.transform.position, Node.transform.position);
-
 		isLerping = true;
 		timeStartedLerping = Time.time;
 
@@ -271,6 +270,7 @@ public class FloorTile_Controler : MonoBehaviour {
 		endPosition = Node.transform.position;
 	}
 
+	//this is a set update, that moves the player from tile to tile.
 	void FixedUpdate()
 	{
 		if(isLerping)
@@ -279,7 +279,12 @@ public class FloorTile_Controler : MonoBehaviour {
 			float percentageComplete = timeSinceStarted / timeTakenDuringLerp;
 
 			Player.transform.position = Vector3.Lerp (startPosition, endPosition, percentageComplete);
-
+			//This Stops the player from being able to glitch across tiles.
+			if(percentageComplete >= 0.3f)
+			{
+				Floor.BroadcastMessage ("NotNextToPlayer");
+			}
+			//this tells the PlayerCharacter that it has reched it's destination, and to stop moving.
 			if(percentageComplete >= 1.0f)
 			{
 				isLerping = false;
