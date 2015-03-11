@@ -132,7 +132,7 @@ public class Game_Controler : MonoBehaviour {
 	void OnGUI()
 	{
 		//WALK STANCE BUTTON
-		if (GUILayout.Button ("Walk Stance")) 
+		if (GUILayout.Button ("Walk Stance") && isPlayersTurn == true) 
 		{
 			if(currentStance == PlayerStances.Sneak && AP >= 1)
 			{
@@ -144,7 +144,7 @@ public class Game_Controler : MonoBehaviour {
 			}
 		}
 		//RUN STANCE BUTTON
-		if (GUILayout.Button ("Run Stance") && AP >= 1) 
+		if (GUILayout.Button ("Run Stance") && AP >= 1  && isPlayersTurn == true) 
 		{
 			if(currentStance == PlayerStances.Sneak)
 			{
@@ -158,7 +158,7 @@ public class Game_Controler : MonoBehaviour {
 			}
 		}
 		//SNEAK STANCE BUTTON
-		if (GUILayout.Button ("Sneak Stance") && AP >= 1) 
+		if (GUILayout.Button ("Sneak Stance") && AP >= 1  && isPlayersTurn == true) 
 		{
 			if(currentStance == PlayerStances.Walk)
 			{

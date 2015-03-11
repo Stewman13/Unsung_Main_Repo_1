@@ -39,11 +39,12 @@ public class HeroController : MonoBehaviour {
 
 	void whereAmI(){
 		RaycastHit HitDown;
+		int layerMask = 1 << 8;
 
 		Ray TileCheckDown = new Ray(transform.position, Vector3.down);
 		Debug.DrawRay(transform.position, Vector3.up * 1.0f);
 
-		if(Physics.Raycast(TileCheckDown, out HitDown, 1.0f)){ 
+		if(Physics.Raycast(TileCheckDown, out HitDown, 1.0f,layerMask)){ 
 
 			TileUnderHero = HitDown.transform.gameObject;
 			TileForward = TileUnderHero.GetComponent<FloorTile_Controler>().TileForward;
@@ -54,17 +55,25 @@ public class HeroController : MonoBehaviour {
 			if(TileUnderHero.GetComponent<FloorTile_Controler>().HeroIsOnThisBlock == true && herosTurn == true && herosMoves >= 1 && isLerping == false){
 
 				TileUnderHero.GetComponent<FloorTile_Controler>().HerosPath = 0;
-				if(TileForward.GetComponent<FloorTile_Controler>().HerosPath == 1){
-					StartLerpingForward();
+				if(TileForward){
+					if(TileForward.GetComponent<FloorTile_Controler>().HerosPath == 1){
+						StartLerpingForward();
+					}
 				}
-				if(TileBack.GetComponent<FloorTile_Controler>().HerosPath == 1){
-					StartLerpingBack();
+				if(TileBack){
+					if(TileBack.GetComponent<FloorTile_Controler>().HerosPath == 1){
+						StartLerpingBack();
+					}
 				}
-				if(TileLeft.GetComponent<FloorTile_Controler>().HerosPath == 1){
-					StartLerpingLeft();
+				if(TileLeft){
+					if(TileLeft.GetComponent<FloorTile_Controler>().HerosPath == 1){
+						StartLerpingLeft();
+					}
 				}
-				if(TileRight.GetComponent<FloorTile_Controler>().HerosPath == 1){
-					StartLerpingRight();
+				if(TileRight){
+					if(TileRight.GetComponent<FloorTile_Controler>().HerosPath == 1){
+						StartLerpingRight();
+					}
 				}
 			}
 		}
