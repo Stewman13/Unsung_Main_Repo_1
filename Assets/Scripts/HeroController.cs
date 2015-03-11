@@ -59,20 +59,33 @@ public class HeroController : MonoBehaviour {
 					if(TileForward.GetComponent<FloorTile_Controler>().HerosPath == 1 && TileForward.GetComponent<FloorTile_Controler>().tag == "Available"){
 						StartLerpingForward();
 					}
+					//this part tells the hero, if theres something in your way, end turn. Aka: Wait for smoke to clear.
+					if(TileForward.GetComponent<FloorTile_Controler>().HerosPath == 1 && TileForward.GetComponent<FloorTile_Controler>().tag == "UnAvailable"){
+						herosMoves -= 1;
+					}
 				}
 				if(TileBack){
 					if(TileBack.GetComponent<FloorTile_Controler>().HerosPath == 1 && TileBack.GetComponent<FloorTile_Controler>().tag == "Available" ){
 						StartLerpingBack();
+					}
+					if(TileBack.GetComponent<FloorTile_Controler>().HerosPath == 1 && TileBack.GetComponent<FloorTile_Controler>().tag == "UnAvailable"){
+						herosMoves -= 1;
 					}
 				}
 				if(TileLeft){
 					if(TileLeft.GetComponent<FloorTile_Controler>().HerosPath == 1 && TileLeft.GetComponent<FloorTile_Controler>().tag == "Available"){
 						StartLerpingLeft();
 					}
+					if(TileLeft.GetComponent<FloorTile_Controler>().HerosPath == 1 && TileLeft.GetComponent<FloorTile_Controler>().tag == "UnAvailable"){
+						herosMoves -= 1;
+					}
 				}
 				if(TileRight){
 					if(TileRight.GetComponent<FloorTile_Controler>().HerosPath == 1 && TileRight.GetComponent<FloorTile_Controler>().tag == "Available"){
 						StartLerpingRight();
+					}
+					if(TileRight.GetComponent<FloorTile_Controler>().HerosPath == 1 && TileRight.GetComponent<FloorTile_Controler>().tag == "UnAvailable"){
+						herosMoves -= 1;
 					}
 				}
 			}
