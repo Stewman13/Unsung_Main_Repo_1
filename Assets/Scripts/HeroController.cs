@@ -42,7 +42,7 @@ public class HeroController : MonoBehaviour {
 		int layerMask = 1 << 8;
 
 		Ray TileCheckDown = new Ray(transform.position, Vector3.down);
-		Debug.DrawRay(transform.position, Vector3.up * 1.0f);
+		Debug.DrawRay(transform.position, Vector3.down * 1.0f);
 
 		if(Physics.Raycast(TileCheckDown, out HitDown, 1.0f,layerMask)){ 
 
@@ -56,22 +56,22 @@ public class HeroController : MonoBehaviour {
 
 				TileUnderHero.GetComponent<FloorTile_Controler>().HerosPath = 0;
 				if(TileForward){
-					if(TileForward.GetComponent<FloorTile_Controler>().HerosPath == 1){
+					if(TileForward.GetComponent<FloorTile_Controler>().HerosPath == 1 && TileForward.GetComponent<FloorTile_Controler>().tag == "Available"){
 						StartLerpingForward();
 					}
 				}
 				if(TileBack){
-					if(TileBack.GetComponent<FloorTile_Controler>().HerosPath == 1){
+					if(TileBack.GetComponent<FloorTile_Controler>().HerosPath == 1 && TileBack.GetComponent<FloorTile_Controler>().tag == "Available" ){
 						StartLerpingBack();
 					}
 				}
 				if(TileLeft){
-					if(TileLeft.GetComponent<FloorTile_Controler>().HerosPath == 1){
+					if(TileLeft.GetComponent<FloorTile_Controler>().HerosPath == 1 && TileLeft.GetComponent<FloorTile_Controler>().tag == "Available"){
 						StartLerpingLeft();
 					}
 				}
 				if(TileRight){
-					if(TileRight.GetComponent<FloorTile_Controler>().HerosPath == 1){
+					if(TileRight.GetComponent<FloorTile_Controler>().HerosPath == 1 && TileRight.GetComponent<FloorTile_Controler>().tag == "Available"){
 						StartLerpingRight();
 					}
 				}
