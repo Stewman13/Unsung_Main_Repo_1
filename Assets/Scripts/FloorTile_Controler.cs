@@ -254,7 +254,6 @@ public class FloorTile_Controler : MonoBehaviour {
 			if (Physics.Raycast(ray, out HitMe,Mathf.Infinity,layerMask)){
 				if(HitMe.collider.gameObject == ThisTile && NextToPlayersTile == true && ap >= _gameCon.CurrentMovementCost){
 					StartLerping();
-					//Player.transform.position = Vector3.Lerp(Player.transform.position, Node.transform.position, 1.0f);
 					Controller.SendMessage ("MovePlayer");
 					StartCoroutine(WaitAndGo(0.1F));
 				}
@@ -269,7 +268,7 @@ public class FloorTile_Controler : MonoBehaviour {
 		timeStartedLerping = Time.time;
 
 		startPosition = Player.transform.position;
-		endPosition = Node.transform.position /* * journeyLength*/;
+		endPosition = Node.transform.position;
 	}
 
 	void FixedUpdate()
