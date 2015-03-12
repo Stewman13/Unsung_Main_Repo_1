@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\GUIManager.cs" />
      <Compile Include="Assets\Scripts\Game_Controler.cs" />
      <Compile Include="Assets\Scripts\HeroController.cs" />
+     <Compile Include="Assets\Scripts\Heros_Player_Detection.cs" />
      <Compile Include="Assets\Scripts\MenuOptions.cs" />
      <Compile Include="Assets\Scripts\Player_Controller.cs" />
      <Compile Include="Assets\Scripts\SoundTrigger.cs" />
