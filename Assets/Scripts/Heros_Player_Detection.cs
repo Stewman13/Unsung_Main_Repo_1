@@ -3,6 +3,13 @@ using System.Collections;
 
 public class Heros_Player_Detection : MonoBehaviour {
 
+	public GameObject Hero;
+
+	public LineRenderer LineCastLeft;
+	public LineRenderer LineCastRight;
+	public LineRenderer LineCastForward;
+	public LineRenderer LineCastBack;
+
 	public int SneakSpotDistance;
 	public int RunSpotDistance;
 	public int WalkSpotDistance;
@@ -12,17 +19,46 @@ public class Heros_Player_Detection : MonoBehaviour {
 	public RaycastHit HitLeft;
 	public RaycastHit HitRight;
 
+	public Vector3 Left;
+	public Vector3 Right;
+	public Vector3 Forward;
+	public Vector3 Back;
+
 	private Game_Controler _gameCon;
 	private FloorTile_Controler _tileCon;
 
 	// Use this for initialization
 	void Start () {
+		LineCastLeft = gameObject.GetComponent<LineRenderer> ();
+		LineCastRight = gameObject.GetComponent<LineRenderer> ();
+		LineCastBack = gameObject.GetComponent<LineRenderer> ();
+		LineCastForward = gameObject.GetComponent<LineRenderer> ();
 		_gameCon = GameObject.Find("Main Camera").GetComponent<Game_Controler>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		InitiliseLine();
 		PlayerDetector();
+	}
+
+
+	void InitiliseLine(){
+		LineCastLeft.SetWidth (0.5f, 0.5f);
+		LineCastLeft.SetPosition(0, Hero.transform.position);
+		LineCastLeft.enabled = true;
+
+		LineCastBack.SetWidth (0.5f, 0.5f);
+		LineCastBack.SetPosition(0, Hero.transform.position);
+		LineCastBack.enabled = true;
+
+		LineCastForward.SetWidth (0.5f, 0.5f);
+		LineCastForward.SetPosition(0, Hero.transform.position);
+		LineCastForward.enabled = true;
+
+		LineCastRight.SetWidth (0.5f, 0.5f);
+		LineCastRight.SetPosition(0, Hero.transform.position);
+		LineCastRight.enabled = true;
 	}
 
 	void PlayerDetector(){
@@ -42,35 +78,42 @@ public class Heros_Player_Detection : MonoBehaviour {
 		//Ray TileCheckLeftRun = new Ray(transform.position, Vector3.left);
 		//Ray TileCheckRightRun = new Ray(transform.position, Vector3.right);
 
+		//LINE CASTS ARE SUPER BROKEN. MIGHT JUST REMOVE THEM!
+
+		//This Can be rewritten And Should be! A test is at hand. 
+		//ReWrite this so it's shorter. I have mine saved as a Notepad++
 		if(_gameCon.playerSneaking == true){
 
 			Debug.DrawRay(transform.position, Vector3.left * SneakSpotDistance);
 			Debug.DrawRay(transform.position, Vector3.right * SneakSpotDistance);
 			Debug.DrawRay(transform.position, Vector3.forward * SneakSpotDistance);
 			Debug.DrawRay(transform.position, Vector3.back * SneakSpotDistance);
-
+			LineCastLeft.SetPosition(1, Vector3.left * SneakSpotDistance);
+			LineCastRight.SetPosition(1, Vector3.right * SneakSpotDistance);
+			LineCastBack.SetPosition(1, Vector3.back * SneakSpotDistance);
+			LineCastForward.SetPosition(1, Vector3.forward * SneakSpotDistance);
 
 			if(Physics.Raycast(TileCheckForward, out HitForward, SneakSpotDistance)){ 
-				if(HitBack.collider.tag == "Player"){
-					//DETECTED!
+				if(HitForward.collider.tag == "Player"){
+					print("DETECTED!");
 				}
 			}
 
 			if(Physics.Raycast(TileCheckLeft, out HitLeft, SneakSpotDistance)){ 
-				if(HitBack.collider.tag == "Player"){
-					//DETECTED!
+				if(HitLeft.collider.tag == "Player"){
+					print("DETECTED!");
 				}
 			}
 
 			if(Physics.Raycast(TileCheckRight, out HitRight, SneakSpotDistance)){ 
-				if(HitBack.collider.tag == "Player"){
-					//DETECTED!
+				if(HitRight.collider.tag == "Player"){
+					print("DETECTED!");
 				}
 			}
 
 			if(Physics.Raycast(TileCheckBack, out HitBack, SneakSpotDistance)){ 
 				if(HitBack.collider.tag == "Player"){
-					//DETECTED!
+					print("DETECTED!");
 				}
 			}
 		}
@@ -81,29 +124,32 @@ public class Heros_Player_Detection : MonoBehaviour {
 			Debug.DrawRay(transform.position, Vector3.right * WalkSpotDistance);
 			Debug.DrawRay(transform.position, Vector3.forward * WalkSpotDistance);
 			Debug.DrawRay(transform.position, Vector3.back * WalkSpotDistance);
-			
+			LineCastLeft.SetPosition(1, Vector3.left * WalkSpotDistance);
+			LineCastRight.SetPosition(1, Vector3.right * WalkSpotDistance);
+			LineCastBack.SetPosition(1, Vector3.back * WalkSpotDistance);
+			LineCastForward.SetPosition(1, Vector3.forward * WalkSpotDistance);
 			
 			if(Physics.Raycast(TileCheckForward, out HitForward, WalkSpotDistance)){ 
-				if(HitBack.collider.tag == "Player"){
-					//DETECTED!
+				if(HitForward.collider.tag == "Player"){
+					print("DETECTED!");
 				}
 			}
 			
 			if(Physics.Raycast(TileCheckLeft, out HitLeft, WalkSpotDistance)){ 
-				if(HitBack.collider.tag == "Player"){
-					//DETECTED!
+				if(HitLeft.collider.tag == "Player"){
+					print("DETECTED!");
 				}
 			}
 			
 			if(Physics.Raycast(TileCheckRight, out HitRight, WalkSpotDistance)){ 
-				if(HitBack.collider.tag == "Player"){
-					//DETECTED!
+				if(HitRight.collider.tag == "Player"){
+					print("DETECTED!");
 				}
 			}
 			
 			if(Physics.Raycast(TileCheckBack, out HitBack, WalkSpotDistance)){ 
 				if(HitBack.collider.tag == "Player"){
-					//DETECTED!
+					print("DETECTED!");
 				}
 			}
 		}
@@ -114,29 +160,32 @@ public class Heros_Player_Detection : MonoBehaviour {
 			Debug.DrawRay(transform.position, Vector3.right * RunSpotDistance);
 			Debug.DrawRay(transform.position, Vector3.forward * RunSpotDistance);
 			Debug.DrawRay(transform.position, Vector3.back * RunSpotDistance);
-			
+			LineCastLeft.SetPosition(1, Vector3.left * RunSpotDistance);
+			LineCastRight.SetPosition(1, Vector3.right * RunSpotDistance);
+			LineCastBack.SetPosition(1, Vector3.back * RunSpotDistance);
+			LineCastForward.SetPosition(1, Vector3.forward * RunSpotDistance);
 			
 			if(Physics.Raycast(TileCheckForward, out HitForward, RunSpotDistance)){ 
-				if(HitBack.collider.tag == "Player"){
-					//DETECTED!
+				if(HitForward.collider.tag == "Player"){
+					print("DETECTED!");
 				}
 			}
 			
 			if(Physics.Raycast(TileCheckLeft, out HitLeft, RunSpotDistance)){ 
-				if(HitBack.collider.tag == "Player"){
-					//DETECTED!
+				if(HitLeft.collider.tag == "Player"){
+					print("DETECTED!");
 				}
 			}
 			
 			if(Physics.Raycast(TileCheckRight, out HitRight, RunSpotDistance)){ 
-				if(HitBack.collider.tag == "Player"){
-					//DETECTED!
+				if(HitRight.collider.tag == "Player"){
+					print("DETECTED!");
 				}
 			}
 			
 			if(Physics.Raycast(TileCheckBack, out HitBack, RunSpotDistance)){ 
 				if(HitBack.collider.tag == "Player"){
-					//DETECTED!
+					print("DETECTED!");
 				}
 			}
 		}
