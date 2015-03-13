@@ -151,9 +151,11 @@ public class HeroController : MonoBehaviour {
 
 		herosTurn = Controller.GetComponent<Game_Controler>().isAiTurn;
 		if(herosTurn == true)
+			Controller.GetComponent<Game_Controler>().DiceIcon = true;
 			print ("HerosTurn");
 			if(herosMoves <= 0){
 				herosMoves = 0;
+				Controller.GetComponent<Game_Controler>().DiceIcon = false;
 				Controller.SendMessage ("ActivatePlayerTurn");
 			}
 		}

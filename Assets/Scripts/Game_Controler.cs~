@@ -10,6 +10,10 @@ public class Game_Controler : MonoBehaviour {
 
 	public int AP = 4;
 
+	//Used when the random chance is happening
+	public GameObject DiceIconPre;
+	public bool DiceIcon = false;
+
 	//Used to control Player Stances
 	private PlayerStances currentStance;
 	private PossibleTurns currentTurn;
@@ -22,6 +26,7 @@ public class Game_Controler : MonoBehaviour {
 	public bool isAiTurn = false;
 
 	//Interactable objects
+
 	public bool P_InteractLight = false;
 	public bool P_InteractCamera = false;
 	public bool P_InteractLaser = false;
@@ -65,6 +70,7 @@ public class Game_Controler : MonoBehaviour {
 		Stances();
 		Turns ();
 		HeroTurn();
+		DiceRolling();
         if (Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.P))
         {
             paused = PauseToggle();
@@ -187,8 +193,8 @@ public class Game_Controler : MonoBehaviour {
 
 		//player Interactive placeholders
 		if (P_InteractPickup == true){
-			if (GUILayout.Button ("Pickup Item?")){
-				Debug.Log("Pickup Item?");
+			if (GUILayout.Button ("Interact: Pickup")){
+				Debug.Log("Interacting With Item");
 			}
 		}
 		if (P_InteractCamera == true){
@@ -251,6 +257,15 @@ public class Game_Controler : MonoBehaviour {
 	void HeroTurn(){
 		if(isAiTurn == true){
 			AP = 4;
+		}
+	}
+
+	void DiceRolling(){
+		if (DiceIcon == true ){
+			DiceIconPre.SetActive(true);
+		}
+		else{
+			DiceIconPre.SetActive(false);
 		}
 	}
 }

@@ -45,22 +45,32 @@ public class Player_Controller : MonoBehaviour {
 					Controller.GetComponent<Game_Controler>().P_InteractCamera = false;
 					Controller.GetComponent<Game_Controler>().P_InteractLaser = false;
 					Controller.GetComponent<Game_Controler>().P_InteractLight = false;
+					Controller.GetComponent<Game_Controler>().DiceIcon = false;
 					Debug.Log ("Normal Tile");
 				}
 
 				if(TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractCamera == 1){
+					Controller.GetComponent<Game_Controler>().DiceIcon = true;
 					Controller.GetComponent<Game_Controler>().P_InteractCamera = true;
 					Debug.Log ("Player Can Interact: Camera");
 				}
 
 				if(TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLaser == 1){
+					Controller.GetComponent<Game_Controler>().DiceIcon = true;
 					Controller.GetComponent<Game_Controler>().P_InteractLaser = true;
 					Debug.Log ("Player Can Interact: Laser");
 				}
 
 				if(TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLight == 1){
+					Controller.GetComponent<Game_Controler>().DiceIcon = true;
 					Controller.GetComponent<Game_Controler>().P_InteractLight = true;
 					Debug.Log ("Player Can Interact: Light");
+				}
+
+				if(TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractPickup == 1){
+					Controller.GetComponent<Game_Controler>().DiceIcon = true;
+					Controller.GetComponent<Game_Controler>().P_InteractPickup = true;
+					Debug.Log ("Player Can Interact: Pickup Item");
 				}
 			
 				//Debug.Log("Checking end of TileUnderPlayer");
