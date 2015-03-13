@@ -184,6 +184,16 @@ public class Game_Controler : MonoBehaviour {
 			Hero.GetComponent<HeroController>().herosMoves = 2;
 			currentTurn = PossibleTurns.AiTurn;
 		}
+
+		//Player stance button feedback placeholder, for testing purposes
+		if (currentStance == PlayerStances.Walk && currentTurn != PossibleTurns.AiTurn)
+			GUI.Box(new Rect(5,5,80,13), "");//Darken Walk button
+		if (currentStance == PlayerStances.Run && currentTurn != PossibleTurns.AiTurn)
+			GUI.Box(new Rect(5,30,80,13), "");//Darken Run button
+		if (currentStance == PlayerStances.Sneak && currentTurn != PossibleTurns.AiTurn)
+			GUI.Box(new Rect(5,55,83,13), "");//Darken Sneak button
+		//if (currentTurn == PossibleTurns.AiTurn)
+		//	GUI.Box(new Rect(5,80,80,13), "");//Darken End Turn button
 	}
 
 	//Pasue on 'esc' menu
