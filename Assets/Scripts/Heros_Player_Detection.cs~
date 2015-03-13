@@ -207,7 +207,8 @@ public class Heros_Player_Detection : MonoBehaviour {
 		AudioSource.PlayClipAtPoint(AlertSound,Camera.main.transform.position);
 		print ("detected audio alert");
 		yield return new WaitForSeconds(WaitForNotification);
-		Application.LoadLevel ("Defeat");
+		//Application.LoadLevel ("Defeat");
+		AlertPlaying = false; //help with testing
 	}
 
 }
