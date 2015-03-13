@@ -1,11 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player_Controller.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Heros_Player_Detection.cs">
     <Files>
-      <File FileName="Assets\Scripts\Game_Controler.cs" Line="201" Column="47" />
+      <File FileName="Assets\Scripts\Game_Controler.cs" Line="225" Column="57" />
       <File FileName="Assets\Scripts\FloorTile_Controler.cs" Line="73" Column="33" />
-      <File FileName="Assets\Scripts\HeroController.cs" Line="158" Column="64" />
-      <File FileName="Assets\Scripts\Player_Controller.cs" Line="70" Column="79" />
+      <File FileName="Assets\Scripts\Player_Controller.cs" Line="48" Column="65" />
+      <File FileName="Assets\Scripts\EnemyPathing.cs" Line="155" Column="17" />
+      <File FileName="Assets\Scripts\HeroController.cs" Line="152" Column="25" />
+      <File FileName="Assets\Scripts\Heros_Player_Detection.cs" Line="196" Column="42" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

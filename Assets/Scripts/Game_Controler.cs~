@@ -192,29 +192,29 @@ public class Game_Controler : MonoBehaviour {
 		GUI.DrawTexture(new Rect(100, 80, 30, AP * -20), APTexture);
 
 		//player Interactive placeholders
-		if (P_InteractPickup == true){
+		if (P_InteractPickup == true && isPlayersTurn == true){
 			if (GUILayout.Button ("Interact: Pickup")){
 				Debug.Log("Interacting With Item");
 			}
 		}
-		if (P_InteractCamera == true){
+		if (P_InteractCamera == true && isPlayersTurn == true){
 			if (GUILayout.Button ("Interact: Camera")){
 				Debug.Log("Interacting With Camera");
 			}
 		}
-		if (P_InteractLaser == true){
+		if (P_InteractLaser == true && isPlayersTurn == true){
 			if (GUILayout.Button ("Interact: Laser")){
 				Debug.Log("Interacting With Lasrer");
 			}
 		}
-		if (P_InteractLight == true){
+		if (P_InteractLight == true && isPlayersTurn == true){
 			if (GUILayout.Button ("Interact: Light")){
 				Debug.Log("Interacting With Light");
 			}
 		}
 	
 		//END TURN BUTTON
-		if (GUILayout.Button ("End Turn") && isPlayersTurn == true) 
+		if (GUILayout.Button ("End Turn") && isPlayersTurn == true && isAiTurn == false) 
 		{
 			Hero.GetComponent<HeroController>().herosMoves = 2;
 			currentTurn = PossibleTurns.AiTurn;
