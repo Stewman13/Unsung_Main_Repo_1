@@ -52,24 +52,40 @@ public class Player_Controller : MonoBehaviour {
 				if(TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractCamera == 1){
 					Controller.GetComponent<Game_Controler>().DiceIcon = true;
 					Controller.GetComponent<Game_Controler>().P_InteractCamera = true;
+
+					Controller.GetComponent<Game_Controler>().P_InteractPickup = false;
+					Controller.GetComponent<Game_Controler>().P_InteractLaser = false;
+					Controller.GetComponent<Game_Controler>().P_InteractLight = false;
 					Debug.Log ("Player Can Interact: Camera");
 				}
 
 				if(TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLaser == 1){
 					Controller.GetComponent<Game_Controler>().DiceIcon = true;
 					Controller.GetComponent<Game_Controler>().P_InteractLaser = true;
+
+					Controller.GetComponent<Game_Controler>().P_InteractPickup = false;
+					Controller.GetComponent<Game_Controler>().P_InteractCamera = false;
+					Controller.GetComponent<Game_Controler>().P_InteractLight = false;
 					Debug.Log ("Player Can Interact: Laser");
 				}
 
 				if(TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLight == 1){
 					Controller.GetComponent<Game_Controler>().DiceIcon = true;
 					Controller.GetComponent<Game_Controler>().P_InteractLight = true;
+
+					Controller.GetComponent<Game_Controler>().P_InteractPickup = false;
+					Controller.GetComponent<Game_Controler>().P_InteractCamera = false;
+					Controller.GetComponent<Game_Controler>().P_InteractLaser = false;
 					Debug.Log ("Player Can Interact: Light");
 				}
 
 				if(TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractPickup == 1){
 					Controller.GetComponent<Game_Controler>().DiceIcon = true;
 					Controller.GetComponent<Game_Controler>().P_InteractPickup = true;
+
+					Controller.GetComponent<Game_Controler>().P_InteractCamera = false;
+					Controller.GetComponent<Game_Controler>().P_InteractLaser = false;
+					Controller.GetComponent<Game_Controler>().P_InteractLight = false;
 					Debug.Log ("Player Can Interact: Pickup Item");
 				}
 			

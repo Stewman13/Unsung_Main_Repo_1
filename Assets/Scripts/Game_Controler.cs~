@@ -222,7 +222,6 @@ public class Game_Controler : MonoBehaviour {
 						
 		//END TURN BUTTON
 		if ( P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false )
-			if (GUI.Button(new Rect(400, Screen.height - 35, buttonWidth, buttonHeight), "End Turn") && isPlayersTurn == true && isAiTurn == false) 
 		{
 			print ("end turn please00??");
 			if (GUI.Button(new Rect(400, Screen.height - 35, buttonWidth, buttonHeight), "End Turn") && isPlayersTurn == true && isAiTurn == false)
@@ -243,8 +242,6 @@ public class Game_Controler : MonoBehaviour {
 				currentTurn = PossibleTurns.AiTurn;
 				print ("end turn please 02??");
 			}
-			Hero.GetComponent<HeroController>().herosMoves = 2;
-			currentTurn = PossibleTurns.AiTurn;
 		}
 						
 		//Player stance button feedback placeholder, for testing purposes
