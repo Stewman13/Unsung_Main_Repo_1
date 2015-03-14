@@ -196,43 +196,62 @@ public class Game_Controler : MonoBehaviour {
 
 		//player Interactive placeholders
 		if (P_InteractPickup == true && isPlayersTurn == true){
-			if (GUILayout.Button ("Interact: Pickup")){
+			if (GUI.Button(new Rect (390, Screen.height - 35, buttonWidth+10, buttonHeight), "Interact: Pickup")&& AP >= 1 && isPlayersTurn == true){
 				Debug.Log("Interacting With Item");
+				//pickup screen goes here
 			}
 		}
 		if (P_InteractCamera == true && isPlayersTurn == true){
-			if (GUILayout.Button ("Interact: Camera")){
+			if (GUI.Button(new Rect (390, Screen.height - 35, buttonWidth+10, buttonHeight),"Interact: Camera")){
 				Debug.Log("Interacting With Camera");
+				//camera choices screen goes here
 			}
 		}
 		if (P_InteractLaser == true && isPlayersTurn == true){
-			if (GUILayout.Button ("Interact: Laser")){
+			if (GUI.Button(new Rect (390, Screen.height - 35, buttonWidth+10, buttonHeight),"Interact: Laser")){
 				Debug.Log("Interacting With Lasrer");
+				//laser choices screen goes here
 			}
 		}
 		if (P_InteractLight == true && isPlayersTurn == true){
-			if (GUILayout.Button ("Interact: Light")){
+			if (GUI.Button(new Rect (390, Screen.height - 35, buttonWidth+10, buttonHeight),"Interact: Light")){
 				Debug.Log("Interacting With Light");
+				//light choices screen goes here
 			}
 		}
 	
 		//END TURN BUTTON
-        if (GUI.Button(new Rect(400, Screen.height - 35, buttonWidth, buttonHeight), "End Turn") && isPlayersTurn == true && isAiTurn == false) 
+		if ( P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false )
 		{
-			Hero.GetComponent<HeroController>().herosMoves = 2;
-			currentTurn = PossibleTurns.AiTurn;
+			print ("end turn please00??");
+			if (GUI.Button(new Rect(400, Screen.height - 35, buttonWidth, buttonHeight), "End Turn") && isPlayersTurn == true && isAiTurn == false)
+			{
+				Hero.GetComponent<HeroController>().herosMoves = 2;
+				currentTurn = PossibleTurns.AiTurn;
+				print ("end turn please01??");
+			}
+		}
+		else if ( P_InteractCamera == true && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false||
+		         P_InteractCamera == false && P_InteractLaser == true && P_InteractLight == false && P_InteractPickup == false ||
+		         P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == true && P_InteractPickup == false||
+		         P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == true) 
+		{
+			if (GUI.Button(new Rect(510, Screen.height - 35, buttonWidth, buttonHeight), "End Turn") && isPlayersTurn == true && isAiTurn == false) 
+			{
+				Hero.GetComponent<HeroController>().herosMoves = 2;
+				currentTurn = PossibleTurns.AiTurn;
+				print ("end turn please 02??");
+			}
 		}
 
 		//Player stance button feedback placeholder, for testing purposes
 		if (currentStance == PlayerStances.Walk && currentTurn != PossibleTurns.AiTurn)
-			GUI.Box(new Rect(5,50,80,13), "");//Darken Walk button
+			GUI.Box(new Rect(160, Screen.height- 30, buttonWidth, buttonHeight/1.3f), "");//Darken Walk button
 		if (currentStance == PlayerStances.Run && currentTurn != PossibleTurns.AiTurn)
-            GUI.Box(new Rect(5,30, 80, 13), "");//Darken Run button
+			GUI.Box(new Rect(270, Screen.height- 30, buttonWidth, buttonHeight/1.3f), "");//Darken Run button
 		if (currentStance == PlayerStances.Sneak && currentTurn != PossibleTurns.AiTurn)
-            GUI.Box(new Rect(5,80, 83, 13), "");//Darken Sneak button
-		//if (currentTurn == PossibleTurns.AiTurn)
-		//	GUI.Box(new Rect(5,80,80,13), "");//Darken End Turn button
-	
+			GUI.Box(new Rect(50, Screen.height- 30, buttonWidth, buttonHeight/1.3f), "");//Darken Sneak button
+
 
 
 
