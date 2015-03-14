@@ -93,13 +93,9 @@ public class GUIManager : MonoBehaviour {
             GUI.EndGroup();
         }
 
-
-
-
-
         if (_isWalking)
         {
-            GUI.DrawTexture(new Rect(150, (Screen.height - walking.height) - 60, walking.width, walking.height), walking); 
+            GUI.DrawTexture(new Rect(150, (Screen.height - walking.height) - 60, walking.width, walking.height), walking);        
         }
         else if (_isSneaking)
         {
