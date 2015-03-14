@@ -21,26 +21,53 @@ public class GUIManager : MonoBehaviour {
         }
     }
 
-    private Game_Controler _isPaused;
+    public Texture2D walking;
+    public Texture2D sneaking;
+    public Texture2D running;
+    public Texture2D smokeGrenade;
+    public Vector3 stancePos;
+
+    private Game_Controler _gameCon;
     private int _buttonWidth = 200;
     private int _buttonHeight = 50;
     private int _groupWidth = 400;
     private int _groupHeight = 200;
+    public bool _isWalking;
+    public bool _isSneaking;
+    public bool _isRunning;
 
 	// Use this for initialization
 	void Start () 
     {
-	    _isPaused = GameObject.Find("Main Camera").GetComponent<Game_Controler>();
+	    _gameCon = GameObject.Find("Main Camera").GetComponent<Game_Controler>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update () 
+    {
+        if (_gameCon.playerWalking == true)
+        {
+            _isWalking = true;
+            _isSneaking = false;
+            _isRunning = false;
+        }
+        else if (_gameCon.playerSneaking == true)
+        {
+            _isWalking = false;
+            _isSneaking = true;
+            _isRunning = false;
+        }
+        else
+        {
+            _isWalking = false;
+            _isSneaking = false;
+            _isRunning = true;
+        }
 	}
 
     void OnGUI()
     {
-        if (_isPaused.paused)
+        if (_gameCon.paused)
         {
             GUI.BeginGroup(new Rect(((Screen.width / 2) - (_groupWidth / 2)), (((Screen.height / 2) - (_groupHeight / 2))) - 100, _groupWidth, _groupHeight));
             if (GUI.Button(new Rect(50, 0, _buttonWidth, _buttonHeight), "Main Menu"))
@@ -57,6 +84,19 @@ public class GUIManager : MonoBehaviour {
                 Application.Quit();
             }
             GUI.EndGroup();
+        }
+
+        if (_isWalking)
+        {
+            GUI.DrawTexture(new Rect(50, (Screen.height - walking.height) - 30, walking.width, walking.height), walking);        
+        }
+        else if (_isSneaking)
+        {
+            GUI.DrawTexture(new Rect(40, (Screen.height - sneaking.height) - 30, sneaking.width, sneaking.height), sneaking);
+        }
+        else
+        {
+            GUI.DrawTexture(new Rect(10, (Screen.height - running.height) - 30, running.width, running.height), running);
         }
     }
 }
