@@ -86,7 +86,6 @@ public class Heros_Player_Detection : MonoBehaviour {
 		//This Can be rewritten And Should be! A test is at hand. 
 		//ReWrite this so it's shorter. I have mine saved as a Notepad++
 		if(_gameCon.playerSneaking == true){
-
 			Debug.DrawRay(transform.position, Vector3.left * SneakSpotDistance);
 			Debug.DrawRay(transform.position, Vector3.right * SneakSpotDistance);
 			Debug.DrawRay(transform.position, Vector3.forward * SneakSpotDistance);

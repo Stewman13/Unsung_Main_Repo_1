@@ -32,6 +32,8 @@ public class Game_Controler : MonoBehaviour {
 	public bool P_InteractLaser = false;
 	public bool P_InteractPickup = false;
 
+	public string infotext = "";
+
 
 	public int SneakMovementCost = 3;
 	public int WalkMovementCost = 2;
@@ -142,9 +144,22 @@ public class Game_Controler : MonoBehaviour {
 		AP -= CurrentMovementCost;
 	}
 
+	//attempt at tooltips
+	void OnMouseEnter(){
+
+		infotext = "tooltop Button";
+	}
+
 	//This sections creates/controls the GUI Display for Stances
 	void OnGUI()
 	{
+		//tooltips
+//		GUI.Label (new Rect (Input.mousePosition.x,Screen.height-Input.mousePosition.y, infotext.Length * 100, 200),infotext);
+//		GUI.Label (Rect (Input.mousePosition.x,Screen.height-Input.mousePosition.y, infotext.Length * 10, 20), infotext);
+//		GUI.Label (Rect (Input.mousePosition.x,Screen.height-Input.mousePosition.y, infotext.Length * 10, 20), infotext);
+//		GUI.Label (Rect (Input.mousePosition.x,Screen.height-Input.mousePosition.y, infotext.Length * 10, 20), infotext);
+
+
 		//WALK STANCE BUTTON
 		if (GUI.Button(new Rect(160,Screen.height - 35, buttonWidth, buttonHeight), "Walk Stance") && isPlayersTurn == true) 
 		{
@@ -156,6 +171,7 @@ public class Game_Controler : MonoBehaviour {
 			{
 				currentStance = PlayerStances.Walk;
 			}
+
 		}
 		//RUN STANCE BUTTON
         if (GUI.Button(new Rect(270, Screen.height - 35, buttonWidth, buttonHeight), "Run Stance") && AP >= 1 && isPlayersTurn == true) 
