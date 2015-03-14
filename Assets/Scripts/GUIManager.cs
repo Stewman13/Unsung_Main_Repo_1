@@ -26,6 +26,7 @@ public class GUIManager : MonoBehaviour {
     public Texture2D running;
     public Texture2D smokeGrenade;
     public Vector3 stancePos;
+    public GUIStyle gameFont;
 
     private Game_Controler _gameCon;
     private int _buttonWidth = 200;
@@ -36,9 +37,15 @@ public class GUIManager : MonoBehaviour {
     public bool _isSneaking;
     public bool _isRunning;
 
+    void Awake()
+    {
+        _instance = this;
+    }
+
 	// Use this for initialization
 	void Start () 
     {
+
 	    _gameCon = GameObject.Find("Main Camera").GetComponent<Game_Controler>();
 	}
 	
@@ -96,7 +103,10 @@ public class GUIManager : MonoBehaviour {
         }
         else
         {
-            GUI.DrawTexture(new Rect(30, (Screen.height - running.height) - 60, running.width, running.height), running);
+            GUI.DrawTexture(new Rect(70, (Screen.height - running.height) - 60, running.width, running.height), running);
         }
+
+        GUI.DrawTexture(new Rect(350, (Screen.height - smokeGrenade.height) - 60, smokeGrenade.width, smokeGrenade.height), smokeGrenade);
+        GUI.Label(new Rect(425, Screen.height - 130, 200, 30), "0 Smoke Grenades", gameFont);
     }
 }

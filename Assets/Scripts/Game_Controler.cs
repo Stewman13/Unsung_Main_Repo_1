@@ -191,7 +191,8 @@ public class Game_Controler : MonoBehaviour {
 			Debug.LogError ("Assign a texture");
 			return;
 		}
-		GUI.DrawTexture(new Rect(325, Screen.height - 60, 30, AP * -63), APTexture);
+		GUI.DrawTexture(new Rect(50, Screen.height - 60, 30, AP * -63), APTexture);
+        GUI.Label(new Rect(55, Screen.height - 60, 30, 30), "AP");
 
 		//player Interactive placeholders
 		if (P_InteractPickup == true && isPlayersTurn == true){
