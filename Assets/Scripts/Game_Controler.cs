@@ -40,7 +40,9 @@ public class Game_Controler : MonoBehaviour {
 
 	public GameObject walkDetection;
 	public GameObject runDetection;
-	
+
+    public float buttonWidth;
+    public float buttonHeight;
 
 	public string Stance = "Standard"; //others are, "stealth" and "Running"
 
@@ -144,7 +146,7 @@ public class Game_Controler : MonoBehaviour {
 	void OnGUI()
 	{
 		//WALK STANCE BUTTON
-		if (GUILayout.Button ("Walk Stance") && isPlayersTurn == true) 
+		if (GUI.Button(new Rect(160,Screen.height - 35, buttonWidth, buttonHeight), "Walk Stance") && isPlayersTurn == true) 
 		{
 			if(currentStance == PlayerStances.Sneak && AP >= 1)
 			{
@@ -156,7 +158,7 @@ public class Game_Controler : MonoBehaviour {
 			}
 		}
 		//RUN STANCE BUTTON
-		if (GUILayout.Button ("Run Stance") && AP >= 1  && isPlayersTurn == true) 
+        if (GUI.Button(new Rect(270, Screen.height - 35, buttonWidth, buttonHeight), "Run Stance") && AP >= 1 && isPlayersTurn == true) 
 		{
 			if(currentStance == PlayerStances.Sneak)
 			{
@@ -170,7 +172,7 @@ public class Game_Controler : MonoBehaviour {
 			}
 		}
 		//SNEAK STANCE BUTTON
-		if (GUILayout.Button ("Sneak Stance") && AP >= 1  && isPlayersTurn == true) 
+        if (GUI.Button(new Rect(50, Screen.height - 35, buttonWidth, buttonHeight), "Sneak Stance") && AP >= 1 && isPlayersTurn == true) 
 		{
 			if(currentStance == PlayerStances.Walk)
 			{
@@ -189,7 +191,7 @@ public class Game_Controler : MonoBehaviour {
 			Debug.LogError ("Assign a texture");
 			return;
 		}
-		GUI.DrawTexture(new Rect(100, 80, 30, AP * -20), APTexture);
+		GUI.DrawTexture(new Rect(325, Screen.height - 60, 30, AP * -63), APTexture);
 
 		//player Interactive placeholders
 		if (P_InteractPickup == true && isPlayersTurn == true){
@@ -214,7 +216,7 @@ public class Game_Controler : MonoBehaviour {
 		}
 	
 		//END TURN BUTTON
-		if (GUILayout.Button ("End Turn") && isPlayersTurn == true && isAiTurn == false) 
+        if (GUI.Button(new Rect(400, Screen.height - 35, buttonWidth, buttonHeight), "End Turn") && isPlayersTurn == true && isAiTurn == false) 
 		{
 			Hero.GetComponent<HeroController>().herosMoves = 2;
 			currentTurn = PossibleTurns.AiTurn;
@@ -222,11 +224,11 @@ public class Game_Controler : MonoBehaviour {
 
 		//Player stance button feedback placeholder, for testing purposes
 		if (currentStance == PlayerStances.Walk && currentTurn != PossibleTurns.AiTurn)
-			GUI.Box(new Rect(5,5,80,13), "");//Darken Walk button
+			GUI.Box(new Rect(5,50,80,13), "");//Darken Walk button
 		if (currentStance == PlayerStances.Run && currentTurn != PossibleTurns.AiTurn)
-			GUI.Box(new Rect(5,30,80,13), "");//Darken Run button
+            GUI.Box(new Rect(5,30, 80, 13), "");//Darken Run button
 		if (currentStance == PlayerStances.Sneak && currentTurn != PossibleTurns.AiTurn)
-			GUI.Box(new Rect(5,55,83,13), "");//Darken Sneak button
+            GUI.Box(new Rect(5,80, 83, 13), "");//Darken Sneak button
 		//if (currentTurn == PossibleTurns.AiTurn)
 		//	GUI.Box(new Rect(5,80,80,13), "");//Darken End Turn button
 	

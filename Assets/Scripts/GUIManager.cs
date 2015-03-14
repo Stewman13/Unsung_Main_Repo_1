@@ -88,15 +88,15 @@ public class GUIManager : MonoBehaviour {
 
         if (_isWalking)
         {
-            GUI.DrawTexture(new Rect(50, (Screen.height - walking.height) - 30, walking.width, walking.height), walking);        
+            GUI.DrawTexture(new Rect(150, (Screen.height - walking.height) - 60, walking.width, walking.height), walking);        
         }
         else if (_isSneaking)
         {
-            GUI.DrawTexture(new Rect(40, (Screen.height - sneaking.height) - 30, sneaking.width, sneaking.height), sneaking);
+            GUI.DrawTexture(new Rect(120, (Screen.height - sneaking.height) - 60, sneaking.width, sneaking.height), sneaking);
         }
         else
         {
-            GUI.DrawTexture(new Rect(10, (Screen.height - running.height) - 30, running.width, running.height), running);
+            GUI.DrawTexture(new Rect(30, (Screen.height - running.height) - 60, running.width, running.height), running);
         }
     }
 }
