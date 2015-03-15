@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Game_Controler : MonoBehaviour {
 
+	public int Score;
+	public string Grade;
+
 	public GameObject Player;
 	public GameObject Floor;
 	public GameObject Hero;
@@ -89,6 +92,7 @@ public class Game_Controler : MonoBehaviour {
 		Turns ();
 		HeroTurn();
 		DiceRolling();
+		scoring();
         if (Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.P))
         {
             paused = PauseToggle();
@@ -370,6 +374,24 @@ public class Game_Controler : MonoBehaviour {
 		}
 		else{
 			DiceIconPre.SetActive(false);
+		}
+	}
+
+	void scoring(){
+		if(Score == 0){
+			Grade = "E";
+		}
+		if(Score >= 2 && Score < 5){
+			Grade = "D";
+		}
+		if(Score >= 5 && Score < 9){
+			Grade = "C";
+		}
+		if(Score >= 9 && Score < 12){
+			Grade = "B";
+		}
+		if(Score == 12){
+			Grade = "A";
 		}
 	}
 }
