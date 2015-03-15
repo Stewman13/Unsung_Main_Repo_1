@@ -210,7 +210,7 @@ public class Heros_Player_Detection : MonoBehaviour {
 		Instantiate (AlertIcon, gameObject.transform.position, AlertIcon.transform.rotation);
 		//print ("detected audio alert");
 		yield return new WaitForSeconds(WaitForNotification);
-		//Application.LoadLevel ("Defeat");														 //help with testing
+		Application.LoadLevel ("Defeat");	
 		AlertPlaying = false; 
 	}
 
