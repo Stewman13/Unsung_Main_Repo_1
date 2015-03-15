@@ -33,6 +33,9 @@ public class Game_Controler : MonoBehaviour {
 	public bool P_InteractPickup = false;
 
 	//Interactive constraints
+	public int DiceOne;
+	public int DiceTwo;
+	public int DiceTotal = 0;
 	public GameObject TileUnderPlayer;
 	public int PlayerInteractive;
 	public int PickupTile;
@@ -40,6 +43,7 @@ public class Game_Controler : MonoBehaviour {
 	public int LaserTile;
 	public int LightTile;
 	public bool PickupGrenadeStart = false;
+	public bool InteractLightStart = false;
 	public bool PickedUpThisTile = false;
 
 
@@ -92,8 +96,6 @@ public class Game_Controler : MonoBehaviour {
 
 		//collecting the variables for interactive constraints
 		TileUnderPlayer = Player.GetComponent<Player_Controller>().TileUnderPlayer;
-		PlayerInteractive = TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive;
-		PickupTile = TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractPickup;
 	}
 
 	//Tells the other stances to deactivate when one is activated
@@ -218,9 +220,7 @@ public class Game_Controler : MonoBehaviour {
 					Debug.Log("Interacting With Item");
 					PickupGrenadeStart = true;
 				}
-		}
-
-
+			}
 		if (P_InteractCamera == true && isPlayersTurn == true){
 			if (GUI.Button(new Rect (390, Screen.height - 35, buttonWidth+10, buttonHeight),"Interact: Camera")){
 					Debug.Log("Interacting With Camera");
@@ -234,30 +234,66 @@ public class Game_Controler : MonoBehaviour {
 				}
 			}
 		if (P_InteractLight == true && isPlayersTurn == true){
-			if (GUI.Button(new Rect (390, Screen.height - 35, buttonWidth+10, buttonHeight),"Interact: Light")){
+				if (GUI.Button(new Rect (390, Screen.height - 35, buttonWidth+10, buttonHeight),"Interact: Light")&& AP >= 1 
+				    && isPlayersTurn == true && PickupGrenadeStart == false && InteractLightStart == false){
 					Debug.Log("Interacting With Light");
+					InteractLightStart = true;
 					//light choices screen goes here
 				}
 			}
 
 		//Interactive screens goes here
+		//Grenade
 		if (P_InteractPickup == true && isPlayersTurn == true && PickupGrenadeStart == true){
-			GUI.Box(new Rect(Screen.width/50f, Screen.height/100, 500, 400),"Interactive: Pickup Grenade Chance");
+			GUI.Box(new Rect(Screen.width/50f, Screen.height/100, 500, 400),"Interactive: Pickup Smoke Grenade");
 
-			if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 50, buttonWidth + 80, buttonHeight + 10),"90% Chance Of Success")){
+			if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 50, buttonWidth + 80, buttonHeight + 10),"90% Chance Of Success, [-1 AP]")){
 				AP --;
 				GrenadeCount += 2;
-				PlayerInteractive = 0;
-				PickupTile = 0;
+				TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive = 0;
+				TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractPickup = 0;
 				PickupGrenadeStart = false;
-				print("WORKKKKK");
+				print("Player Recieved 2 Smoke Grenades");
 			}
 			if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 100, buttonWidth + 80, buttonHeight + 10),"Exit Menu")){
 				PickupGrenadeStart = false;
 			}
 		}
+		//Light
+		if (P_InteractLight == true && isPlayersTurn == true && InteractLightStart == true){
+				GUI.Box(new Rect(Screen.width/50f, Screen.height/100, 500, 400),"Interactive: Light Switch");
+				if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 50, buttonWidth + 80, buttonHeight + 10), "60% Chance To Turn Off Light, [-1 AP]")){
+				DiceRoll();
+					if (P_InteractLight == true && isPlayersTurn == true && InteractLightStart == true){
+							if (DiceTotal >= 5){
+								AP --;
+								//send message to light to disable lightsource
+								TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive = 0;
+								TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLight = 0;
+								InteractLightStart = false;
+								print("Player Deactivated Light");
+							}
+								if (DiceTotal <= 4 ){
+								AP --;
+								TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive = 0;
+								TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLight = 0;
+								InteractLightStart = false;
+								//negative feedback here
+								//negative result here
+								print("Player Failed To Deactivated Light");
+							}
 
-						
+					
+					}
+			}
+		
+				if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 100, buttonWidth + 80, buttonHeight + 10),"Exit Menu")){
+					InteractLightStart = false;
+				}
+			}
+
+					
+
 		//END TURN BUTTON
 		if ( P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false )
 		{
@@ -305,6 +341,15 @@ public class Game_Controler : MonoBehaviour {
             return (true);
         }
     }
+
+	void DiceRoll(){
+		DiceTotal = 0;
+		DiceOne = Random.Range(1,7);
+		DiceTwo = Random.Range(1,7);
+		DiceTotal = (DiceOne + DiceTwo);
+		print ("TotalDice " + DiceTotal);
+	}
+
 	// tells the player to start their turn.
 	void ActivatePlayerTurn(){
 		currentTurn = PossibleTurns.PlayerTurn;

@@ -337,7 +337,7 @@ public class FloorTile_Controler : MonoBehaviour {
 			}
 
 			//tell player they can move to this tile
-			if(gameObject.tag == "Available" && PlayerInteractive == 0 && NextToPlayersTile == true && _gameCon.AP >=1 ){
+			if(gameObject.tag == "Available" && PlayerInteractive == 0 && NextToPlayersTile == true && _gameCon.AP >=0 ){
 				gameObject.renderer.material.color = Color.green;
 				print("mouse over available empty tile");
 			}
