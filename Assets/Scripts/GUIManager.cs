@@ -107,6 +107,6 @@ public class GUIManager : MonoBehaviour {
         }
 
         GUI.DrawTexture(new Rect(350, (Screen.height - smokeGrenade.height) - 60, smokeGrenade.width, smokeGrenade.height), smokeGrenade);
-        GUI.Label(new Rect(425, Screen.height - 130, 200, 30), "0 Smoke Grenades", gameFont);
+		GUI.Label(new Rect(425, Screen.height - 130, 200, 30), _gameCon.GrenadeCount + " Smoke Grenades", gameFont);
     }
 }

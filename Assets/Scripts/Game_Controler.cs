@@ -32,11 +32,22 @@ public class Game_Controler : MonoBehaviour {
 	public bool P_InteractLaser = false;
 	public bool P_InteractPickup = false;
 
+	//Interactive constraints
+	public GameObject TileUnderPlayer;
+	public int PlayerInteractive;
+	public int PickupTile;
+	public int CameraTile;
+	public int LaserTile;
+	public int LightTile;
+	public bool PickupGrenadeStart = false;
+	public bool PickedUpThisTile = false;
+
 
 	public int SneakMovementCost = 3;
 	public int WalkMovementCost = 2;
 	public int RunMovementCost = 1;
 	public int CurrentMovementCost;
+	public int GrenadeCount = 0;
 
 	public GameObject walkDetection;
 	public GameObject runDetection;
@@ -65,6 +76,7 @@ public class Game_Controler : MonoBehaviour {
 	void Start () {
 		currentStance = PlayerStances.Walk;
 		currentTurn = PossibleTurns.AiTurn;
+
 	}
 	
 	// Update is called once per frame
@@ -77,6 +89,11 @@ public class Game_Controler : MonoBehaviour {
         {
             paused = PauseToggle();
         }   
+
+		//collecting the variables for interactive constraints
+		TileUnderPlayer = Player.GetComponent<Player_Controller>().TileUnderPlayer;
+		PlayerInteractive = TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive;
+		PickupTile = TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractPickup;
 	}
 
 	//Tells the other stances to deactivate when one is activated
@@ -196,11 +213,14 @@ public class Game_Controler : MonoBehaviour {
 
 		//player Interactive placeholders
 		if (P_InteractPickup == true && isPlayersTurn == true){
-			if (GUI.Button(new Rect (390, Screen.height - 35, buttonWidth+10, buttonHeight), "Interact: Pickup")&& AP >= 1 && isPlayersTurn == true){
+			if (GUI.Button(new Rect (390, Screen.height - 35, buttonWidth+10, buttonHeight), "Interact: Pickup")&& AP >= 1 
+			    && isPlayersTurn == true && PickupGrenadeStart == false && PickedUpThisTile == false){
 					Debug.Log("Interacting With Item");
-					//pickup screen goes here
+					PickupGrenadeStart = true;
 				}
-			}
+		}
+
+
 		if (P_InteractCamera == true && isPlayersTurn == true){
 			if (GUI.Button(new Rect (390, Screen.height - 35, buttonWidth+10, buttonHeight),"Interact: Camera")){
 					Debug.Log("Interacting With Camera");
@@ -219,6 +239,24 @@ public class Game_Controler : MonoBehaviour {
 					//light choices screen goes here
 				}
 			}
+
+		//Interactive screens goes here
+		if (P_InteractPickup == true && isPlayersTurn == true && PickupGrenadeStart == true){
+			GUI.Box(new Rect(Screen.width/50f, Screen.height/100, 500, 400),"Interactive: Pickup Grenade Chance");
+
+			if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 50, buttonWidth + 80, buttonHeight + 10),"90% Chance Of Success")){
+				AP --;
+				GrenadeCount += 2;
+				PlayerInteractive = 0;
+				PickupTile = 0;
+				PickupGrenadeStart = false;
+				print("WORKKKKK");
+			}
+			if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 100, buttonWidth + 80, buttonHeight + 10),"Exit Menu")){
+				PickupGrenadeStart = false;
+			}
+		}
+
 						
 		//END TURN BUTTON
 		if ( P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false )
