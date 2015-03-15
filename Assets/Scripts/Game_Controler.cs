@@ -247,7 +247,7 @@ public class Game_Controler : MonoBehaviour {
 		if (P_InteractPickup == true && isPlayersTurn == true && PickupGrenadeStart == true){
 			GUI.Box(new Rect(Screen.width/50f, Screen.height/100, 500, 400),"Interactive: Pickup Smoke Grenade");
 
-			if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 50, buttonWidth + 80, buttonHeight + 10),"90% Chance Of Success, [-1 AP]")){
+			if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 50, buttonWidth + 100, buttonHeight + 10),"90% Chance To Pickup, [-1 Action Points]")){
 				AP --;
 				GrenadeCount += 2;
 				TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive = 0;
@@ -255,14 +255,14 @@ public class Game_Controler : MonoBehaviour {
 				PickupGrenadeStart = false;
 				print("Player Recieved 2 Smoke Grenades");
 			}
-			if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 100, buttonWidth + 80, buttonHeight + 10),"Exit Menu")){
+			if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 100, buttonWidth + 100, buttonHeight + 10),"Exit Menu")){
 				PickupGrenadeStart = false;
 			}
 		}
 		//Light
 		if (P_InteractLight == true && isPlayersTurn == true && InteractLightStart == true){
 				GUI.Box(new Rect(Screen.width/50f, Screen.height/100, 500, 400),"Interactive: Light Switch");
-				if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 50, buttonWidth + 80, buttonHeight + 10), "60% Chance To Turn Off Light, [-1 AP]")){
+				if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 50, buttonWidth + 100, buttonHeight + 10), "60% Chance To Turn Off Light, [-1 AP]")){
 				DiceRoll();
 					if (P_InteractLight == true && isPlayersTurn == true && InteractLightStart == true){
 							if (DiceTotal >= 5){
@@ -270,6 +270,7 @@ public class Game_Controler : MonoBehaviour {
 								//send message to light to disable lightsource
 								TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive = 0;
 								TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLight = 0;
+								TileUnderPlayer.GetComponent<FloorTile_Controler>().SuccessfulLightDestroy = true;
 								InteractLightStart = false;
 								print("Player Deactivated Light");
 							}
@@ -287,7 +288,7 @@ public class Game_Controler : MonoBehaviour {
 					}
 			}
 		
-				if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 100, buttonWidth + 80, buttonHeight + 10),"Exit Menu")){
+				if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 100, buttonWidth + 100, buttonHeight + 10),"Exit Menu")){
 					InteractLightStart = false;
 				}
 			}

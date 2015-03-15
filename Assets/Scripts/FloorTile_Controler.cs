@@ -57,6 +57,9 @@ public class FloorTile_Controler : MonoBehaviour {
 	public int Tile_InteractLaser = 0;
 	public int Tile_InteractPickup = 0;
 
+	//Interactive Message constraints
+	public bool SuccessfulLightDestroy = false;
+
 
 	void Start(){
 		//set bools to false, so there's no bugs
@@ -86,6 +89,16 @@ public class FloorTile_Controler : MonoBehaviour {
             AvailabilityChecker();
             MouseUp();
 			StanceMoveSpeed();
+
+			//checks to send message, will destroy light source
+			MessageCheck();
+		}
+	}
+
+	//sends message to destroy light source
+	void MessageCheck(){
+		if (SuccessfulLightDestroy == true){
+			BroadcastMessage("SuccessfulDiceRoll",SendMessageOptions.DontRequireReceiver);
 		}
 	}
 
@@ -380,5 +393,8 @@ public class FloorTile_Controler : MonoBehaviour {
 	}
 	void AiWasHere(){
 		//change Channel number to 0
+	}
+	void HeroNotHere(){
+		HeroIsOnThisBlock = false;
 	}
 }
