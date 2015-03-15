@@ -300,7 +300,7 @@ public class Game_Controler : MonoBehaviour {
 		{
 			if (GUI.Button(new Rect(400, Screen.height - 35, buttonWidth, buttonHeight), "End Turn") && isPlayersTurn == true && isAiTurn == false)
 			{
-				Hero.GetComponent<HeroController>().herosMoves = 2;
+				Hero.GetComponent<HeroController>().herosMoves = Random.Range(1,3);
 				currentTurn = PossibleTurns.AiTurn;
 				Floor.BroadcastMessage("unselectTile");
 				print ("Player: Turn ended successfully");
@@ -313,7 +313,7 @@ public class Game_Controler : MonoBehaviour {
 		{
 			if (GUI.Button(new Rect(510, Screen.height - 35, buttonWidth, buttonHeight), "End Turn") && isPlayersTurn == true && isAiTurn == false) 
 			{
-				Hero.GetComponent<HeroController>().herosMoves = 2;
+				Hero.GetComponent<HeroController>().herosMoves = Random.Range(1,3);
 				currentTurn = PossibleTurns.AiTurn;
 				Floor.BroadcastMessage("unselectTile");
 				print ("Ended turn on an interactive tile");
