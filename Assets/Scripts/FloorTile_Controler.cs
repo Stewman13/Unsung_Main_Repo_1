@@ -351,9 +351,6 @@ public class FloorTile_Controler : MonoBehaviour {
 		if (_gameCon.isPlayersTurn == true){
 			Ray Cast = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(Cast, out OverMe,Mathf.Infinity,layerMask)){
-				if(ap <= 0){
-					Floor.BroadcastMessage("unselectTile");
-				}
 				if(OverMe.collider.gameObject == ThisTile && NextToPlayersTile == true && ap >= _gameCon.CurrentMovementCost){
 
 					Floor.BroadcastMessage("unselectTile");
@@ -362,11 +359,17 @@ public class FloorTile_Controler : MonoBehaviour {
 						gameObject.renderer.material.color = Color.white;
 						print("mouse over available empty tile");
 					}
+					else{
+						unselectTile();
+					}
 
 					//tell player they can move to this tile
 					if(gameObject.tag == "Available" && PlayerInteractive == 0 && NextToPlayersTile == true && _gameCon.AP >=0 ){
 						gameObject.renderer.material.color = Color.green;
 						print("mouse over available empty tile");
+					}
+					else{
+						unselectTile();
 					}
 
 					//tell player this tile is interactive
@@ -374,11 +377,17 @@ public class FloorTile_Controler : MonoBehaviour {
 						gameObject.renderer.material.color = Color.blue;
 						print("mouse over interactive tile");
 					}
+					else{
+						unselectTile();
+					}
 
 					//tell player an enemy patrols this route
 					if(gameObject.tag == "Available" && AIPathChannel == 1 || gameObject.tag == "Available" && HerosPath == 1){
 						gameObject.renderer.material.color = Color.red;
 						print ("enemy path tile");
+					}
+					else{
+						unselectTile();
 					}
 				}
 			}
