@@ -5,10 +5,10 @@ public class Heros_Player_Detection : MonoBehaviour {
 
 	public GameObject Hero;
 
-	public LineRenderer LineCastLeft;
-	public LineRenderer LineCastRight;
-	public LineRenderer LineCastForward;
-	public LineRenderer LineCastBack;
+	//public LineRenderer LineCastLeft;
+	//public LineRenderer LineCastRight;
+	//public LineRenderer LineCastForward;
+	//public LineRenderer LineCastBack;
 
 	public int SneakSpotDistance;
 	public int RunSpotDistance;
@@ -33,36 +33,12 @@ public class Heros_Player_Detection : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		AlertPlaying = false;
-		LineCastLeft = gameObject.GetComponent<LineRenderer> ();
-		LineCastRight = gameObject.GetComponent<LineRenderer> ();
-		LineCastBack = gameObject.GetComponent<LineRenderer> ();
-		LineCastForward = gameObject.GetComponent<LineRenderer> ();
 		_gameCon = GameObject.Find("Main Camera").GetComponent<Game_Controler>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		InitiliseLine();
 		PlayerDetector();
-	}
-
-
-	void InitiliseLine(){
-		LineCastLeft.SetWidth (0.5f, 0.5f);
-		LineCastLeft.SetPosition(0, Hero.transform.position);
-		LineCastLeft.enabled = true;
-
-		LineCastBack.SetWidth (0.5f, 0.5f);
-		LineCastBack.SetPosition(0, Hero.transform.position);
-		LineCastBack.enabled = true;
-
-		LineCastForward.SetWidth (0.5f, 0.5f);
-		LineCastForward.SetPosition(0, Hero.transform.position);
-		LineCastForward.enabled = true;
-
-		LineCastRight.SetWidth (0.5f, 0.5f);
-		LineCastRight.SetPosition(0, Hero.transform.position);
-		LineCastRight.enabled = true;
 	}
 
 	void PlayerDetector(){
@@ -92,10 +68,10 @@ public class Heros_Player_Detection : MonoBehaviour {
 			Debug.DrawRay(transform.position, Vector3.right * SneakSpotDistance);
 			Debug.DrawRay(transform.position, Vector3.forward * SneakSpotDistance);
 			Debug.DrawRay(transform.position, Vector3.back * SneakSpotDistance);
-			LineCastLeft.SetPosition(1, Vector3.left * SneakSpotDistance);
-			LineCastRight.SetPosition(1, Vector3.right * SneakSpotDistance);
-			LineCastBack.SetPosition(1, Vector3.back * SneakSpotDistance);
-			LineCastForward.SetPosition(1, Vector3.forward * SneakSpotDistance);
+		//	LineCastLeft.SetPosition(1, Vector3.left * SneakSpotDistance);
+		//	LineCastRight.SetPosition(1, Vector3.right * SneakSpotDistance);
+		//	LineCastBack.SetPosition(1, Vector3.back * SneakSpotDistance);
+		//	LineCastForward.SetPosition(1, Vector3.forward * SneakSpotDistance);
 
 			if(Physics.Raycast(TileCheckForward, out HitForward, SneakSpotDistance)){ 
 				if(HitForward.collider.tag == "Player"){
@@ -128,10 +104,10 @@ public class Heros_Player_Detection : MonoBehaviour {
 			Debug.DrawRay(transform.position, Vector3.right * WalkSpotDistance);
 			Debug.DrawRay(transform.position, Vector3.forward * WalkSpotDistance);
 			Debug.DrawRay(transform.position, Vector3.back * WalkSpotDistance);
-			LineCastLeft.SetPosition(1, Vector3.left * WalkSpotDistance);
-			LineCastRight.SetPosition(1, Vector3.right * WalkSpotDistance);
-			LineCastBack.SetPosition(1, Vector3.back * WalkSpotDistance);
-			LineCastForward.SetPosition(1, Vector3.forward * WalkSpotDistance);
+		//	LineCastLeft.SetPosition(1, Vector3.left * WalkSpotDistance);
+		//	LineCastRight.SetPosition(1, Vector3.right * WalkSpotDistance);
+		//	LineCastBack.SetPosition(1, Vector3.back * WalkSpotDistance);
+		//	LineCastForward.SetPosition(1, Vector3.forward * WalkSpotDistance);
 			
 			if(Physics.Raycast(TileCheckForward, out HitForward, WalkSpotDistance) && AlertPlaying == false){ 
 				if(HitForward.collider.tag == "Player"){
@@ -168,10 +144,10 @@ public class Heros_Player_Detection : MonoBehaviour {
 			Debug.DrawRay(transform.position, Vector3.right * RunSpotDistance);
 			Debug.DrawRay(transform.position, Vector3.forward * RunSpotDistance);
 			Debug.DrawRay(transform.position, Vector3.back * RunSpotDistance);
-			LineCastLeft.SetPosition(1, Vector3.left * RunSpotDistance);
-			LineCastRight.SetPosition(1, Vector3.right * RunSpotDistance);
-			LineCastBack.SetPosition(1, Vector3.back * RunSpotDistance);
-			LineCastForward.SetPosition(1, Vector3.forward * RunSpotDistance);
+		//	LineCastLeft.SetPosition(1, Vector3.left * RunSpotDistance);
+		//	LineCastRight.SetPosition(1, Vector3.right * RunSpotDistance);
+		//	LineCastBack.SetPosition(1, Vector3.back * RunSpotDistance);
+		//	LineCastForward.SetPosition(1, Vector3.forward * RunSpotDistance);
 			
 			if(Physics.Raycast(TileCheckForward, out HitForward, RunSpotDistance) && AlertPlaying == false){ 
 				if(HitForward.collider.tag == "Player"){

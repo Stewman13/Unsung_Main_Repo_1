@@ -8,6 +8,7 @@ public class HeroController : MonoBehaviour {
 	public GameObject Controller;
 	private Game_Controler _gameCon;
 	private FloorTile_Controler _tileCon;
+	public GameObject floor;
 
 	public GameObject TileForward;
 	public GameObject TileBack;
@@ -16,6 +17,8 @@ public class HeroController : MonoBehaviour {
 	public bool herosTurn;
 
 	public int herosMoves = 2;
+
+	public bool waiting = false;
 
 	//Stuff For Lerping
 	private float timeStartedLerping;
@@ -52,7 +55,7 @@ public class HeroController : MonoBehaviour {
 			TileLeft = TileUnderHero.GetComponent<FloorTile_Controler>().TileLeft;
 			TileRight = TileUnderHero.GetComponent<FloorTile_Controler>().TileRight;
 	
-			if(TileUnderHero.GetComponent<FloorTile_Controler>().HeroIsOnThisBlock == true && herosTurn == true && herosMoves >= 1 && isLerping == false){
+			if(TileUnderHero.GetComponent<FloorTile_Controler>().HeroIsOnThisBlock == true && herosTurn == true && herosMoves >= 1 && isLerping == false && waiting == false){
 
 				TileUnderHero.GetComponent<FloorTile_Controler>().HerosPath = 0;
 				if(TileForward){
@@ -133,6 +136,7 @@ public class HeroController : MonoBehaviour {
 	{
 		if(isLerping)
 		{
+			waiting = true;
 			float timeSinceStarted = Time.time - timeStartedLerping;
 			float percentageComplete = timeSinceStarted / timeTakenDuringLerp;
 			
@@ -143,8 +147,15 @@ public class HeroController : MonoBehaviour {
 				herosMoves -= 1;
 				isLerping = false;
 				print("Hero Lerp Complete");
+				floor.BroadcastMessage ("HeroNotHere");
+				StartCoroutine(Wait(0.5F));
 			}
 		}
+	}
+
+	IEnumerator Wait(float waitTime) {
+		yield return new WaitForSeconds(waitTime);
+		waiting = false;
 	}
 
 	//tells us that it's the heros turn
