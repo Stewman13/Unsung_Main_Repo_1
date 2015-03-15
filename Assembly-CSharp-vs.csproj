@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\MenuOptions.cs" />
      <Compile Include="Assets\Scripts\Player_Controller.cs" />
      <Compile Include="Assets\Scripts\SoundTrigger.cs" />
+     <Compile Include="Assets\Scripts\SpotLightDestroy.cs" />
      <Compile Include="Assets\Scripts\TransperantWalls.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
