@@ -29,6 +29,8 @@ public class FloorTile_Controler : MonoBehaviour {
 	public bool BoxIsOnThisBlock = false;
 	public bool MouseOverTile = false;
 
+	public bool IsAThreat = false;
+
 	public bool NextToPlayersTile = false;
 	private int ap;
 	private int PlayerMoveNum;
@@ -93,7 +95,7 @@ public class FloorTile_Controler : MonoBehaviour {
 
 			//checks to send message, will destroy light source
 			MessageCheck();
-
+			DeMapped();
 		}
 	}
 
@@ -267,7 +269,7 @@ public class FloorTile_Controler : MonoBehaviour {
 		if(gameObject.tag == "UnAvailable"){
 			gameObject.renderer.material.color = Color.grey;
 		}
-		if(gameObject.tag == "Available" && MouseOverTile == false){
+		if(gameObject.tag == "Available" && MouseOverTile == false && IsAThreat == false){
 			gameObject.renderer.material.color = Color.white;
 		}
 
@@ -420,5 +422,12 @@ public class FloorTile_Controler : MonoBehaviour {
 	}
 	void HeroNotHere(){
 		HeroIsOnThisBlock = false;
+	}
+	void ThreatMapped(){
+		IsAThreat = true;
+		ThisTile.renderer.material.color = Color.red;
+	}
+	void DeMapped(){
+		IsAThreat = false;
 	}
 }
