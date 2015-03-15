@@ -89,6 +89,7 @@ public class FloorTile_Controler : MonoBehaviour {
             AvailabilityChecker();
             MouseUp();
 			StanceMoveSpeed();
+			RayFromMouse();
 
 			//checks to send message, will destroy light source
 			MessageCheck();
@@ -341,36 +342,46 @@ public class FloorTile_Controler : MonoBehaviour {
 	}
 
 	//player feedback for hovering cursor over a tile
-	void OnMouseEnter(){
+	void RayFromMouse(){
+
+		RaycastHit OverMe;
+		int layerMask = 1 << 8;
+
 		if (_gameCon.isPlayersTurn == true){
-			MouseOverTile = true;
-			if(gameObject.tag == "Available" && PlayerInteractive == 0 && NextToPlayersTile == false){
-				//gameObject.renderer.material.color = Color.white;
-				print("mouse over available empty tile");
-			}
+			Ray Cast = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast(Cast, out OverMe,Mathf.Infinity,layerMask)){
+				if(OverMe.collider.gameObject == ThisTile && NextToPlayersTile == true && ap >= _gameCon.CurrentMovementCost){
 
-			//tell player they can move to this tile
-			if(gameObject.tag == "Available" && PlayerInteractive == 0 && NextToPlayersTile == true && _gameCon.AP >=0 ){
-				gameObject.renderer.material.color = Color.green;
-				print("mouse over available empty tile");
-			}
+					Floor.BroadcastMessage("unselectTile");
+					MouseOverTile = true;
+					if(gameObject.tag == "Available" && PlayerInteractive == 0 && NextToPlayersTile == false){
+						gameObject.renderer.material.color = Color.white;
+						print("mouse over available empty tile");
+					}
 
-			//tell player this tile is interactive
-			if(gameObject.tag == "Available" && PlayerInteractive == 1 && NextToPlayersTile == true && _gameCon.AP >=1 ){
-				gameObject.renderer.material.color = Color.blue;
-				print("mouse over interactive tile");
-			}
+					//tell player they can move to this tile
+					if(gameObject.tag == "Available" && PlayerInteractive == 0 && NextToPlayersTile == true && _gameCon.AP >=0 ){
+						gameObject.renderer.material.color = Color.green;
+						print("mouse over available empty tile");
+					}
 
-			//tell player an enemy patrols this route
-			if(gameObject.tag == "Available" && AIPathChannel == 1 || gameObject.tag == "Available" && HerosPath == 1){
-				gameObject.renderer.material.color = Color.red;
-				print ("enemy path tile");
+					//tell player this tile is interactive
+					if(gameObject.tag == "Available" && PlayerInteractive == 1 && NextToPlayersTile == true && _gameCon.AP >=1 ){
+						gameObject.renderer.material.color = Color.blue;
+						print("mouse over interactive tile");
+					}
+
+					//tell player an enemy patrols this route
+					if(gameObject.tag == "Available" && AIPathChannel == 1 || gameObject.tag == "Available" && HerosPath == 1){
+						gameObject.renderer.material.color = Color.red;
+						print ("enemy path tile");
+					}
+				}
 			}
 		}
 	}
 
-	void OnMouseExit(){
-		//will turn the tile back to its default colour using: AvailabilityChecker() in update
+	void unselectTile(){
 		MouseOverTile = false;
 	}
 	
