@@ -14,6 +14,7 @@ public class Heros_Player_Detection : MonoBehaviour {
 	public int RunSpotDistance;
 	public int WalkSpotDistance;
 	public AudioClip AlertSound;
+	public GameObject AlertIcon;
 	private bool AlertPlaying = false;
 
 	public RaycastHit HitBack;
@@ -203,8 +204,9 @@ public class Heros_Player_Detection : MonoBehaviour {
 
 	public IEnumerator PlayerDetected(){
 		AlertPlaying = true;
-		float WaitForNotification = 3.0f;
-		AudioSource.PlayClipAtPoint(AlertSound,Camera.main.transform.position, 0.2f);
+		float WaitForNotification = 2.0f;
+		AudioSource.PlayClipAtPoint(AlertSound,Camera.main.transform.position, 0.5f);
+		Instantiate (AlertIcon, gameObject.transform.position, AlertIcon.transform.rotation);
 		print ("detected audio alert");
 		yield return new WaitForSeconds(WaitForNotification);
 		//Application.LoadLevel ("Defeat");
