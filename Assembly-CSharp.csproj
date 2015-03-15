@@ -51,6 +51,7 @@
      <Compile Include="Assets\Obselete_NotInUse\TileMap.cs" />
      <Compile Include="Assets\Obselete_NotInUse\TileType.cs" />
      <Compile Include="Assets\Obselete_NotInUse\Unit.cs" />
+     <Compile Include="Assets\Scripts\DestroyOnLoad\AlertIcon.cs" />
      <Compile Include="Assets\Scripts\EnemyPathing.cs" />
      <Compile Include="Assets\Scripts\FloorTile_Controler.cs" />
      <Compile Include="Assets\Scripts\GUIManager.cs" />
