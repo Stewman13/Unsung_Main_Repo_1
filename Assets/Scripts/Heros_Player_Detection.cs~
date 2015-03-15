@@ -135,27 +135,28 @@ public class Heros_Player_Detection : MonoBehaviour {
 			
 			if(Physics.Raycast(TileCheckForward, out HitForward, WalkSpotDistance) && AlertPlaying == false){ 
 				if(HitForward.collider.tag == "Player"){
-					print("DETECTED!");
+					print("DETECTED! P_Walk D_Front");
 					StartCoroutine(PlayerDetected());
 				}
 			}
 			
 			if(Physics.Raycast(TileCheckLeft, out HitLeft, WalkSpotDistance) && AlertPlaying == false){ 
 				if(HitLeft.collider.tag == "Player"){
+					print("DETECTED! P_Walk D_Left");
 					StartCoroutine(PlayerDetected());
 				}
 			}
 			
 			if(Physics.Raycast(TileCheckRight, out HitRight, WalkSpotDistance) && AlertPlaying == false){ 
 				if(HitRight.collider.tag == "Player"){
-					print("DETECTED!");
+					print("DETECTED! P_Walk D_Right");
 					StartCoroutine(PlayerDetected());
 				}
 			}
 			
 			if(Physics.Raycast(TileCheckBack, out HitBack, WalkSpotDistance) && AlertPlaying == false){ 
 				if(HitBack.collider.tag == "Player"){
-					print("DETECTED!");
+					print("DETECTED! P_Walk D_Back");
 					StartCoroutine(PlayerDetected());
 				}
 			}
@@ -174,28 +175,28 @@ public class Heros_Player_Detection : MonoBehaviour {
 			
 			if(Physics.Raycast(TileCheckForward, out HitForward, RunSpotDistance) && AlertPlaying == false){ 
 				if(HitForward.collider.tag == "Player"){
-					print("DETECTED!");
+					print("DETECTED! P_Run D_Forward");
 					StartCoroutine(PlayerDetected());
 				}
 			}
 			
 			if(Physics.Raycast(TileCheckLeft, out HitLeft, RunSpotDistance) && AlertPlaying == false){ 
 				if(HitLeft.collider.tag == "Player"){
-					print("DETECTED!");
+					print("DETECTED! P_Run D_Left");
 					StartCoroutine(PlayerDetected());
 				}
 			}
 			
 			if(Physics.Raycast(TileCheckRight, out HitRight, RunSpotDistance) && AlertPlaying == false){ 
 				if(HitRight.collider.tag == "Player"){
-					print("DETECTED!");
+					print("DETECTED! P_Run D_Right");
 					StartCoroutine(PlayerDetected());
 				}
 			}
 			
 			if(Physics.Raycast(TileCheckBack, out HitBack, RunSpotDistance) && AlertPlaying == false){ 
 				if(HitBack.collider.tag == "Player"){
-					print("DETECTED!");
+					print("DETECTED! P_Run D_Back");
 					StartCoroutine(PlayerDetected());
 				}
 			}
@@ -205,12 +206,12 @@ public class Heros_Player_Detection : MonoBehaviour {
 	public IEnumerator PlayerDetected(){
 		AlertPlaying = true;
 		float WaitForNotification = 2.0f;
-		AudioSource.PlayClipAtPoint(AlertSound,Camera.main.transform.position, 0.5f);
+		AudioSource.PlayClipAtPoint(AlertSound,Camera.main.transform.position, 0.3f);
 		Instantiate (AlertIcon, gameObject.transform.position, AlertIcon.transform.rotation);
-		print ("detected audio alert");
+		//print ("detected audio alert");
 		yield return new WaitForSeconds(WaitForNotification);
-		//Application.LoadLevel ("Defeat");
-		AlertPlaying = false; //help with testing
+		//Application.LoadLevel ("Defeat");														 //help with testing
+		AlertPlaying = false; 
 	}
 
 }

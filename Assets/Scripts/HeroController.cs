@@ -142,6 +142,7 @@ public class HeroController : MonoBehaviour {
 			{
 				herosMoves -= 1;
 				isLerping = false;
+				print("Hero Lerp Complete");
 			}
 		}
 	}
@@ -151,12 +152,13 @@ public class HeroController : MonoBehaviour {
 		herosTurn = Controller.GetComponent<Game_Controler>().isAiTurn;
 		if(herosTurn == true){
 			Controller.GetComponent<Game_Controler>().DiceIcon = true;
-			print ("HerosTurn");
+			print ("HerosTurn " + "Moves remaining " + herosMoves);
 		}
-			if(herosMoves <= 0){
+			if(herosMoves <= 0 && herosTurn == true){
 				herosMoves = 0;
 				Controller.GetComponent<Game_Controler>().DiceIcon = false;
 				Controller.SendMessage ("ActivatePlayerTurn");
+				print ("Hero: Ended turn successfully");
 			}
 		}
 	}

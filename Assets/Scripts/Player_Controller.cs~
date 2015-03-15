@@ -46,7 +46,7 @@ public class Player_Controller : MonoBehaviour {
 					Controller.GetComponent<Game_Controler>().P_InteractLaser = false;
 					Controller.GetComponent<Game_Controler>().P_InteractLight = false;
 					Controller.GetComponent<Game_Controler>().DiceIcon = false;
-					Debug.Log ("Normal Tile");
+					//Debug.Log ("Normal Tile");
 				}
 
 				if(TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractCamera == 1){

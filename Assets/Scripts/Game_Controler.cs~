@@ -223,12 +223,11 @@ public class Game_Controler : MonoBehaviour {
 		//END TURN BUTTON
 		if ( P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false )
 		{
-			print ("end turn please00??");
 			if (GUI.Button(new Rect(400, Screen.height - 35, buttonWidth, buttonHeight), "End Turn") && isPlayersTurn == true && isAiTurn == false)
 			{
 				Hero.GetComponent<HeroController>().herosMoves = 2;
 				currentTurn = PossibleTurns.AiTurn;
-				print ("end turn please01??");
+				print ("Player: Turn ended successfully");
 			}
 		}
 		else if ( P_InteractCamera == true && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false||
@@ -240,7 +239,7 @@ public class Game_Controler : MonoBehaviour {
 			{
 				Hero.GetComponent<HeroController>().herosMoves = 2;
 				currentTurn = PossibleTurns.AiTurn;
-				print ("end turn please 02??");
+				print ("Ended turn on an interactive tile");
 			}
 		}
 						
