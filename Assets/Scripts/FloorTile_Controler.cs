@@ -94,9 +94,6 @@ public class FloorTile_Controler : MonoBehaviour {
 			//checks to send message, will destroy light source
 			MessageCheck();
 
-			if(ap <= 0){
-				Floor.BroadcastMessage("unselectTile");
-			}
 		}
 	}
 
@@ -354,6 +351,9 @@ public class FloorTile_Controler : MonoBehaviour {
 		if (_gameCon.isPlayersTurn == true){
 			Ray Cast = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(Cast, out OverMe,Mathf.Infinity,layerMask)){
+				if(ap <= 0){
+					Floor.BroadcastMessage("unselectTile");
+				}
 				if(OverMe.collider.gameObject == ThisTile && NextToPlayersTile == true && ap >= _gameCon.CurrentMovementCost){
 
 					Floor.BroadcastMessage("unselectTile");
