@@ -39,6 +39,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	public int AIPathChannel = 0;
 	public int HerosPath = 0;
 	public int PlayerInteractive = 0;
+	public int LevelEnd = 0;
 
 	public RaycastHit HitBack;
 	public RaycastHit HitForward;
@@ -92,6 +93,7 @@ public class FloorTile_Controler : MonoBehaviour {
             MouseUp();
 			StanceMoveSpeed();
 			RayFromMouse();
+			NextStage();
 
 			//checks to send message, will destroy light source
 			MessageCheck();
@@ -429,5 +431,17 @@ public class FloorTile_Controler : MonoBehaviour {
 	}
 	void DeMapped(){
 		IsAThreat = false;
+	}
+
+	void NextStage(){
+		if(LevelEnd == 1 && HeroIsOnThisBlock == true){
+			Application.LoadLevel (4);
+		}
+		if(LevelEnd == 2 && HeroIsOnThisBlock == true){
+			Application.LoadLevel (5);
+		}
+		if(LevelEnd == 3 && HeroIsOnThisBlock == true){
+			Application.LoadLevel (6);
+		}
 	}
 }
