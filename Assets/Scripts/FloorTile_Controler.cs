@@ -27,6 +27,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	public bool HeroIsOnThisBlock = false;
 	public bool AiIsOnThisBlock = false;
 	public bool BoxIsOnThisBlock = false;
+	public bool MouseOverTile = false;
 
 	public bool NextToPlayersTile = false;
 	private int ap;
@@ -67,12 +68,14 @@ public class FloorTile_Controler : MonoBehaviour {
 		HeroIsOnThisBlock = false;
 		AiIsOnThisBlock = false;
 		BoxIsOnThisBlock = false;
+		MouseOverTile = false;
 //		Tile_InteractLight = false; 
 //		Tile_InteractCamera = false;
 //		Tile_InteractLaser = false;
 //		Tile_InteractPickup = false;
 		NextToPlayersTile = false;
         _gameCon = GameObject.Find("Main Camera").GetComponent<Game_Controler>();
+
 	}
 
 	// Run every update
@@ -249,9 +252,29 @@ public class FloorTile_Controler : MonoBehaviour {
 		if(gameObject.tag == "UnAvailable"){
 			gameObject.renderer.material.color = Color.grey;
 		}
-		if(gameObject.tag == "Available"){
+		if(gameObject.tag == "Available" && MouseOverTile == false){
 			gameObject.renderer.material.color = Color.white;
 		}
+
+
+		//TESTING TO SEE IF THE TILES ARE SETUP PROPERLY
+//		if (_gameCon.isPlayersTurn == true){
+////			if(gameObject.tag == "Available" && PlayerInteractive == 0){
+////				gameObject.renderer.material.color = Color.blue;
+////			}
+//			
+//			if(gameObject.tag == "Available" && PlayerInteractive == 1){
+//				gameObject.renderer.material.color = Color.green;
+//			}
+//			
+//			if(gameObject.tag == "Available" && AIPathChannel == 1 || gameObject.tag == "Available" && HerosPath == 1){
+//				gameObject.renderer.material.color = Color.red;
+//			}
+//		if(gameObject.tag == "Available" && _gameCon.isPlayersTurn == false){
+//			gameObject.renderer.material.color = Color.white;
+//			}
+//		}
+
 	}
 
 	//Uses Raycast collison with layer 8 (Tiles) then moves player to clicked tile.
@@ -302,6 +325,40 @@ public class FloorTile_Controler : MonoBehaviour {
 				isLerping = false;
 			}
 		}
+	}
+
+	//player feedback for hovering cursor over a tile
+	void OnMouseEnter(){
+		if (_gameCon.isPlayersTurn == true){
+			MouseOverTile = true;
+			if(gameObject.tag == "Available" && PlayerInteractive == 0 && NextToPlayersTile == false){
+				//gameObject.renderer.material.color = Color.white;
+				print("mouse over available empty tile");
+			}
+
+			//tell player they can move to this tile
+			if(gameObject.tag == "Available" && PlayerInteractive == 0 && NextToPlayersTile == true && _gameCon.AP >=1 ){
+				gameObject.renderer.material.color = Color.green;
+				print("mouse over available empty tile");
+			}
+
+			//tell player this tile is interactive
+			if(gameObject.tag == "Available" && PlayerInteractive == 1 && NextToPlayersTile == true && _gameCon.AP >=1 ){
+				gameObject.renderer.material.color = Color.blue;
+				print("mouse over interactive tile");
+			}
+
+			//tell player an enemy patrols this route
+			if(gameObject.tag == "Available" && AIPathChannel == 1 || gameObject.tag == "Available" && HerosPath == 1){
+				gameObject.renderer.material.color = Color.red;
+				print ("enemy path tile");
+			}
+		}
+	}
+
+	void OnMouseExit(){
+		//will turn the tile back to its default colour using: AvailabilityChecker() in update
+		MouseOverTile = false;
 	}
 	
 	//fixes a bug with selectable tiles
