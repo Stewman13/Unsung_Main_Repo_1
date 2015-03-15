@@ -93,6 +93,10 @@ public class FloorTile_Controler : MonoBehaviour {
 
 			//checks to send message, will destroy light source
 			MessageCheck();
+
+			if(ap <= 0){
+				Floor.BroadcastMessage("unselectTile");
+			}
 		}
 	}
 

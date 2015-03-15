@@ -302,6 +302,7 @@ public class Game_Controler : MonoBehaviour {
 			{
 				Hero.GetComponent<HeroController>().herosMoves = 2;
 				currentTurn = PossibleTurns.AiTurn;
+				Floor.BroadcastMessage("unselectTile");
 				print ("Player: Turn ended successfully");
 			}
 		}
@@ -314,6 +315,7 @@ public class Game_Controler : MonoBehaviour {
 			{
 				Hero.GetComponent<HeroController>().herosMoves = 2;
 				currentTurn = PossibleTurns.AiTurn;
+				Floor.BroadcastMessage("unselectTile");
 				print ("Ended turn on an interactive tile");
 			}
 		}
