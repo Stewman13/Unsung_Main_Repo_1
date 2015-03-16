@@ -35,10 +35,11 @@ public class Player_Controller : MonoBehaviour {
 	//player character is outside camera, begin game over.
 	void OnBecameInvisible(){
 		PlayerOutOfCameraCheck = false;
-		if (!SpottedByEnemyFirst)
+		if (!SpottedByEnemyFirst && gameObject.activeSelf== true){
 			Controller.GetComponent<Game_Controler>().isPlayerOutOfCamera = true;
+			print ("Player should be dead");
+		}
 
-		print ("Player should be dead");
 	}
 
 	void whereAmI(){

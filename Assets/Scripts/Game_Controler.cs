@@ -109,6 +109,7 @@ public class Game_Controler : MonoBehaviour {
 			InteractLightStart = false;
 			InteractLaserStart = false;
 			PickedUpThisTile = false;
+			GUIManager.Instance.PlayerOutOfCamera = true;
 			print("Game_Controler: Player is dead");
 
 		}
