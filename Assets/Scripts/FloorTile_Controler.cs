@@ -62,7 +62,9 @@ public class FloorTile_Controler : MonoBehaviour {
 
 	//Interactive Message constraints
 	public bool SuccessfulLightDestroy = false;
-
+	public bool GrenadesPickedUp = false;
+	public bool LaserDestroyed = false;
+	public bool LaserPlayAlarm = false;
 
 	void Start(){
 		//set bools to false, so there's no bugs
@@ -103,8 +105,14 @@ public class FloorTile_Controler : MonoBehaviour {
 
 	//sends message to destroy light source
 	void MessageCheck(){
-		if (SuccessfulLightDestroy == true){
+		if (SuccessfulLightDestroy == true || GrenadesPickedUp == true || LaserDestroyed == true){
 			BroadcastMessage("SuccessfulDiceRoll",SendMessageOptions.DontRequireReceiver);
+		}
+
+		if (LaserPlayAlarm == true){
+			print ("IS IT REACHING HERE");
+			BroadcastMessage("SetOffAlarm",SendMessageOptions.DontRequireReceiver);
+			LaserPlayAlarm = false;
 		}
 	}
 

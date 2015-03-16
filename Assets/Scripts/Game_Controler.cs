@@ -47,6 +47,7 @@ public class Game_Controler : MonoBehaviour {
 	public int LightTile;
 	public bool PickupGrenadeStart = false;
 	public bool InteractLightStart = false;
+	public bool InteractLaserStart = false;
 	public bool PickedUpThisTile = false;
 
 
@@ -219,7 +220,7 @@ public class Game_Controler : MonoBehaviour {
 
 		//player Interactive placeholders
 		if (P_InteractPickup == true && isPlayersTurn == true){
-			if (GUI.Button(new Rect (390, Screen.height - 35, buttonWidth+10, buttonHeight), "Interact: Pickup", "TEST")&& AP >= 1 
+			if (GUI.Button(new Rect (390, Screen.height - 35, buttonWidth+10, buttonHeight), "Interact: Pickup")&& AP >= 1 
 			    && isPlayersTurn == true && PickupGrenadeStart == false && PickedUpThisTile == false){
 					Debug.Log("Interacting With Item");
 					PickupGrenadeStart = true;
@@ -234,6 +235,7 @@ public class Game_Controler : MonoBehaviour {
 		if (P_InteractLaser == true && isPlayersTurn == true){
 			if (GUI.Button(new Rect (390, Screen.height - 35, buttonWidth+10, buttonHeight),"Interact: Laser")){
 					Debug.Log("Interacting With Lasrer");
+					InteractLaserStart = true;
 					//laser choices screen goes here
 				}
 			}
@@ -242,29 +244,33 @@ public class Game_Controler : MonoBehaviour {
 				    && isPlayersTurn == true && PickupGrenadeStart == false && InteractLightStart == false){
 					Debug.Log("Interacting With Light");
 					InteractLightStart = true;
-					//light choices screen goes here
 				}
 			}
 
 		//Interactive screens goes here
 		//Grenade
-		if (P_InteractPickup == true && isPlayersTurn == true && PickupGrenadeStart == true){
+		if (P_InteractPickup == true && isPlayersTurn == true && PickupGrenadeStart == true && AP >= 1){
 			GUI.Box(new Rect(Screen.width/50f, Screen.height/100, 500, 400),"Interactive: Pickup Smoke Grenade");
 
 			if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 70, buttonWidth + 200, buttonHeight + 10),"90% Chance To Pickup, [-1 Action Points]")){
 				AP --;
 				GrenadeCount += 2;
+				TileUnderPlayer.GetComponent<FloorTile_Controler>().GrenadesPickedUp = true;
 				TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive = 0;
 				TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractPickup = 0;
 				PickupGrenadeStart = false;
 				print("Player Recieved 2 Smoke Grenades");
 			}
-			if (GUI.Button(new Rect (Screen.width/40 + 150, Screen.height/100 + 100, buttonWidth + 100, buttonHeight + 10),"Exit Menu")){
+			if (GUI.Button(new Rect (Screen.width/40 + 150, Screen.height/100 + 100, buttonWidth + 200, buttonHeight + 10),"Exit Menu")){
 				PickupGrenadeStart = false;
 			}
 		}
+		else if (P_InteractPickup == true && isPlayersTurn == true && PickupGrenadeStart == true && AP == 0){
+			PickupGrenadeStart = false;
+		}
+
 		//Light
-		if (P_InteractLight == true && isPlayersTurn == true && InteractLightStart == true){
+		if (P_InteractLight == true && isPlayersTurn == true && InteractLightStart == true && AP >= 1){
 				GUI.Box(new Rect(Screen.width/50f, Screen.height/100, 500, 400),"Interactive: Light Switch");
 				if (GUI.Button(new Rect (Screen.width/40 + 150, Screen.height/100 + 70, buttonWidth + 200, buttonHeight + 10), "60% Chance To Turn Off Light, [-1 AP]")){
 				DiceRoll();
@@ -291,12 +297,68 @@ public class Game_Controler : MonoBehaviour {
 					
 					}
 			}
-		
-				if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 100, buttonWidth + 100, buttonHeight + 10),"Exit Menu")){
+				if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 100, buttonWidth + 200, buttonHeight + 10),"Exit Menu")){
 					InteractLightStart = false;
 				}
 			}
+		else if (P_InteractLight == true && isPlayersTurn == true && InteractLightStart == true && AP == 0){
+			InteractLightStart = false;
+		}
 
+		//Laser
+		if (P_InteractLaser == true && isPlayersTurn == true && InteractLaserStart == true && AP >= 1){
+			GUI.Box(new Rect(Screen.width/50f, Screen.height/100, 500, 400),"Interactive: Laser Switch");
+			if (GUI.Button(new Rect (Screen.width/40 + 150, Screen.height/100 + 70, buttonWidth + 200, buttonHeight + 10), "70% Chance To Turn Off Laser, [-1 AP]")){
+				DiceRoll();
+				if (P_InteractLaser == true && isPlayersTurn == true && InteractLaserStart == true){
+					if (DiceTotal >= 4){
+						AP --;
+						TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive = 0;
+						TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLaser = 0;
+						TileUnderPlayer.GetComponent<FloorTile_Controler>().LaserDestroyed = true;
+						InteractLaserStart = false;
+						print("Player Deactivated Laser");
+					}
+					if (DiceTotal <= 3 ){
+						AP --;
+						TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive = 0;
+						TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLaser = 0;
+						InteractLaserStart = false;
+						//negative feedback here
+						//negative result here
+						print("Player Failed To Deactivated Laser");
+					}
+				}
+			}
+			if (GUI.Button(new Rect (Screen.width/40 + 150, Screen.height/100 + 100, buttonWidth + 200, buttonHeight + 10), "50% Chance To Set Off Alarm, [-1 AP]")){
+			DiceRoll();
+			if (P_InteractLaser == true && isPlayersTurn == true && InteractLaserStart == true){
+				if (DiceTotal >= 4){
+					AP --;
+					TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive = 0;
+					TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLaser = 0;
+					TileUnderPlayer.GetComponent<FloorTile_Controler>().LaserPlayAlarm = true;
+					InteractLaserStart = false;
+					print("Player Set Off Alarm");
+				}
+				if (DiceTotal <= 3 ){
+					AP --;
+					TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive = 0;
+					TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLaser = 0;
+					InteractLaserStart = false;
+					//negative feedback here
+					//negative result here
+					print("Player Failed To Set Off Alarm");
+				}
+			}
+		}
+			if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 130, buttonWidth + 200, buttonHeight + 10),"Exit Menu")){
+				InteractLaserStart = false;
+			}
+		}
+		else if (P_InteractLaser == true && isPlayersTurn == true && InteractLightStart == true && AP == 0){
+			InteractLaserStart = false;
+		}
 					
 
 		//END TURN BUTTON
