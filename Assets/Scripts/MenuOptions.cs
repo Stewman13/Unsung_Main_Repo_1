@@ -4,7 +4,9 @@ using System.Collections;
 public class MenuOptions : MonoBehaviour {
 
     public bool isQuit = false;
+	public bool isInstruct = false;
     public bool isMenu = false;
+	public bool isPlay = false;
     // public AudioClip buttonEnter;
     //public AudioClip confirmSound;
 
@@ -33,14 +35,19 @@ public class MenuOptions : MonoBehaviour {
             //audio.PlayOneShot(confirmSound, 0.5f);
             Application.Quit();
         }
+		if (isInstruct)
+		{
+			//audio.PlayOneShot(confirmSound, 0.5f);
+			Application.LoadLevel(7);
+		}
+		if (isPlay)
+		{
+			//audio.PlayOneShot(confirmSound, 0.5f);
+			Application.LoadLevel(1);
+		}
         else if (isMenu)
         {
             Application.LoadLevel(0);
-        }
-        else
-        {
-            // audio.PlayOneShot(confirmSound);
-            Application.LoadLevel(1);
         }
     }
 }
