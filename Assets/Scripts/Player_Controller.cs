@@ -4,6 +4,7 @@ using System.Collections;
 public class Player_Controller : MonoBehaviour {
 
 	public GameObject Player;
+	public GameObject PlayerAlertIcon;
 	public GameObject TileUnderPlayer;
 	public GameObject Controller;
 	private Game_Controler _gameCon;
@@ -18,7 +19,7 @@ public class Player_Controller : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		StartCoroutine (PlayerLocationAlert()); //will show the player where the character is located at start of each scene
 	}
 	
 	// Update is called once per frame
@@ -93,5 +94,11 @@ public class Player_Controller : MonoBehaviour {
 				}
 			}
 		}
+
+	IEnumerator PlayerLocationAlert(){
+		float delayTime = 2.0f;
+		yield return new WaitForSeconds (delayTime);
+		Instantiate (PlayerAlertIcon, gameObject.transform.position, PlayerAlertIcon.transform.rotation);		
+	}
 }
 

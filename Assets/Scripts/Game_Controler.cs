@@ -219,7 +219,7 @@ public class Game_Controler : MonoBehaviour {
 
 		//player Interactive placeholders
 		if (P_InteractPickup == true && isPlayersTurn == true){
-			if (GUI.Button(new Rect (390, Screen.height - 35, buttonWidth+10, buttonHeight), "Interact: Pickup")&& AP >= 1 
+			if (GUI.Button(new Rect (390, Screen.height - 35, buttonWidth+10, buttonHeight), "Interact: Pickup", "TEST")&& AP >= 1 
 			    && isPlayersTurn == true && PickupGrenadeStart == false && PickedUpThisTile == false){
 					Debug.Log("Interacting With Item");
 					PickupGrenadeStart = true;
@@ -251,7 +251,7 @@ public class Game_Controler : MonoBehaviour {
 		if (P_InteractPickup == true && isPlayersTurn == true && PickupGrenadeStart == true){
 			GUI.Box(new Rect(Screen.width/50f, Screen.height/100, 500, 400),"Interactive: Pickup Smoke Grenade");
 
-			if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 50, buttonWidth + 100, buttonHeight + 10),"90% Chance To Pickup, [-1 Action Points]")){
+			if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 70, buttonWidth + 200, buttonHeight + 10),"90% Chance To Pickup, [-1 Action Points]")){
 				AP --;
 				GrenadeCount += 2;
 				TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive = 0;
@@ -259,14 +259,14 @@ public class Game_Controler : MonoBehaviour {
 				PickupGrenadeStart = false;
 				print("Player Recieved 2 Smoke Grenades");
 			}
-			if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 100, buttonWidth + 100, buttonHeight + 10),"Exit Menu")){
+			if (GUI.Button(new Rect (Screen.width/40 + 150, Screen.height/100 + 100, buttonWidth + 100, buttonHeight + 10),"Exit Menu")){
 				PickupGrenadeStart = false;
 			}
 		}
 		//Light
 		if (P_InteractLight == true && isPlayersTurn == true && InteractLightStart == true){
 				GUI.Box(new Rect(Screen.width/50f, Screen.height/100, 500, 400),"Interactive: Light Switch");
-				if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 50, buttonWidth + 100, buttonHeight + 10), "60% Chance To Turn Off Light, [-1 AP]")){
+				if (GUI.Button(new Rect (Screen.width/40 + 150, Screen.height/100 + 70, buttonWidth + 200, buttonHeight + 10), "60% Chance To Turn Off Light, [-1 AP]")){
 				DiceRoll();
 					if (P_InteractLight == true && isPlayersTurn == true && InteractLightStart == true){
 							if (DiceTotal >= 5){
