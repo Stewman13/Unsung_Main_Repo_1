@@ -28,6 +28,12 @@ public class Player_Controller : MonoBehaviour {
 
 	}
 
+	//player character is outside camera, begin game over.
+	void OnBecameInvisible(){
+		Controller.GetComponent<Game_Controler>().isPlayerOutOfCamera = true;
+		print ("Player should be dead");
+	}
+
 	void whereAmI(){
 		RaycastHit HitDown;
 		int layerMask = 1 << 8;

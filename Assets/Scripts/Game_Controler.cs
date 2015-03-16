@@ -27,6 +27,7 @@ public class Game_Controler : MonoBehaviour {
     public bool paused;
 	public bool isPlayersTurn = false;
 	public bool isAiTurn = false;
+	public bool isPlayerOutOfCamera= false;
 
 	//Interactable objects
 
@@ -85,6 +86,9 @@ public class Game_Controler : MonoBehaviour {
 		currentStance = PlayerStances.Walk;
 		currentTurn = PossibleTurns.AiTurn;
 
+		//sanity check
+		isPlayerOutOfCamera = false;
+
 	}
 	
 	// Update is called once per frame
@@ -98,6 +102,16 @@ public class Game_Controler : MonoBehaviour {
         {
             paused = PauseToggle();
         }   
+
+		//runs when player is dead, out of camera view
+		if (isPlayerOutOfCamera){
+			PickupGrenadeStart = false;
+			InteractLightStart = false;
+			InteractLaserStart = false;
+			PickedUpThisTile = false;
+			print("Game_Controler: Player is dead");
+
+		}
 
 		//collecting the variables for interactive constraints
 		TileUnderPlayer = Player.GetComponent<Player_Controller>().TileUnderPlayer;
@@ -169,54 +183,56 @@ public class Game_Controler : MonoBehaviour {
 	//This sections creates/controls the GUI Display for Stances
 	void OnGUI()
 	{
-		//WALK STANCE BUTTON
-		if (GUI.Button(new Rect(160,Screen.height - 35, buttonWidth, buttonHeight), "Walk Stance") && isPlayersTurn == true) 
-		{
-			if(currentStance == PlayerStances.Sneak && AP >= 1)
+		if (isPlayerOutOfCamera == false){
+			//WALK STANCE BUTTON
+			if (GUI.Button(new Rect(160,Screen.height - 35, buttonWidth, buttonHeight), "Walk Stance") && isPlayersTurn == true && isPlayerOutOfCamera == false) 
 			{
-				currentStance = PlayerStances.Walk;
+				if(currentStance == PlayerStances.Sneak && AP >= 1)
+				{
+					currentStance = PlayerStances.Walk;
+				}
+				else if(currentStance == PlayerStances.Run && AP >= 1)
+				{
+					currentStance = PlayerStances.Walk;
+				}
 			}
-			else if(currentStance == PlayerStances.Run && AP >= 1)
+			//RUN STANCE BUTTON
+			if (GUI.Button(new Rect(270, Screen.height - 35, buttonWidth, buttonHeight), "Run Stance") && AP >= 1 && isPlayersTurn == true && isPlayerOutOfCamera == false) 
 			{
-				currentStance = PlayerStances.Walk;
+				if(currentStance == PlayerStances.Sneak)
+				{
+					currentStance = PlayerStances.Run;
+					AP -= 1;
+				}
+				else if(currentStance == PlayerStances.Walk)
+				{
+					currentStance = PlayerStances.Run;
+					AP -= 1;
+				}
 			}
+			//SNEAK STANCE BUTTON
+			if (GUI.Button(new Rect(50, Screen.height - 35, buttonWidth, buttonHeight), "Sneak Stance") && AP >= 1 && isPlayersTurn == true && isPlayerOutOfCamera == false) 
+			{
+				if(currentStance == PlayerStances.Walk)
+				{
+					currentStance = PlayerStances.Sneak;
+					AP -= 1;
+				}
+				else if(currentStance == PlayerStances.Run)
+				{
+					currentStance = PlayerStances.Sneak;
+					AP -= 1;
+				}
+			}
+			//BLUE AP BAR
+			if (!APTexture) 
+			{
+				Debug.LogError ("Assign a texture");
+				return;
+			}
+			GUI.DrawTexture(new Rect(50, Screen.height - 60, 30, AP * -63), APTexture);
+	        GUI.Label(new Rect(55, Screen.height - 60, 30, 30), "AP");
 		}
-		//RUN STANCE BUTTON
-        if (GUI.Button(new Rect(270, Screen.height - 35, buttonWidth, buttonHeight), "Run Stance") && AP >= 1 && isPlayersTurn == true) 
-		{
-			if(currentStance == PlayerStances.Sneak)
-			{
-				currentStance = PlayerStances.Run;
-				AP -= 1;
-			}
-			else if(currentStance == PlayerStances.Walk)
-			{
-				currentStance = PlayerStances.Run;
-				AP -= 1;
-			}
-		}
-		//SNEAK STANCE BUTTON
-        if (GUI.Button(new Rect(50, Screen.height - 35, buttonWidth, buttonHeight), "Sneak Stance") && AP >= 1 && isPlayersTurn == true) 
-		{
-			if(currentStance == PlayerStances.Walk)
-			{
-				currentStance = PlayerStances.Sneak;
-				AP -= 1;
-			}
-			else if(currentStance == PlayerStances.Run)
-			{
-				currentStance = PlayerStances.Sneak;
-				AP -= 1;
-			}
-		}
-		//BLUE AP BAR
-		if (!APTexture) 
-		{
-			Debug.LogError ("Assign a texture");
-			return;
-		}
-		GUI.DrawTexture(new Rect(50, Screen.height - 60, 30, AP * -63), APTexture);
-        GUI.Label(new Rect(55, Screen.height - 60, 30, 30), "AP");
 
 		//player Interactive placeholders
 		if (P_InteractPickup == true && isPlayersTurn == true){
@@ -359,10 +375,19 @@ public class Game_Controler : MonoBehaviour {
 		else if (P_InteractLaser == true && isPlayersTurn == true && InteractLightStart == true && AP == 0){
 			InteractLaserStart = false;
 		}
-					
+
+		//is player dead?
+		if (isPlayerOutOfCamera){
+			if (GUI.Button(new Rect(Screen.width/2, Screen.height/2, buttonWidth +200, buttonHeight + 10), "The hero got too far away. Restart") && isPlayersTurn == true && isAiTurn == false)
+			{
+				print("__Game over: Restarted Scene");
+				Application.LoadLevel(Application.loadedLevel);
+			}
+						
+		}
 
 		//END TURN BUTTON
-		if ( P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false )
+		if ( P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false && isPlayerOutOfCamera == false)
 		{
 			if (GUI.Button(new Rect(400, Screen.height - 35, buttonWidth, buttonHeight), "End Turn") && isPlayersTurn == true && isAiTurn == false)
 			{
@@ -385,15 +410,16 @@ public class Game_Controler : MonoBehaviour {
 				print ("Ended turn on an interactive tile");
 			}
 		}
-						
-		//Player stance button feedback placeholder, for testing purposes
-		if (currentStance == PlayerStances.Walk && currentTurn != PossibleTurns.AiTurn)		
-			GUI.Box(new Rect(160, Screen.height- 30, buttonWidth, buttonHeight/1.3f), "");//Darken Walk button
-		if (currentStance == PlayerStances.Run && currentTurn != PossibleTurns.AiTurn)
-			GUI.Box(new Rect(270, Screen.height- 30, buttonWidth, buttonHeight/1.3f), "");//Darken Run button
-		if (currentStance == PlayerStances.Sneak && currentTurn != PossibleTurns.AiTurn)
-			GUI.Box(new Rect(50, Screen.height- 30, buttonWidth, buttonHeight/1.3f), "");//Darken Sneak button
 
+		if(isPlayerOutOfCamera == false){
+			//Player stance button feedback placeholder, for testing purposes
+			if (currentStance == PlayerStances.Walk && currentTurn != PossibleTurns.AiTurn)		
+				GUI.Box(new Rect(160, Screen.height- 30, buttonWidth, buttonHeight/1.3f), "");//Darken Walk button
+			if (currentStance == PlayerStances.Run && currentTurn != PossibleTurns.AiTurn)
+				GUI.Box(new Rect(270, Screen.height- 30, buttonWidth, buttonHeight/1.3f), "");//Darken Run button
+			if (currentStance == PlayerStances.Sneak && currentTurn != PossibleTurns.AiTurn)
+				GUI.Box(new Rect(50, Screen.height- 30, buttonWidth, buttonHeight/1.3f), "");//Darken Sneak button
+		}
 }
 
 	//Pasue on 'esc' menu

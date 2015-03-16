@@ -29,6 +29,8 @@ public class FloorTile_Controler : MonoBehaviour {
 	public bool BoxIsOnThisBlock = false;
 	public bool MouseOverTile = false;
 
+	public bool IsAThreat = false;
+
 	public bool NextToPlayersTile = false;
 	private int ap;
 	private int PlayerMoveNum;
@@ -37,6 +39,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	public int AIPathChannel = 0;
 	public int HerosPath = 0;
 	public int PlayerInteractive = 0;
+	public int LevelEnd = 0;
 
 	public RaycastHit HitBack;
 	public RaycastHit HitForward;
@@ -59,7 +62,9 @@ public class FloorTile_Controler : MonoBehaviour {
 
 	//Interactive Message constraints
 	public bool SuccessfulLightDestroy = false;
-
+	public bool GrenadesPickedUp = false;
+	public bool LaserDestroyed = false;
+	public bool LaserPlayAlarm = false;
 
 	void Start(){
 		//set bools to false, so there's no bugs
@@ -89,16 +94,24 @@ public class FloorTile_Controler : MonoBehaviour {
             AvailabilityChecker();
             MouseUp();
 			StanceMoveSpeed();
+			RayFromMouse();
+			NextStage();
 
 			//checks to send message, will destroy light source
 			MessageCheck();
+			DeMapped();
 		}
 	}
 
 	//sends message to destroy light source
 	void MessageCheck(){
-		if (SuccessfulLightDestroy == true){
+		if (SuccessfulLightDestroy == true || GrenadesPickedUp == true || LaserDestroyed == true){
 			BroadcastMessage("SuccessfulDiceRoll",SendMessageOptions.DontRequireReceiver);
+		}
+
+		if (LaserPlayAlarm == true){
+			BroadcastMessage("SetOffAlarm",SendMessageOptions.DontRequireReceiver);
+			LaserPlayAlarm = false;
 		}
 	}
 
@@ -265,7 +278,7 @@ public class FloorTile_Controler : MonoBehaviour {
 		if(gameObject.tag == "UnAvailable"){
 			gameObject.renderer.material.color = Color.grey;
 		}
-		if(gameObject.tag == "Available" && MouseOverTile == false){
+		if(gameObject.tag == "Available" && MouseOverTile == false && IsAThreat == false){
 			gameObject.renderer.material.color = Color.white;
 		}
 
@@ -341,36 +354,58 @@ public class FloorTile_Controler : MonoBehaviour {
 	}
 
 	//player feedback for hovering cursor over a tile
-	void OnMouseEnter(){
+	void RayFromMouse(){
+
+		RaycastHit OverMe;
+		int layerMask = 1 << 8;
+
 		if (_gameCon.isPlayersTurn == true){
-			MouseOverTile = true;
-			if(gameObject.tag == "Available" && PlayerInteractive == 0 && NextToPlayersTile == false){
-				//gameObject.renderer.material.color = Color.white;
-				print("mouse over available empty tile");
-			}
+			Ray Cast = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast(Cast, out OverMe,Mathf.Infinity,layerMask)){
+				if(OverMe.collider.gameObject == ThisTile && NextToPlayersTile == true && ap >= _gameCon.CurrentMovementCost){
 
-			//tell player they can move to this tile
-			if(gameObject.tag == "Available" && PlayerInteractive == 0 && NextToPlayersTile == true && _gameCon.AP >=0 ){
-				gameObject.renderer.material.color = Color.green;
-				print("mouse over available empty tile");
-			}
+					Floor.BroadcastMessage("unselectTile");
+					MouseOverTile = true;
+					if(gameObject.tag == "Available" && PlayerInteractive == 0 && NextToPlayersTile == false){
+						gameObject.renderer.material.color = Color.white;
+						print("mouse over available empty tile");
+					}
+					else{
+						unselectTile();
+					}
 
-			//tell player this tile is interactive
-			if(gameObject.tag == "Available" && PlayerInteractive == 1 && NextToPlayersTile == true && _gameCon.AP >=1 ){
-				gameObject.renderer.material.color = Color.blue;
-				print("mouse over interactive tile");
-			}
+					//tell player they can move to this tile
+					if(gameObject.tag == "Available" && PlayerInteractive == 0 && NextToPlayersTile == true && _gameCon.AP >=0 ){
+						gameObject.renderer.material.color = Color.green;
+						print("mouse over available empty tile");
+					}
+					else{
+						unselectTile();
+					}
 
-			//tell player an enemy patrols this route
-			if(gameObject.tag == "Available" && AIPathChannel == 1 || gameObject.tag == "Available" && HerosPath == 1){
-				gameObject.renderer.material.color = Color.red;
-				print ("enemy path tile");
+					//tell player this tile is interactive
+					if(gameObject.tag == "Available" && PlayerInteractive == 1 && NextToPlayersTile == true && _gameCon.AP >=1 ){
+						gameObject.renderer.material.color = Color.blue;
+						print("mouse over interactive tile");
+					}
+					else{
+						unselectTile();
+					}
+
+					//tell player an enemy patrols this route
+					if(gameObject.tag == "Available" && AIPathChannel == 1 || gameObject.tag == "Available" && HerosPath == 1){
+						gameObject.renderer.material.color = Color.red;
+						print ("enemy path tile");
+					}
+					else{
+						unselectTile();
+					}
+				}
 			}
 		}
 	}
 
-	void OnMouseExit(){
-		//will turn the tile back to its default colour using: AvailabilityChecker() in update
+	void unselectTile(){
 		MouseOverTile = false;
 	}
 	
@@ -396,5 +431,24 @@ public class FloorTile_Controler : MonoBehaviour {
 	}
 	void HeroNotHere(){
 		HeroIsOnThisBlock = false;
+	}
+	void ThreatMapped(){
+		IsAThreat = true;
+		ThisTile.renderer.material.color = Color.red;
+	}
+	void DeMapped(){
+		IsAThreat = false;
+	}
+
+	void NextStage(){
+		if(LevelEnd == 1 && HeroIsOnThisBlock == true){
+			Application.LoadLevel (4);
+		}
+		if(LevelEnd == 2 && HeroIsOnThisBlock == true){
+			Application.LoadLevel (5);
+		}
+		if(LevelEnd == 3 && HeroIsOnThisBlock == true){
+			Application.LoadLevel (6);
+		}
 	}
 }

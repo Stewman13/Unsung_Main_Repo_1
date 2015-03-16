@@ -110,7 +110,6 @@ public class FloorTile_Controler : MonoBehaviour {
 		}
 
 		if (LaserPlayAlarm == true){
-			print ("IS IT REACHING HERE");
 			BroadcastMessage("SetOffAlarm",SendMessageOptions.DontRequireReceiver);
 			LaserPlayAlarm = false;
 		}
