@@ -54,7 +54,14 @@ public class HeroController : MonoBehaviour {
 			TileBack = TileUnderHero.GetComponent<FloorTile_Controler>().TileBack;
 			TileLeft = TileUnderHero.GetComponent<FloorTile_Controler>().TileLeft;
 			TileRight = TileUnderHero.GetComponent<FloorTile_Controler>().TileRight;
-	
+
+			//TEMPFIX FOR HERO BUG!!!!!!!!!!!!!
+			if(herosTurn == true){
+				StartCoroutine(EndTurn(3.0F));
+			}
+			//tempfix end.
+
+
 			if(TileUnderHero.GetComponent<FloorTile_Controler>().HeroIsOnThisBlock == true && herosTurn == true && herosMoves >= 1 && isLerping == false && waiting == false){
 
 				TileUnderHero.GetComponent<FloorTile_Controler>().HerosPath = 0;
@@ -158,6 +165,13 @@ public class HeroController : MonoBehaviour {
 		waiting = false;
 	}
 
+	IEnumerator EndTurn(float waitTime){
+		yield return new WaitForSeconds(waitTime);
+		if(herosTurn == true){
+			herosMoves = 0;
+		}
+	}
+
 	//tells us that it's the heros turn
 	void isItMyTurn(){
 		herosTurn = Controller.GetComponent<Game_Controler>().isAiTurn;
@@ -167,6 +181,7 @@ public class HeroController : MonoBehaviour {
 		}
 			if(herosMoves <= 0 && herosTurn == true){
 				herosMoves = 0;
+				herosTurn = false;
 				Controller.GetComponent<Game_Controler>().DiceIcon = false;
 				Controller.SendMessage ("ActivatePlayerTurn");
 				print ("Hero: Ended turn successfully");
