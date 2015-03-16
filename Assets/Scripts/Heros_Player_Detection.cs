@@ -4,6 +4,7 @@ using System.Collections;
 public class Heros_Player_Detection : MonoBehaviour {
 
 	public GameObject Hero;
+	public GameObject PlayerCharacter;
 
 	//public LineRenderer LineCastLeft;
 	//public LineRenderer LineCastRight;
@@ -29,11 +30,13 @@ public class Heros_Player_Detection : MonoBehaviour {
 
 	private Game_Controler _gameCon;
 	private FloorTile_Controler _tileCon;
+	private Player_Controller _PlayerControler;
 
 	// Use this for initialization
 	void Start () {
 		AlertPlaying = false;
 		_gameCon = GameObject.Find("Main Camera").GetComponent<Game_Controler>();
+		_PlayerControler = PlayerCharacter.GetComponent<Player_Controller>();
 	}
 	
 	// Update is called once per frame
@@ -181,6 +184,8 @@ public class Heros_Player_Detection : MonoBehaviour {
 
 	public IEnumerator PlayerDetected(){
 		AlertPlaying = true;
+		//send SpottedByEnemyFirst = true;
+		_PlayerControler.GetComponent<Player_Controller>().SpottedByEnemyFirst = true;
 		float WaitForNotification = 2.0f;
 		AudioSource.PlayClipAtPoint(AlertSound,Camera.main.transform.position, 0.3f);
 		Instantiate (AlertIcon, gameObject.transform.position, AlertIcon.transform.rotation);

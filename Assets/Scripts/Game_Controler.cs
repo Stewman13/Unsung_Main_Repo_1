@@ -387,27 +387,29 @@ public class Game_Controler : MonoBehaviour {
 		}
 
 		//END TURN BUTTON
-		if ( P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false && isPlayerOutOfCamera == false)
-		{
-			if (GUI.Button(new Rect(400, Screen.height - 35, buttonWidth, buttonHeight), "End Turn") && isPlayersTurn == true && isAiTurn == false)
+		if (isPlayerOutOfCamera == false){
+			if ( P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false )
 			{
-				Hero.GetComponent<HeroController>().herosMoves = Random.Range(1,3);
-				currentTurn = PossibleTurns.AiTurn;
-				Floor.BroadcastMessage("unselectTile");
-				print ("Player: Turn ended successfully");
+				if (GUI.Button(new Rect(400, Screen.height - 35, buttonWidth, buttonHeight), "End Turn") && isPlayersTurn == true && isAiTurn == false)
+				{
+					Hero.GetComponent<HeroController>().herosMoves = Random.Range(1,3);
+					currentTurn = PossibleTurns.AiTurn;
+					Floor.BroadcastMessage("unselectTile");
+					print ("Player: Turn ended successfully");
+				}
 			}
-		}
-		else if ( P_InteractCamera == true && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false||
-		         P_InteractCamera == false && P_InteractLaser == true && P_InteractLight == false && P_InteractPickup == false ||
-		         P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == true && P_InteractPickup == false||
-		         P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == true) 
-		{
-			if (GUI.Button(new Rect(510, Screen.height - 35, buttonWidth, buttonHeight), "End Turn") && isPlayersTurn == true && isAiTurn == false) 
+			else if ( P_InteractCamera == true && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false||
+			         P_InteractCamera == false && P_InteractLaser == true && P_InteractLight == false && P_InteractPickup == false ||
+			         P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == true && P_InteractPickup == false||
+			         P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == true) 
 			{
-				Hero.GetComponent<HeroController>().herosMoves = Random.Range(1,3);
-				currentTurn = PossibleTurns.AiTurn;
-				Floor.BroadcastMessage("unselectTile");
-				print ("Ended turn on an interactive tile");
+				if (GUI.Button(new Rect(510, Screen.height - 35, buttonWidth, buttonHeight), "End Turn") && isPlayersTurn == true && isAiTurn == false) 
+				{
+					Hero.GetComponent<HeroController>().herosMoves = Random.Range(1,3);
+					currentTurn = PossibleTurns.AiTurn;
+					Floor.BroadcastMessage("unselectTile");
+					print ("Ended turn on an interactive tile");
+				}
 			}
 		}
 

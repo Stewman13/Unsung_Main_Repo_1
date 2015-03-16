@@ -16,9 +16,13 @@ public class Player_Controller : MonoBehaviour {
 //	public GameObject TileRight;
 
 	private bool SelfPlayerTurnCheck;
+	private bool PlayerOutOfCameraCheck = false;
+	public bool SpottedByEnemyFirst = false;
 
 	// Use this for initialization
 	void Start () {
+		PlayerOutOfCameraCheck = false;
+		SpottedByEnemyFirst = false;
 		StartCoroutine (PlayerLocationAlert()); //will show the player where the character is located at start of each scene
 	}
 	
@@ -30,7 +34,10 @@ public class Player_Controller : MonoBehaviour {
 
 	//player character is outside camera, begin game over.
 	void OnBecameInvisible(){
-		Controller.GetComponent<Game_Controler>().isPlayerOutOfCamera = true;
+		PlayerOutOfCameraCheck = false;
+		if (!SpottedByEnemyFirst)
+			Controller.GetComponent<Game_Controler>().isPlayerOutOfCamera = true;
+
 		print ("Player should be dead");
 	}
 
@@ -45,59 +52,60 @@ public class Player_Controller : MonoBehaviour {
 			
 			TileUnderPlayer = HitDown.transform.gameObject;
 
-			
-			if(TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerIsOnThisBlock == true && Controller.GetComponent<Game_Controler>().isAiTurn == false){
-				if(TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive == 0){
-					Controller.GetComponent<Game_Controler>().P_InteractPickup = false;
-					Controller.GetComponent<Game_Controler>().P_InteractCamera = false;
-					Controller.GetComponent<Game_Controler>().P_InteractLaser = false;
-					Controller.GetComponent<Game_Controler>().P_InteractLight = false;
-					Controller.GetComponent<Game_Controler>().DiceIcon = false;
-					//Debug.Log ("Normal Tile");
-				}
+			if(PlayerOutOfCameraCheck == false){
+				if(TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerIsOnThisBlock == true && Controller.GetComponent<Game_Controler>().isAiTurn == false){
+					if(TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive == 0){
+						Controller.GetComponent<Game_Controler>().P_InteractPickup = false;
+						Controller.GetComponent<Game_Controler>().P_InteractCamera = false;
+						Controller.GetComponent<Game_Controler>().P_InteractLaser = false;
+						Controller.GetComponent<Game_Controler>().P_InteractLight = false;
+						Controller.GetComponent<Game_Controler>().DiceIcon = false;
+						//Debug.Log ("Normal Tile");
+					}
 
-				if(TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractCamera == 1){
-					Controller.GetComponent<Game_Controler>().DiceIcon = true;
-					Controller.GetComponent<Game_Controler>().P_InteractCamera = true;
+					if(TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractCamera == 1){
+						Controller.GetComponent<Game_Controler>().DiceIcon = true;
+						Controller.GetComponent<Game_Controler>().P_InteractCamera = true;
 
-					Controller.GetComponent<Game_Controler>().P_InteractPickup = false;
-					Controller.GetComponent<Game_Controler>().P_InteractLaser = false;
-					Controller.GetComponent<Game_Controler>().P_InteractLight = false;
-					Debug.Log ("Player Can Interact: Camera");
-				}
+						Controller.GetComponent<Game_Controler>().P_InteractPickup = false;
+						Controller.GetComponent<Game_Controler>().P_InteractLaser = false;
+						Controller.GetComponent<Game_Controler>().P_InteractLight = false;
+						Debug.Log ("Player Can Interact: Camera");
+					}
 
-				if(TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLaser == 1){
-					Controller.GetComponent<Game_Controler>().DiceIcon = true;
-					Controller.GetComponent<Game_Controler>().P_InteractLaser = true;
+					if(TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLaser == 1){
+						Controller.GetComponent<Game_Controler>().DiceIcon = true;
+						Controller.GetComponent<Game_Controler>().P_InteractLaser = true;
 
-					Controller.GetComponent<Game_Controler>().P_InteractPickup = false;
-					Controller.GetComponent<Game_Controler>().P_InteractCamera = false;
-					Controller.GetComponent<Game_Controler>().P_InteractLight = false;
-					Debug.Log ("Player Can Interact: Laser");
-				}
+						Controller.GetComponent<Game_Controler>().P_InteractPickup = false;
+						Controller.GetComponent<Game_Controler>().P_InteractCamera = false;
+						Controller.GetComponent<Game_Controler>().P_InteractLight = false;
+						Debug.Log ("Player Can Interact: Laser");
+					}
 
-				if(TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLight == 1){
-					Controller.GetComponent<Game_Controler>().DiceIcon = true;
-					Controller.GetComponent<Game_Controler>().P_InteractLight = true;
+					if(TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLight == 1){
+						Controller.GetComponent<Game_Controler>().DiceIcon = true;
+						Controller.GetComponent<Game_Controler>().P_InteractLight = true;
 
-					Controller.GetComponent<Game_Controler>().P_InteractPickup = false;
-					Controller.GetComponent<Game_Controler>().P_InteractCamera = false;
-					Controller.GetComponent<Game_Controler>().P_InteractLaser = false;
-					Debug.Log ("Player Can Interact: Light");
-				}
+						Controller.GetComponent<Game_Controler>().P_InteractPickup = false;
+						Controller.GetComponent<Game_Controler>().P_InteractCamera = false;
+						Controller.GetComponent<Game_Controler>().P_InteractLaser = false;
+						Debug.Log ("Player Can Interact: Light");
+					}
 
-				if(TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractPickup == 1){
-					Controller.GetComponent<Game_Controler>().DiceIcon = true;
-					Controller.GetComponent<Game_Controler>().P_InteractPickup = true;
+					if(TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractPickup == 1){
+						Controller.GetComponent<Game_Controler>().DiceIcon = true;
+						Controller.GetComponent<Game_Controler>().P_InteractPickup = true;
 
-					Controller.GetComponent<Game_Controler>().P_InteractCamera = false;
-					Controller.GetComponent<Game_Controler>().P_InteractLaser = false;
-					Controller.GetComponent<Game_Controler>().P_InteractLight = false;
-					Debug.Log ("Player Can Interact: Pickup Item");
-				}
-			
-				//Debug.Log("Checking end of TileUnderPlayer");
-				}
+						Controller.GetComponent<Game_Controler>().P_InteractCamera = false;
+						Controller.GetComponent<Game_Controler>().P_InteractLaser = false;
+						Controller.GetComponent<Game_Controler>().P_InteractLight = false;
+						Debug.Log ("Player Can Interact: Pickup Item");
+					}
+				
+					//Debug.Log("Checking end of TileUnderPlayer");
+					}
+			}
 			}
 		}
 
