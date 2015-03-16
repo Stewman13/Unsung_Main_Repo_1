@@ -7,6 +7,7 @@ public class MenuOptions : MonoBehaviour {
 	public bool isInstruct = false;
     public bool isMenu = false;
 	public bool isPlay = false;
+	public bool isRetry = false;
     // public AudioClip buttonEnter;
     //public AudioClip confirmSound;
 
@@ -35,6 +36,11 @@ public class MenuOptions : MonoBehaviour {
             //audio.PlayOneShot(confirmSound, 0.5f);
             Application.Quit();
         }
+		if (isRetry)
+		{
+			//audio.PlayOneShot(confirmSound, 0.5f);
+			Application.LoadLevel (1);
+		}
 		if (isInstruct)
 		{
 			//audio.PlayOneShot(confirmSound, 0.5f);
