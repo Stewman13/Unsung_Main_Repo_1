@@ -59,7 +59,10 @@ public class ThreatMapper : MonoBehaviour {
 			while (a < hitsForward.Length) {
 				RaycastHit hitForward = hitsForward[a];
 				Renderer rendForward = hitForward.transform.GetComponent<Renderer>();
-				if (rendForward) {
+				if (rendForward && hitForward.collider.tag == "UnAvailable") {
+					break;
+				}
+				if (rendForward && hitForward.collider.tag == "Available") {
 					hitForward.collider.SendMessage ("ThreatMapped");
 				}
 				a++;
@@ -67,7 +70,10 @@ public class ThreatMapper : MonoBehaviour {
 			while (b < hitsBack.Length) {
 				RaycastHit hitBack = hitsBack[b];
 				Renderer rendBack = hitBack.transform.GetComponent<Renderer>();
-				if (rendBack) {
+				if (rendBack && hitBack.collider.tag == "UnAvailable") {
+					break;
+				}
+				if (rendBack && hitBack.collider.tag == "Available") {
 					hitBack.collider.SendMessage ("ThreatMapped");
 				}
 				b++;
@@ -75,7 +81,10 @@ public class ThreatMapper : MonoBehaviour {
 			while (c < hitsLeft.Length) {
 				RaycastHit hitLeft = hitsLeft[c];
 				Renderer rendLeft = hitLeft.transform.GetComponent<Renderer>();
-				if (rendLeft) {
+				if (rendLeft && hitLeft.collider.tag == "UnAvailable") {
+					break;
+				}
+				if (rendLeft && hitLeft.collider.tag == "Available") {
 					hitLeft.collider.SendMessage ("ThreatMapped");
 				}
 				c++;
@@ -83,7 +92,10 @@ public class ThreatMapper : MonoBehaviour {
 			while (d < hitsRight.Length) {
 				RaycastHit hitRight = hitsRight[d];
 				Renderer rendRight = hitRight.transform.GetComponent<Renderer>();
-				if (rendRight) {
+				if (rendRight && hitRight.collider.tag == "UnAvailable") {
+					break;
+				}
+				if (rendRight && hitRight.collider.tag == "Available") {
 					hitRight.collider.SendMessage ("ThreatMapped");
 				}
 				d++;
@@ -109,7 +121,10 @@ public class ThreatMapper : MonoBehaviour {
 			while (a < hitsForward.Length) {
 				RaycastHit hitForward = hitsForward[a];
 				Renderer rendForward = hitForward.transform.GetComponent<Renderer>();
-				if (rendForward) {
+				if (rendForward && hitForward.collider.tag == "UnAvailable") {
+					break;
+				}
+				if (rendForward && hitForward.collider.tag == "Available") {
 					hitForward.collider.SendMessage ("ThreatMapped");
 				}
 				a++;
@@ -117,7 +132,10 @@ public class ThreatMapper : MonoBehaviour {
 			while (b < hitsBack.Length) {
 				RaycastHit hitBack = hitsBack[b];
 				Renderer rendBack = hitBack.transform.GetComponent<Renderer>();
-				if (rendBack) {
+				if (rendBack && hitBack.collider.tag == "UnAvailable") {
+					break;
+				}
+				if (rendBack && hitBack.collider.tag == "Available") {
 					hitBack.collider.SendMessage ("ThreatMapped");
 				}
 				b++;
@@ -125,7 +143,10 @@ public class ThreatMapper : MonoBehaviour {
 			while (c < hitsLeft.Length) {
 				RaycastHit hitLeft = hitsLeft[c];
 				Renderer rendLeft = hitLeft.transform.GetComponent<Renderer>();
-				if (rendLeft) {
+				if (rendLeft && hitLeft.collider.tag == "UnAvailable") {
+					break;
+				}
+				if (rendLeft && hitLeft.collider.tag == "Available") {
 					hitLeft.collider.SendMessage ("ThreatMapped");
 				}
 				c++;
@@ -133,7 +154,10 @@ public class ThreatMapper : MonoBehaviour {
 			while (d < hitsRight.Length) {
 				RaycastHit hitRight = hitsRight[d];
 				Renderer rendRight = hitRight.transform.GetComponent<Renderer>();
-				if (rendRight) {
+				if (rendRight && hitRight.collider.tag == "UnAvailable") {
+					break;
+				}
+				if (rendRight && hitRight.collider.tag == "Available") {
 					hitRight.collider.SendMessage ("ThreatMapped");
 				}
 				d++;
@@ -160,7 +184,10 @@ public class ThreatMapper : MonoBehaviour {
 			while (a < hitsForward.Length) {
 				RaycastHit hitForward = hitsForward[a];
 				Renderer rendForward = hitForward.transform.GetComponent<Renderer>();
-				if (rendForward) {
+				if (rendForward && hitForward.collider.tag == "UnAvailable") {
+					break;
+				}
+				if (rendForward && hitForward.collider.tag == "Available") {
 					hitForward.collider.SendMessage ("ThreatMapped");
 				}
 				a++;
@@ -168,7 +195,10 @@ public class ThreatMapper : MonoBehaviour {
 			while (b < hitsBack.Length) {
 				RaycastHit hitBack = hitsBack[b];
 				Renderer rendBack = hitBack.transform.GetComponent<Renderer>();
-				if (rendBack) {
+				if (rendBack && hitBack.collider.tag == "UnAvailable") {
+					break;
+				}
+				if (rendBack && hitBack.collider.tag == "Available") {
 					hitBack.collider.SendMessage ("ThreatMapped");
 				}
 				b++;
@@ -176,7 +206,10 @@ public class ThreatMapper : MonoBehaviour {
 			while (c < hitsLeft.Length) {
 				RaycastHit hitLeft = hitsLeft[c];
 				Renderer rendLeft = hitLeft.transform.GetComponent<Renderer>();
-				if (rendLeft) {
+				if (rendLeft && hitLeft.collider.tag == "UnAvailable") {
+					break;
+				}
+				if (rendLeft && hitLeft.collider.tag == "Available") {
 					hitLeft.collider.SendMessage ("ThreatMapped");
 				}
 				c++;
@@ -184,7 +217,10 @@ public class ThreatMapper : MonoBehaviour {
 			while (d < hitsRight.Length) {
 				RaycastHit hitRight = hitsRight[d];
 				Renderer rendRight = hitRight.transform.GetComponent<Renderer>();
-				if (rendRight) {
+				if (rendRight && hitRight.collider.tag == "UnAvailable") {
+					break;
+				}
+				if (rendRight && hitRight.collider.tag == "Available") {
 					hitRight.collider.SendMessage ("ThreatMapped");
 				}
 				d++;
