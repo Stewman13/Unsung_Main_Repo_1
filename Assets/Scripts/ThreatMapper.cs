@@ -39,11 +39,6 @@ public class ThreatMapper : MonoBehaviour {
 		RaycastHit[] hitsRight;
 
 		int layerMask = 1 << 8;
-		
-		Ray TileCheckForward = new Ray(transform.position, Vector3.forward);
-		Ray TileCheckBack = new Ray(transform.position, Vector3.back);
-		Ray TileCheckLeft = new Ray(transform.position, Vector3.left);
-		Ray TileCheckRight = new Ray(transform.position, Vector3.right);
 
 		if(_gameCon.playerSneaking == true){
 			

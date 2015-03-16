@@ -21,7 +21,7 @@ public class TransperantWalls : MonoBehaviour {
 	void Testing(){
 		
 		//change LineRenderer's Material, to make visible line
-		line.SetWidth (0.5f, 0.5f);
+		line.SetWidth (0.3f, 0.3f);
 		line.SetPosition(0, transform.position);
 		line.SetPosition(1, playerPos);
 		line.enabled = true;
@@ -32,7 +32,7 @@ public class TransperantWalls : MonoBehaviour {
 		
 		// resize collider to fit line renderer
 		col.center = Vector3.right * direction.magnitude /2;
-		col.size = new Vector3(direction.magnitude, 0.5f,0.5f);
+		col.size = new Vector3(direction.magnitude, 0.3f,0.3f);
 		col.isTrigger = true;
 		
 	}

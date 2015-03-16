@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\AI_Player_Detection.cs" />
      <Compile Include="Assets\Scripts\BGM.cs" />
      <Compile Include="Assets\Scripts\DestroyOnLoad\AlertIcon.cs" />
+     <Compile Include="Assets\Scripts\DestroyOnLoad\PlayerAlertIcon.cs" />
      <Compile Include="Assets\Scripts\EnemyPathing.cs" />
      <Compile Include="Assets\Scripts\FloorTile_Controler.cs" />
      <Compile Include="Assets\Scripts\GUIManager.cs" />
