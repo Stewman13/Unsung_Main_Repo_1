@@ -53,6 +53,8 @@ public class Game_Controler : MonoBehaviour {
 	public bool InteractLightStart = false;
 	public bool InteractLaserStart = false;
 	public bool PickedUpThisTile = false;
+	//Interactive Audio
+	public AudioClip FailedLight;
 
 
 	public int SneakMovementCost = 3;
@@ -309,8 +311,7 @@ public class Game_Controler : MonoBehaviour {
 								TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive = 0;
 								TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLight = 0;
 								InteractLightStart = false;
-								//negative feedback here
-								//negative result here
+								AudioSource.PlayClipAtPoint (FailedLight, Camera.main.camera.transform.position, 0.5f);
 								print("Player Failed To Deactivated Light");
 							}
 

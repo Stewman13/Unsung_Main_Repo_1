@@ -11,6 +11,11 @@ public class InteractiveDestroy : MonoBehaviour {
 	public bool IsSmokeGrenade;
 	public bool IsWireCutters;
 
+	public AudioClip SuccessLight;
+	public AudioClip SuccessSmoke;
+	public AudioClip FailInteractive;
+	public bool OnePlayAudio;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -47,6 +52,10 @@ public class InteractiveDestroy : MonoBehaviour {
 	}
 
 	public IEnumerator DestroyObject(){
+		if (IsLightSource == true && OnePlayAudio == false){
+			AudioSource.PlayClipAtPoint(SuccessLight, gameObject.transform.position,0.5f);
+		}
+		OnePlayAudio =true;
 		float delayTime = 2.0f;
 		//add audio
 		//add particle effect
@@ -63,5 +72,7 @@ public class InteractiveDestroy : MonoBehaviour {
 		yield return new WaitForSeconds (delayTime);
 
 	}
+
+
 
 }
