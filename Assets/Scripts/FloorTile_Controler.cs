@@ -41,6 +41,10 @@ public class FloorTile_Controler : MonoBehaviour {
 	public int PlayerInteractive = 0;
 	public int LevelEnd = 0;
 
+	public int ScoreWorth = 0;
+	public bool WorthPointsIfOn = false;
+	public bool HerosActionMomentHere = false;
+
 	public RaycastHit HitBack;
 	public RaycastHit HitForward;
 	public RaycastHit HitLeft;
@@ -96,7 +100,7 @@ public class FloorTile_Controler : MonoBehaviour {
 			StanceMoveSpeed();
 			RayFromMouse();
 			NextStage();
-
+			HeroAction();
 			//checks to send message, will destroy light source
 			MessageCheck();
 			DeMapped();
@@ -449,6 +453,30 @@ public class FloorTile_Controler : MonoBehaviour {
 		}
 		if(LevelEnd == 3 && HeroIsOnThisBlock == true){
 			Application.LoadLevel (6);
+		}
+	}
+
+	//This tells the hero he is in action.
+	void HeroAction(){
+
+		if(HeroIsOnThisBlock == true && HerosActionMomentHere == true){
+			_gameCon.HeroAction = true;
+		}
+		if(HeroIsOnThisBlock == true && HerosActionMomentHere == false){
+			_gameCon.HeroAction = false;
+		}
+
+		if(PlayerIsOnThisBlock == true && WorthPointsIfOn == true && ScoreWorth == 1){
+			_gameCon.PlayersCurrentTilePoints = 1;
+		}
+		if(PlayerIsOnThisBlock == true && WorthPointsIfOn == true && ScoreWorth == 2){
+			_gameCon.PlayersCurrentTilePoints = 2;
+		}
+		if(PlayerIsOnThisBlock == true && WorthPointsIfOn == true && ScoreWorth == 3){
+			_gameCon.PlayersCurrentTilePoints = 3;
+		}
+		if(PlayerIsOnThisBlock == true && WorthPointsIfOn == false){
+			_gameCon.PlayersCurrentTilePoints = 0;
 		}
 	}
 }

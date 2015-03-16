@@ -5,6 +5,9 @@ public class Game_Controler : MonoBehaviour {
 
 	public int Score;
 	public string Grade;
+	public bool HeroAction = false;
+	public int PlayersCurrentTilePoints = 0;
+	public bool AddScore = false;
 
 	public GameObject Player;
 	public GameObject Floor;
@@ -469,6 +472,13 @@ public class Game_Controler : MonoBehaviour {
 	}
 
 	void scoring(){
+
+		if(HeroAction == true && AddScore == false){
+			AddScore = true;
+			Score += PlayersCurrentTilePoints;
+			//Send this score to somewhere it can be retaind throughout the game.
+		}
+
 		if(Score == 0){
 			Grade = "E";
 		}
