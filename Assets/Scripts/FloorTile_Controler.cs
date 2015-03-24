@@ -53,11 +53,13 @@ public class FloorTile_Controler : MonoBehaviour {
 
 	//Stuff For Lerping
 	private float timeStartedLerping;
-	private bool isLerping;
-	private float journeyLength;
+	public bool isLerping;
+	public float journeyLength;
 	private Vector3 startPosition;
 	private Vector3 endPosition;
 	private float timeTakenDuringLerp;
+
+	public int DeductAP;
 
 	//Tile can be interacted with player
 	private bool colourDelay = false;
@@ -71,6 +73,8 @@ public class FloorTile_Controler : MonoBehaviour {
 	public bool GrenadesPickedUp = false;
 	public bool LaserDestroyed = false;
 	public bool LaserPlayAlarm = false;
+
+	public bool Set = false;
 
 	void Start(){
 		//set bools to false, so there's no bugs
@@ -122,12 +126,55 @@ public class FloorTile_Controler : MonoBehaviour {
 	}
 
 	void StanceMoveSpeed(){
+		journeyLength = Vector3.Distance(Player.transform.position, Node.transform.position);
+
 		if(_gameCon.playerRunning == true){
-			timeTakenDuringLerp = 0.5f;
+			if(journeyLength >= 0.9 && journeyLength < 1.9 && isLerping == true && Set == false){
+				timeTakenDuringLerp = 0.5f;
+				print ("length 1-2");
+				DeductAP = 1;
+				if(Set == false){
+					_gameCon.AP -= DeductAP;
+				}
+				Set = true;
+			}
+			if(journeyLength >= 1.9 && journeyLength < 2.9 && isLerping == true && Set == false){
+				timeTakenDuringLerp = 1.0f;
+				print ("length 2-3");
+				DeductAP = 2;
+				if(Set == false){
+					_gameCon.AP -= DeductAP;
+				}
+				Set = true;
+			}
+			if(journeyLength >= 2.9 && journeyLength < 3.9 && isLerping == true && Set == false){
+				timeTakenDuringLerp = 1.5f;
+				print ("length 3-4");
+				DeductAP = 3;
+				if(Set == false){
+					_gameCon.AP -= DeductAP;
+				}
+				Set = true;
+			}
+			if(journeyLength >= 3.9 && journeyLength < 5 && isLerping == true && Set == false){
+				timeTakenDuringLerp = 2.0f;
+				print ("length 4-5");
+				DeductAP = 4;
+				if(Set == false){
+					_gameCon.AP -= DeductAP;
+				}
+				Set = true;
+			}
 		}
-		if(_gameCon.playerSneaking == true){
+		if(_gameCon.playerSneaking == true && Set == false && isLerping == true){
 			timeTakenDuringLerp = 1.5f;
+			DeductAP = 3;
+			if(Set == false){
+				_gameCon.AP -= DeductAP;
+			}
+			Set = true;
 		}
+		//Being REMOVED!
 		if(_gameCon.playerWalking == true){
 			timeTakenDuringLerp = 1.0f;
 		}
@@ -319,9 +366,10 @@ public class FloorTile_Controler : MonoBehaviour {
 		if (Input.GetButtonDown("Fire1") && _gameCon.isPlayersTurn == true) {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(ray, out HitMe,Mathf.Infinity,layerMask)){
-				if(HitMe.collider.gameObject == ThisTile && NextToPlayersTile == true && ap >= _gameCon.CurrentMovementCost){
+				if(HitMe.collider.gameObject == ThisTile && CanMoveHere == true && ap >= _gameCon.CurrentMovementCost){
+					Set = false;
 					StartLerping();
-					Controller.SendMessage ("MovePlayer");
+					//Controller.SendMessage ("MovePlayer");
 					StartCoroutine(WaitAndGo(0.01F));
 				}
 			}
@@ -329,7 +377,6 @@ public class FloorTile_Controler : MonoBehaviour {
 	}
 	//This gathers the required information to move, before the fixd update begins.
 	void StartLerping(){
-		journeyLength = Vector3.Distance(Player.transform.position, Node.transform.position);
 		isLerping = true;
 		timeStartedLerping = Time.time;
 

@@ -182,9 +182,9 @@ public class Game_Controler : MonoBehaviour {
 	}
 
 	// Recives message and takes AP when player moves
-	void MovePlayer(){
-		AP -= CurrentMovementCost;
-	}
+	//void MovePlayer(){
+	//	AP -= CurrentMovementCost;
+	//}
 
 	//This sections creates/controls the GUI Display for Stances
 	void OnGUI()
