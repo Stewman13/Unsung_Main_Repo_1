@@ -80,6 +80,7 @@ public class GUIManager : MonoBehaviour {
             GUI.BeginGroup(new Rect(((Screen.width / 2) - (_groupWidth / 2)), (((Screen.height / 2) - (_groupHeight / 2))) - 100, _groupWidth, _groupHeight));
             if (GUI.Button(new Rect(50, 0, _buttonWidth, _buttonHeight), "Main Menu"))
             {
+				Time.timeScale = 1.0f;
                 Application.LoadLevel(0);
             }
             if (GUI.Button(new Rect(50, 70, _buttonWidth, _buttonHeight), "Restart Game"))
