@@ -43,14 +43,14 @@ public class TransperantWalls : MonoBehaviour {
 		if(other.gameObject.tag == "Box")
 		{		
 			Color newColour = other.renderer.material.color;
-			newColour.a = 0.2f;
+			newColour.a = 0.1f;
 			other.renderer.material.color = newColour;
 			other.renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		}
 		if(other.gameObject.tag == "Wall")
 		{			
 			Color newColour = other.renderer.material.color;
-			newColour.a = 0.5f;
+			newColour.a = 0.1f;
 			other.renderer.material.color = newColour;
 			other.renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		}
