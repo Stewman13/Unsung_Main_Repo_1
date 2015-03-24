@@ -287,45 +287,27 @@ public class FloorTile_Controler : MonoBehaviour {
 		if(gameObject.tag == "Available" && NextToPlayersTile == false && MouseOverTile == false && IsAThreat == false && CanMoveHere == false && PlayerInteractive == 0 && HerosPath == 0){
 			gameObject.renderer.material.color = Color.white;
 		}
-		if(gameObject.tag == "Available" && NextToPlayersTile == true && MouseOverTile == false && IsAThreat == false && PlayerInteractive == 0 && HerosPath == 0){
-			if (colourDelay == false){
-			StartCoroutine(NextToPlayerColourDelay());
-			}
-		}
+//		if(gameObject.tag == "Available" && NextToPlayersTile == true && MouseOverTile == false && IsAThreat == false && PlayerInteractive == 0 && HerosPath == 0){
+//			if (colourDelay == false){
+//			//StartCoroutine(NextToPlayerColourDelay());
+//			}
 
-
-		//TESTING TO SEE IF THE TILES ARE SETUP PROPERLY
-//		if (_gameCon.isPlayersTurn == true){
-////			if(gameObject.tag == "Available" && PlayerInteractive == 0){
-////				gameObject.renderer.material.color = Color.blue;
-////			}
-//			
-//			if(gameObject.tag == "Available" && PlayerInteractive == 1){
-//				gameObject.renderer.material.color = Color.green;
-//			}
-//			
-//			if(gameObject.tag == "Available" && AIPathChannel == 1 || gameObject.tag == "Available" && HerosPath == 1){
-//				gameObject.renderer.material.color = Color.red;
-//			}
-//		if(gameObject.tag == "Available" && _gameCon.isPlayersTurn == false){
-//			gameObject.renderer.material.color = Color.white;
-//			}
-//		}
 
 	}
 
-	public IEnumerator NextToPlayerColourDelay(){
-		colourDelay = true;
-		float greenDelay = 1.5f;
-		float whiteDelay = 1.5f;
-		gameObject.renderer.material.color = Color.green;
-		yield return new WaitForSeconds (whiteDelay);
-		gameObject.renderer.material.color = Color.white;
-		yield return new WaitForSeconds(greenDelay);
-		colourDelay = false;
+	//This is for the green colour delay placeholder
+//	public IEnumerator NextToPlayerColourDelay(){
+//		colourDelay = true;
+//		float greenDelay = 1.5f;
+//		float whiteDelay = 1.5f;
+//		gameObject.renderer.material.color = Color.green;
+//		yield return new WaitForSeconds (whiteDelay);
+//		gameObject.renderer.material.color = Color.white;
+//		yield return new WaitForSeconds(greenDelay);
+//		colourDelay = false;
 
 
-	}
+
 
 	//Uses Raycast collison with layer 8 (Tiles) then moves player to clicked tile.
 	//Note, this also only allows movement to an adjacent tile.
@@ -417,7 +399,7 @@ public class FloorTile_Controler : MonoBehaviour {
 					}
 
 					//tell player an enemy patrols this route
-					if(gameObject.tag == "Available" && AIPathChannel == 1 || gameObject.tag == "Available" && HerosPath == 1){
+					if(gameObject.tag == "Available" && AIPathChannel == 1 ||gameObject.tag == "Available" && HerosPath == 1){
 						gameObject.renderer.material.color = Color.red;
 						print ("enemy path tile");
 					}
@@ -468,7 +450,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	}
 	void DeMapped(){
 		IsAThreat = false;
-		//CanMoveHere = false;
+		CanMoveHere = false;
 	}
 
 	void NextStage(){

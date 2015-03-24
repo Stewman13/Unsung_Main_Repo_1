@@ -52,7 +52,7 @@ public class MovementMapper : MonoBehaviour {
 			WalkSpotDistance = _gameCon.WalkMovementCost;
 		}
 		if(_gameCon.AP <= _gameCon.WalkMovementCost){
-			WalkSpotDistance = _gameCon.AP;
+			WalkSpotDistance = 1;
 		}
 	}
 	
@@ -83,13 +83,13 @@ public class MovementMapper : MonoBehaviour {
 			while (a < hitsForward.Length) {
 				RaycastHit hitForward = hitsForward[a];
 				Renderer rendForward = hitForward.transform.GetComponent<Renderer>();
-				if(rendForward && hitForward.collider.tag == "Available" && _gameCon.AP <= 0){
+				if(rendForward && hitForward.collider.tag == "Available" && _gameCon.AP <= 0 && _gameCon.PlayerInteractive == 0){
 					rendForward.material.color = Color.white;
 				}
 				if (rendForward && (hitForward.collider.tag == "UnAvailable" || hitForward.collider.tag == "Wall")) {
 					break;
 				}
-				if (rendForward && hitForward.collider.tag == "Available") {
+				if (rendForward && hitForward.collider.tag == "Available" && _gameCon.AP >= _gameCon.SneakMovementCost) {
 					hitForward.collider.SendMessage ("MovementMapped");
 				}
 				a++;
@@ -97,10 +97,13 @@ public class MovementMapper : MonoBehaviour {
 			while (b < hitsBack.Length) {
 				RaycastHit hitBack = hitsBack[b];
 				Renderer rendBack = hitBack.transform.GetComponent<Renderer>();
+				if(rendBack && hitBack.collider.tag == "Available" && _gameCon.AP <= 0 && _gameCon.PlayerInteractive == 0){
+					rendBack.material.color = Color.white;
+				}
 				if (rendBack && (hitBack.collider.tag == "UnAvailable" || hitBack.collider.tag == "Wall")) {
 					break;
 				}
-				if (rendBack && hitBack.collider.tag == "Available") {
+				if (rendBack && hitBack.collider.tag == "Available" && _gameCon.AP >= _gameCon.SneakMovementCost) {
 					hitBack.collider.SendMessage ("MovementMapped");
 				}
 				b++;
@@ -108,10 +111,13 @@ public class MovementMapper : MonoBehaviour {
 			while (c < hitsLeft.Length) {
 				RaycastHit hitLeft = hitsLeft[c];
 				Renderer rendLeft = hitLeft.transform.GetComponent<Renderer>();
+				if(rendLeft && hitLeft.collider.tag == "Available" && _gameCon.AP <= 0 && _gameCon.PlayerInteractive == 0){
+					rendLeft.material.color = Color.white;
+				}
 				if (rendLeft && (hitLeft.collider.tag == "UnAvailable" || hitLeft.collider.tag == "Wall")) {
 					break;
 				}
-				if (rendLeft && hitLeft.collider.tag == "Available") {
+				if (rendLeft && hitLeft.collider.tag == "Available" && _gameCon.AP >= _gameCon.SneakMovementCost) {
 					hitLeft.collider.SendMessage ("MovementMapped");
 				}
 				c++;
@@ -119,10 +125,13 @@ public class MovementMapper : MonoBehaviour {
 			while (d < hitsRight.Length) {
 				RaycastHit hitRight = hitsRight[d];
 				Renderer rendRight = hitRight.transform.GetComponent<Renderer>();
+				if(rendRight && hitRight.collider.tag == "Available" && _gameCon.AP <= 0 && _gameCon.PlayerInteractive == 0){
+					rendRight.material.color = Color.white;
+				}
 				if (rendRight && (hitRight.collider.tag == "UnAvailable" || hitRight.collider.tag == "Wall")) {
 					break;
 				}
-				if (rendRight && hitRight.collider.tag == "Available") {
+				if (rendRight && hitRight.collider.tag == "Available" && _gameCon.AP >= _gameCon.SneakMovementCost) {
 					hitRight.collider.SendMessage ("MovementMapped");
 				}
 				d++;
@@ -154,7 +163,7 @@ public class MovementMapper : MonoBehaviour {
 				if (rendForward && (hitForward.collider.tag == "UnAvailable" || hitForward.collider.tag == "Wall")) {
 					break;
 				}
-				if (rendForward && hitForward.collider.tag == "Available") {
+				if (rendForward && hitForward.collider.tag == "Available" && _gameCon.AP >= _gameCon.WalkMovementCost) {
 					hitForward.collider.SendMessage ("MovementMapped");
 				}
 				a++;
@@ -214,13 +223,13 @@ public class MovementMapper : MonoBehaviour {
 			while (a < hitsForward.Length) {
 				RaycastHit hitForward = hitsForward[a];
 				Renderer rendForward = hitForward.transform.GetComponent<Renderer>();
-				if(rendForward && hitForward.collider.tag == "Available" && _gameCon.AP <= 0){
+				if(rendForward && hitForward.collider.tag == "Available" && _gameCon.AP <= 0 && _gameCon.PlayerInteractive == 0){
 					rendForward.material.color = Color.white;
 				}
 				if (rendForward && (hitForward.collider.tag == "UnAvailable" || hitForward.collider.tag == "Wall")) {
 					break;
 				}
-				if (rendForward && hitForward.collider.tag == "Available") {
+				if (rendForward && hitForward.collider.tag == "Available" && _gameCon.AP >= _gameCon.RunMovementCost) {
 					hitForward.collider.SendMessage ("MovementMapped");
 				}
 				a++;
@@ -228,10 +237,13 @@ public class MovementMapper : MonoBehaviour {
 			while (b < hitsBack.Length) {
 				RaycastHit hitBack = hitsBack[b];
 				Renderer rendBack = hitBack.transform.GetComponent<Renderer>();
+				if(rendBack && hitBack.collider.tag == "Available" && _gameCon.AP <= 0 && _gameCon.PlayerInteractive == 0){
+					rendBack.material.color = Color.white;
+				}
 				if (rendBack && (hitBack.collider.tag == "UnAvailable" || hitBack.collider.tag == "Wall")) {
 					break;
 				}
-				if (rendBack && hitBack.collider.tag == "Available") {
+				if (rendBack && hitBack.collider.tag == "Available" && _gameCon.AP >= _gameCon.RunMovementCost) {
 					hitBack.collider.SendMessage ("MovementMapped");
 				}
 				b++;
@@ -239,10 +251,13 @@ public class MovementMapper : MonoBehaviour {
 			while (c < hitsLeft.Length) {
 				RaycastHit hitLeft = hitsLeft[c];
 				Renderer rendLeft = hitLeft.transform.GetComponent<Renderer>();
+				if(rendLeft && hitLeft.collider.tag == "Available" && _gameCon.AP <= 0 && _gameCon.PlayerInteractive == 0){
+					rendLeft.material.color = Color.white;
+				}
 				if (rendLeft && (hitLeft.collider.tag == "UnAvailable" || hitLeft.collider.tag == "Wall")) {
 					break;
 				}
-				if (rendLeft && hitLeft.collider.tag == "Available") {
+				if (rendLeft && hitLeft.collider.tag == "Available" && _gameCon.AP >= _gameCon.RunMovementCost) {
 					hitLeft.collider.SendMessage ("MovementMapped");
 				}
 				c++;
@@ -250,10 +265,13 @@ public class MovementMapper : MonoBehaviour {
 			while (d < hitsRight.Length) {
 				RaycastHit hitRight = hitsRight[d];
 				Renderer rendRight = hitRight.transform.GetComponent<Renderer>();
+				if(rendRight && hitRight.collider.tag == "Available" && _gameCon.AP <= 0 && _gameCon.PlayerInteractive == 0){
+					rendRight.material.color = Color.white;
+				}
 				if (rendRight && (hitRight.collider.tag == "UnAvailable" || hitRight.collider.tag == "Wall")) {
 					break;
 				}
-				if (rendRight && hitRight.collider.tag == "Available") {
+				if (rendRight && hitRight.collider.tag == "Available" && _gameCon.AP >= _gameCon.RunMovementCost) {
 					hitRight.collider.SendMessage ("MovementMapped");
 				}
 				d++;
