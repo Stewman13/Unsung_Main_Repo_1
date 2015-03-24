@@ -39,6 +39,7 @@ public class ThreatMapper : MonoBehaviour {
 		RaycastHit[] hitsRight;
 
 		int layerMask = 1 << 8;
+		int layerMaskWall = 1 << 9;
 
 		if(_gameCon.playerSneaking == true){
 			
@@ -47,10 +48,10 @@ public class ThreatMapper : MonoBehaviour {
 			Debug.DrawRay(transform.position, Vector3.forward * SneakSpotDistance);
 			Debug.DrawRay(transform.position, Vector3.back * SneakSpotDistance);
 
-			hitsForward = Physics.RaycastAll(transform.position, Vector3.forward, SneakSpotDistance, layerMask);
-			hitsBack = Physics.RaycastAll(transform.position, Vector3.back, SneakSpotDistance, layerMask);
-			hitsLeft = Physics.RaycastAll(transform.position, Vector3.left, SneakSpotDistance, layerMask);
-			hitsRight = Physics.RaycastAll(transform.position, Vector3.right, SneakSpotDistance, layerMask);
+			hitsForward = Physics.RaycastAll(transform.position, Vector3.forward, SneakSpotDistance);
+			hitsBack = Physics.RaycastAll(transform.position, Vector3.back, SneakSpotDistance);
+			hitsLeft = Physics.RaycastAll(transform.position, Vector3.left, SneakSpotDistance);
+			hitsRight = Physics.RaycastAll(transform.position, Vector3.right, SneakSpotDistance);
 		
 			int a = 0;
 			int b = 0;
@@ -109,10 +110,10 @@ public class ThreatMapper : MonoBehaviour {
 			Debug.DrawRay(transform.position, Vector3.forward * WalkSpotDistance);
 			Debug.DrawRay(transform.position, Vector3.back * WalkSpotDistance);
 
-			hitsForward = Physics.RaycastAll(transform.position, Vector3.forward, WalkSpotDistance, layerMask);
-			hitsBack = Physics.RaycastAll(transform.position, Vector3.back, WalkSpotDistance, layerMask);
-			hitsLeft = Physics.RaycastAll(transform.position, Vector3.left, WalkSpotDistance, layerMask);
-			hitsRight = Physics.RaycastAll(transform.position, Vector3.right, WalkSpotDistance, layerMask);
+			hitsForward = Physics.RaycastAll(transform.position, Vector3.forward, WalkSpotDistance);
+			hitsBack = Physics.RaycastAll(transform.position, Vector3.back, WalkSpotDistance);
+			hitsLeft = Physics.RaycastAll(transform.position, Vector3.left, WalkSpotDistance);
+			hitsRight = Physics.RaycastAll(transform.position, Vector3.right, WalkSpotDistance);
 
 			int a = 0;
 			int b = 0;
@@ -172,10 +173,10 @@ public class ThreatMapper : MonoBehaviour {
 			Debug.DrawRay(transform.position, Vector3.back * RunSpotDistance);
 
 
-			hitsForward = Physics.RaycastAll(transform.position, Vector3.forward, RunSpotDistance, layerMask);
-			hitsBack = Physics.RaycastAll(transform.position, Vector3.back, RunSpotDistance, layerMask);
-			hitsLeft = Physics.RaycastAll(transform.position, Vector3.left, RunSpotDistance, layerMask);
-			hitsRight = Physics.RaycastAll(transform.position, Vector3.right, RunSpotDistance, layerMask);
+			hitsForward = Physics.RaycastAll(transform.position, Vector3.forward, RunSpotDistance);
+			hitsBack = Physics.RaycastAll(transform.position, Vector3.back, RunSpotDistance);
+			hitsLeft = Physics.RaycastAll(transform.position, Vector3.left, RunSpotDistance);
+			hitsRight = Physics.RaycastAll(transform.position, Vector3.right, RunSpotDistance);
 		
 		    int a = 0;
 		    int b = 0;
