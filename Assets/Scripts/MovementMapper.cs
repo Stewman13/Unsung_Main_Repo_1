@@ -4,9 +4,9 @@ using System.Collections;
 public class MovementMapper : MonoBehaviour {
 
 	
-	public int SneakSpotDistance;
-	public int RunSpotDistance;
-	public int WalkSpotDistance;
+	public float SneakSpotDistance;
+	public float RunSpotDistance;
+	public float WalkSpotDistance;
 	
 	public RaycastHit HitBack;
 	public RaycastHit HitForward;
@@ -24,6 +24,9 @@ public class MovementMapper : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		_gameCon = GameObject.Find("Main Camera").GetComponent<Game_Controler>();
+		WalkSpotDistance = 1;
+		RunSpotDistance = 1;
+		SneakSpotDistance = 1;
 	}
 	
 	// Update is called once per frame
@@ -38,21 +41,21 @@ public class MovementMapper : MonoBehaviour {
 			SneakSpotDistance = 1;
 		}
 		if(_gameCon.AP < _gameCon.SneakMovementCost){
-			SneakSpotDistance = 1;
+			SneakSpotDistance = 1.0f;
 		}
 		//movemnet for Run
 		if(_gameCon.AP >= _gameCon.RunMovementCost){
 			RunSpotDistance = _gameCon.AP;
 		}
 		if(_gameCon.AP < _gameCon.RunMovementCost){
-			RunSpotDistance = 1;
+			RunSpotDistance = 1.0f;
 		}
 		//movemnet for Walk
 		if(_gameCon.AP > _gameCon.WalkMovementCost){
 			WalkSpotDistance = _gameCon.WalkMovementCost;
 		}
 		if(_gameCon.AP <= _gameCon.WalkMovementCost){
-			WalkSpotDistance = 1;
+			WalkSpotDistance = 1.0f;
 		}
 	}
 	

@@ -40,7 +40,9 @@ public class AI_Player_Detection : MonoBehaviour {
 	}
 	
 	void PlayerDetector(){
-		
+
+		int layerMask = 1 << 9;
+
 		Ray TileCheckForward = new Ray(transform.position, Vector3.forward);
 		Ray TileCheckBack = new Ray(transform.position, Vector3.back);
 		Ray TileCheckLeft = new Ray(transform.position, Vector3.left);
@@ -71,25 +73,37 @@ public class AI_Player_Detection : MonoBehaviour {
 			//	LineCastBack.SetPosition(1, Vector3.back * SneakSpotDistance);
 			//	LineCastForward.SetPosition(1, Vector3.forward * SneakSpotDistance);
 			
-			if(Physics.Raycast(TileCheckForward, out HitForward, SneakSpotDistance)){ 
+			while(Physics.Raycast(TileCheckForward, out HitForward, SneakSpotDistance,layerMask)){ 
+				if(HitForward.collider.tag == "Box" || HitForward.collider.tag == "Wall"){
+					break;
+				}
 				if(HitForward.collider.tag == "Player"){
 					print("DETECTED!");
 				}
 			}
 			
-			if(Physics.Raycast(TileCheckLeft, out HitLeft, SneakSpotDistance)){ 
+			while(Physics.Raycast(TileCheckLeft, out HitLeft, SneakSpotDistance,layerMask)){ 
+				if(HitLeft.collider.tag == "Box" || HitLeft.collider.tag == "Wall"){
+					break;
+				}
 				if(HitLeft.collider.tag == "Player"){
 					print("DETECTED!");
 				}
 			}
 			
-			if(Physics.Raycast(TileCheckRight, out HitRight, SneakSpotDistance)){ 
+			while(Physics.Raycast(TileCheckRight, out HitRight, SneakSpotDistance,layerMask)){ 
+				if(HitRight.collider.tag == "Box" || HitRight.collider.tag == "Wall"){
+					break;
+				}
 				if(HitRight.collider.tag == "Player"){
 					print("DETECTED!");
 				}
 			}
 			
-			if(Physics.Raycast(TileCheckBack, out HitBack, SneakSpotDistance)){ 
+			while(Physics.Raycast(TileCheckBack, out HitBack, SneakSpotDistance,layerMask)){ 
+				if(HitBack.collider.tag == "Box" || HitBack.collider.tag == "Wall"){
+					break;
+				}
 				if(HitBack.collider.tag == "Player"){
 					print("DETECTED!");
 				}
@@ -107,28 +121,40 @@ public class AI_Player_Detection : MonoBehaviour {
 			//	LineCastBack.SetPosition(1, Vector3.back * WalkSpotDistance);
 			//	LineCastForward.SetPosition(1, Vector3.forward * WalkSpotDistance);
 			
-			if(Physics.Raycast(TileCheckForward, out HitForward, WalkSpotDistance) && AlertPlaying == false){ 
+			while(Physics.Raycast(TileCheckForward, out HitForward, WalkSpotDistance,layerMask) && AlertPlaying == false){ 
+				if(HitForward.collider.tag == "Box" || HitForward.collider.tag == "Wall"){
+					break;
+				}
 				if(HitForward.collider.tag == "Player"){
 					print("DETECTED! P_Walk D_Front");
 					StartCoroutine(PlayerDetected());
 				}
 			}
 			
-			if(Physics.Raycast(TileCheckLeft, out HitLeft, WalkSpotDistance) && AlertPlaying == false){ 
+			while(Physics.Raycast(TileCheckLeft, out HitLeft, WalkSpotDistance,layerMask) && AlertPlaying == false){ 
+				if(HitLeft.collider.tag == "Box" || HitLeft.collider.tag == "Wall"){
+					break;
+				}
 				if(HitLeft.collider.tag == "Player"){
 					print("DETECTED! P_Walk D_Left");
 					StartCoroutine(PlayerDetected());
 				}
 			}
 			
-			if(Physics.Raycast(TileCheckRight, out HitRight, WalkSpotDistance) && AlertPlaying == false){ 
+			while(Physics.Raycast(TileCheckRight, out HitRight, WalkSpotDistance,layerMask) && AlertPlaying == false){ 
+				if(HitRight.collider.tag == "Box" || HitRight.collider.tag == "Wall"){
+					break;
+				}
 				if(HitRight.collider.tag == "Player"){
 					print("DETECTED! P_Walk D_Right");
 					StartCoroutine(PlayerDetected());
 				}
 			}
 			
-			if(Physics.Raycast(TileCheckBack, out HitBack, WalkSpotDistance) && AlertPlaying == false){ 
+			while(Physics.Raycast(TileCheckBack, out HitBack, WalkSpotDistance,layerMask) && AlertPlaying == false){ 
+				if(HitBack.collider.tag == "Box" || HitBack.collider.tag == "Wall"){
+					break;
+				}
 				if(HitBack.collider.tag == "Player"){
 					print("DETECTED! P_Walk D_Back");
 					StartCoroutine(PlayerDetected());
@@ -147,28 +173,40 @@ public class AI_Player_Detection : MonoBehaviour {
 			//	LineCastBack.SetPosition(1, Vector3.back * RunSpotDistance);
 			//	LineCastForward.SetPosition(1, Vector3.forward * RunSpotDistance);
 			
-			if(Physics.Raycast(TileCheckForward, out HitForward, RunSpotDistance) && AlertPlaying == false){ 
+			while(Physics.Raycast(TileCheckForward, out HitForward, RunSpotDistance,layerMask) && AlertPlaying == false){ 
+				if(HitForward.collider.tag == "Box" || HitForward.collider.tag == "Wall"){
+					break;
+				}
 				if(HitForward.collider.tag == "Player"){
 					print("DETECTED! P_Run D_Forward");
 					StartCoroutine(PlayerDetected());
 				}
 			}
 			
-			if(Physics.Raycast(TileCheckLeft, out HitLeft, RunSpotDistance) && AlertPlaying == false){ 
+			while(Physics.Raycast(TileCheckLeft, out HitLeft, RunSpotDistance,layerMask) && AlertPlaying == false){ 
+				if(HitLeft.collider.tag == "Box" || HitLeft.collider.tag == "Wall"){
+					break;
+				}
 				if(HitLeft.collider.tag == "Player"){
 					print("DETECTED! P_Run D_Left");
 					StartCoroutine(PlayerDetected());
 				}
 			}
 			
-			if(Physics.Raycast(TileCheckRight, out HitRight, RunSpotDistance) && AlertPlaying == false){ 
+			while(Physics.Raycast(TileCheckRight, out HitRight, RunSpotDistance,layerMask) && AlertPlaying == false){ 
+				if(HitRight.collider.tag == "Box" || HitRight.collider.tag == "Wall"){
+					break;
+				}
 				if(HitRight.collider.tag == "Player"){
 					print("DETECTED! P_Run D_Right");
 					StartCoroutine(PlayerDetected());
 				}
 			}
 			
-			if(Physics.Raycast(TileCheckBack, out HitBack, RunSpotDistance) && AlertPlaying == false){ 
+			while(Physics.Raycast(TileCheckBack, out HitBack, RunSpotDistance,layerMask) && AlertPlaying == false){ 
+				if(HitBack.collider.tag == "Box" || HitBack.collider.tag == "Wall"){
+					break;
+				}
 				if(HitBack.collider.tag == "Player"){
 					print("DETECTED! P_Run D_Back");
 					StartCoroutine(PlayerDetected());

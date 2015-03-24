@@ -377,6 +377,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	}
 	//This gathers the required information to move, before the fixd update begins.
 	void StartLerping(){
+		_gameCon.isLerping = true;
 		isLerping = true;
 		timeStartedLerping = Time.time;
 
@@ -402,6 +403,7 @@ public class FloorTile_Controler : MonoBehaviour {
 			if(percentageComplete >= 1.0f)
 			{
 				isLerping = false;
+				_gameCon.isLerping = false;
 			}
 		}
 	}

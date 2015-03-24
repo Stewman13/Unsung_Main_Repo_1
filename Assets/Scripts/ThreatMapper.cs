@@ -37,9 +37,7 @@ public class ThreatMapper : MonoBehaviour {
 		RaycastHit[] hitsBack;
 		RaycastHit[] hitsLeft;
 		RaycastHit[] hitsRight;
-
-		int layerMask = 1 << 8;
-		int layerMaskWall = 1 << 9;
+	
 
 		if(_gameCon.playerSneaking == true){
 			

@@ -69,6 +69,8 @@ public class Game_Controler : MonoBehaviour {
     public float buttonWidth;
     public float buttonHeight;
 
+	public bool isLerping = false;
+
 	public string Stance = "Standard"; //others are, "stealth" and "Running"
 
 	public enum PlayerStances 
@@ -191,7 +193,7 @@ public class Game_Controler : MonoBehaviour {
 	{
 		if (isPlayerOutOfCamera == false){
 			//WALK STANCE BUTTON
-			if (GUI.Button(new Rect(160,Screen.height - 35, buttonWidth, buttonHeight), "Walk Stance") && isPlayersTurn == true && isPlayerOutOfCamera == false) 
+			if (GUI.Button(new Rect(160,Screen.height - 35, buttonWidth, buttonHeight), "Walk Stance") && isPlayersTurn == true && isPlayerOutOfCamera == false && isLerping == false) 
 			{
 				if(currentStance == PlayerStances.Sneak && AP >= 1)
 				{
@@ -203,7 +205,7 @@ public class Game_Controler : MonoBehaviour {
 				}
 			}
 			//RUN STANCE BUTTON
-			if (GUI.Button(new Rect(270, Screen.height - 35, buttonWidth, buttonHeight), "Run Stance") && AP >= 1 && isPlayersTurn == true && isPlayerOutOfCamera == false) 
+			if (GUI.Button(new Rect(270, Screen.height - 35, buttonWidth, buttonHeight), "Run Stance") && AP >= 1 && isPlayersTurn == true && isPlayerOutOfCamera == false && isLerping == false) 
 			{
 				if(currentStance == PlayerStances.Sneak)
 				{
@@ -217,7 +219,7 @@ public class Game_Controler : MonoBehaviour {
 				}
 			}
 			//SNEAK STANCE BUTTON
-			if (GUI.Button(new Rect(50, Screen.height - 35, buttonWidth, buttonHeight), "Sneak Stance") && AP >= 1 && isPlayersTurn == true && isPlayerOutOfCamera == false) 
+			if (GUI.Button(new Rect(50, Screen.height - 35, buttonWidth, buttonHeight), "Sneak Stance") && AP >= 1 && isPlayersTurn == true && isPlayerOutOfCamera == false && isLerping == false) 
 			{
 				if(currentStance == PlayerStances.Walk)
 				{
@@ -396,7 +398,7 @@ public class Game_Controler : MonoBehaviour {
 
 			if ( P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false )
 			{
-				if (GUI.Button(new Rect(400, Screen.height - 35, buttonWidth, buttonHeight), "End Turn") && isPlayersTurn == true && isAiTurn == false)
+				if (GUI.Button(new Rect(400, Screen.height - 35, buttonWidth, buttonHeight), "End Turn") && isPlayersTurn == true && isAiTurn == false  && isLerping == false)
 				{
 					Hero.GetComponent<HeroController>().herosMoves = Random.Range(1,3);
 					currentTurn = PossibleTurns.AiTurn;
@@ -409,7 +411,7 @@ public class Game_Controler : MonoBehaviour {
 			         P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == true && P_InteractPickup == false||
 			         P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == true) 
 			{
-				if (GUI.Button(new Rect(510, Screen.height - 35, buttonWidth, buttonHeight), "End Turn") && isPlayersTurn == true && isAiTurn == false) 
+				if (GUI.Button(new Rect(510, Screen.height - 35, buttonWidth, buttonHeight), "End Turn") && isPlayersTurn == true && isAiTurn == false && isLerping == false) 
 				{
 					Hero.GetComponent<HeroController>().herosMoves = Random.Range(1,3);
 					currentTurn = PossibleTurns.AiTurn;
