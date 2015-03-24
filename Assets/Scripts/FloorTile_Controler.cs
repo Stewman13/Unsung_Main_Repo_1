@@ -30,6 +30,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	public bool MouseOverTile = false;
 
 	public bool IsAThreat = false;
+	public bool CanMoveHere = false;
 
 	public bool NextToPlayersTile = false;
 	private int ap;
@@ -283,7 +284,7 @@ public class FloorTile_Controler : MonoBehaviour {
 		if(gameObject.tag == "UnAvailable" ){
 			gameObject.renderer.material.color = Color.grey;
 		}
-		if(gameObject.tag == "Available" && NextToPlayersTile == false && MouseOverTile == false && IsAThreat == false && PlayerInteractive == 0 && HerosPath == 0){
+		if(gameObject.tag == "Available" && NextToPlayersTile == false && MouseOverTile == false && IsAThreat == false && CanMoveHere == false && PlayerInteractive == 0 && HerosPath == 0){
 			gameObject.renderer.material.color = Color.white;
 		}
 		if(gameObject.tag == "Available" && NextToPlayersTile == true && MouseOverTile == false && IsAThreat == false && PlayerInteractive == 0 && HerosPath == 0){
@@ -385,11 +386,11 @@ public class FloorTile_Controler : MonoBehaviour {
 		if (_gameCon.isPlayersTurn == true){
 			Ray Cast = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(Cast, out OverMe,Mathf.Infinity,layerMask)){
-				if(OverMe.collider.gameObject == ThisTile && NextToPlayersTile == true && ap >= _gameCon.CurrentMovementCost){
+				if(OverMe.collider.gameObject == ThisTile && CanMoveHere == true && ap >= _gameCon.CurrentMovementCost){
 
 					Floor.BroadcastMessage("unselectTile");
 					MouseOverTile = true;
-					if(gameObject.tag == "Available" && PlayerInteractive == 0 && NextToPlayersTile == false){
+					if(gameObject.tag == "Available" && PlayerInteractive == 0 && CanMoveHere == false){
 						gameObject.renderer.material.color = Color.white;
 						print("mouse over available empty tile");
 					}
@@ -398,7 +399,7 @@ public class FloorTile_Controler : MonoBehaviour {
 					}
 
 					//tell player they can move to this tile
-					if(gameObject.tag == "Available" && PlayerInteractive == 0 && NextToPlayersTile == true && _gameCon.AP >=0 ){
+					if(gameObject.tag == "Available" && PlayerInteractive == 0 && CanMoveHere == true && _gameCon.AP >=0 ){
 						gameObject.renderer.material.color = Color.green;
 						print("mouse over available empty tile");
 					}
@@ -407,7 +408,7 @@ public class FloorTile_Controler : MonoBehaviour {
 					}
 
 					//tell player this tile is interactive
-					if(gameObject.tag == "Available" && PlayerInteractive == 1 && NextToPlayersTile == true && _gameCon.AP >=1 ){
+					if(gameObject.tag == "Available" && PlayerInteractive == 1 && CanMoveHere == true && _gameCon.AP >=1 ){
 						gameObject.renderer.material.color = Color.blue;
 						print("mouse over interactive tile");
 					}
@@ -459,8 +460,15 @@ public class FloorTile_Controler : MonoBehaviour {
 		IsAThreat = true;
 		ThisTile.renderer.material.color = Color.red;
 	}
+	void MovementMapped(){
+		CanMoveHere = true;
+		if (IsAThreat == false) {
+			ThisTile.renderer.material.color = Color.green;
+		}
+	}
 	void DeMapped(){
 		IsAThreat = false;
+		//CanMoveHere = false;
 	}
 
 	void NextStage(){
