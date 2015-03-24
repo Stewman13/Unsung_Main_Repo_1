@@ -59,6 +59,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	private float timeTakenDuringLerp;
 
 	//Tile can be interacted with player
+	private bool colourDelay = false;
 	public int Tile_InteractLight = 0; 
 	public int Tile_InteractCamera = 0;
 	public int Tile_InteractLaser = 0;
@@ -279,11 +280,16 @@ public class FloorTile_Controler : MonoBehaviour {
 
 	//checks the tag of this tile, then sets colour accordingly
 	void AvailabilityChecker(){
-		if(gameObject.tag == "UnAvailable"){
+		if(gameObject.tag == "UnAvailable" ){
 			gameObject.renderer.material.color = Color.grey;
 		}
-		if(gameObject.tag == "Available" && MouseOverTile == false && IsAThreat == false){
+		if(gameObject.tag == "Available" && NextToPlayersTile == false && MouseOverTile == false && IsAThreat == false && PlayerInteractive == 0 && HerosPath == 0){
 			gameObject.renderer.material.color = Color.white;
+		}
+		if(gameObject.tag == "Available" && NextToPlayersTile == true && MouseOverTile == false && IsAThreat == false && PlayerInteractive == 0 && HerosPath == 0){
+			if (colourDelay == false){
+			StartCoroutine(NextToPlayerColourDelay());
+			}
 		}
 
 
@@ -304,6 +310,19 @@ public class FloorTile_Controler : MonoBehaviour {
 //			gameObject.renderer.material.color = Color.white;
 //			}
 //		}
+
+	}
+
+	public IEnumerator NextToPlayerColourDelay(){
+		colourDelay = true;
+		float greenDelay = 1.5f;
+		float whiteDelay = 1.5f;
+		gameObject.renderer.material.color = Color.green;
+		yield return new WaitForSeconds (whiteDelay);
+		gameObject.renderer.material.color = Color.white;
+		yield return new WaitForSeconds(greenDelay);
+		colourDelay = false;
+
 
 	}
 
