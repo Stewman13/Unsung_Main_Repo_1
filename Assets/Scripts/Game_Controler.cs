@@ -393,23 +393,6 @@ public class Game_Controler : MonoBehaviour {
 
 		//END TURN BUTTON
 		if (isPlayerOutOfCamera == false){
-			if (AP == 0 && isPlayersTurn == true && isAiTurn == false)
-			{
-				Hero.GetComponent<HeroController>().herosMoves = Random.Range(1,3);
-				currentTurn = PossibleTurns.AiTurn;
-				Floor.BroadcastMessage("unselectTile");
-				print ("Player: Turn ended successfully");
-			}
-
-			if (AP == 0 && isPlayersTurn == true && isAiTurn == false) 
-			{
-				Hero.GetComponent<HeroController>().herosMoves = Random.Range(1,3);
-				currentTurn = PossibleTurns.AiTurn;
-				Floor.BroadcastMessage("unselectTile");
-				print ("Ended turn on an interactive tile");
-			}
-
-
 
 			if ( P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false )
 			{
