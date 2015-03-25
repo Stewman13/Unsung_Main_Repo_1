@@ -12,6 +12,7 @@ public class Game_Controler : MonoBehaviour {
 	public GameObject Player;
 	public GameObject Floor;
 	public GameObject Hero;
+	public GameObject Grenade;
 	public Texture APTexture;
 
 	public int AP = 4;

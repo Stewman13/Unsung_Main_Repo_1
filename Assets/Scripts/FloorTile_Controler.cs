@@ -31,6 +31,7 @@ public class FloorTile_Controler : MonoBehaviour {
 
 	public bool IsAThreat = false;
 	public bool CanMoveHere = false;
+	public bool isSmokeable = false;
 
 	public bool NextToPlayersTile = false;
 	private int ap;
@@ -374,6 +375,15 @@ public class FloorTile_Controler : MonoBehaviour {
 				}
 			}
 		}
+		if (Input.GetButtonDown("Fire2") && _gameCon.isPlayersTurn == true && _gameCon.GrenadeCount > 0) {
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast(ray, out HitMe,Mathf.Infinity,layerMask)){
+				if(HitMe.collider.gameObject == ThisTile && isSmokeable == true && ap >= 1){
+					_gameCon.GrenadeCount -= 1;
+					GameObject SmokeGrenade = Instantiate (_gameCon.Grenade, Node.transform.position, Node.transform.rotation) as GameObject;
+				}
+			}
+		}
 	}
 	//This gathers the required information to move, before the fixd update begins.
 	void StartLerping(){
@@ -497,9 +507,13 @@ public class FloorTile_Controler : MonoBehaviour {
 			ThisTile.renderer.material.color = Color.green;
 		}
 	}
+	void Smokable(){
+		isSmokeable = true;
+	}
 	void DeMapped(){
 		IsAThreat = false;
 		CanMoveHere = false;
+		//isSmokeable = false;
 	}
 
 	void NextStage(){
