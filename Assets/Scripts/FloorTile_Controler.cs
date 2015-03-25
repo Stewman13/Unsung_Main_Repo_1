@@ -69,6 +69,9 @@ public class FloorTile_Controler : MonoBehaviour {
 	public int Tile_InteractLaser = 0;
 	public int Tile_InteractPickup = 0;
 
+	public bool LightDetectingThisTile = false;
+	public bool CameraDetectingThisTile = false;
+
 	//Interactive Message constraints
 	public bool SuccessfulLightDestroy = false;
 	public bool GrenadesPickedUp = false;
@@ -108,6 +111,7 @@ public class FloorTile_Controler : MonoBehaviour {
 			RayFromMouse();
 			NextStage();
 			HeroAction();
+			PlayerDetection();
 			//checks to send message, will destroy light source
 			MessageCheck();
 			DeMapped();
@@ -472,6 +476,16 @@ public class FloorTile_Controler : MonoBehaviour {
 
 	void unselectTile(){
 		MouseOverTile = false;
+	}
+
+	//Detects the player if in light or cameras
+	void PlayerDetection(){
+		if (CameraDetectingThisTile == true && PlayerIsOnThisBlock) {
+			Player.SendMessage ("Alert");
+		}
+		if (LightDetectingThisTile == true && PlayerIsOnThisBlock) {
+			Player.SendMessage ("Alert");
+		}
 	}
 	
 	//fixes a bug with selectable tiles
