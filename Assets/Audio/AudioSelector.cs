@@ -24,7 +24,7 @@ public class AudioSelector : MonoBehaviour {
 			SoundSourceMenu.volume = 0.8F;
 			SoundSourceMenu.panLevel = 0;
 			SoundSourceMenu.loop = true;
-			print ("level 1 audio");
+			//print ("level 1 audio");
 			Level001Audio();
 		}
 		
@@ -38,7 +38,7 @@ public class AudioSelector : MonoBehaviour {
 			SoundSourceLevel001.volume = 0.5F;
 			SoundSourceLevel001.panLevel = 0;
 			SoundSourceLevel001.loop = true;
-			print ("level 2 audio");
+			//print ("level 2 audio");
 			Level002Audio();
 			
 		}
@@ -53,7 +53,7 @@ public class AudioSelector : MonoBehaviour {
 			SoundSourceLevel002.volume = 0.7F;
 			SoundSourceLevel002.panLevel = 0;
 			SoundSourceLevel002.loop = true;
-			print ("level 3 audio");
+			//print ("level 3 audio");
 			Level003Audio();
 			
 		}

@@ -63,7 +63,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	public int DeductAP;
 
 	//Tile can be interacted with player
-	private bool colourDelay = false;
+	//private bool colourDelay = false;
 	public int Tile_InteractLight = 0; 
 	public int Tile_InteractCamera = 0;
 	public int Tile_InteractLaser = 0;
@@ -446,7 +446,7 @@ public class FloorTile_Controler : MonoBehaviour {
 					MouseOverTile = true;
 					if(gameObject.tag == "Available" && PlayerInteractive == 0 && CanMoveHere == false){
 						gameObject.renderer.material.color = Color.white;
-						print("mouse over available empty tile");
+//						print("mouse over available empty tile");
 					}
 					else{
 						unselectTile();
@@ -455,7 +455,7 @@ public class FloorTile_Controler : MonoBehaviour {
 					//tell player they can move to this tile
 					if(gameObject.tag == "Available" && PlayerInteractive == 0 && CanMoveHere == true && _gameCon.AP >=0 ){
 						gameObject.renderer.material.color = Color.green;
-						print("mouse over available empty tile");
+//						print("mouse over available empty tile");
 					}
 					else{
 						unselectTile();
@@ -464,7 +464,7 @@ public class FloorTile_Controler : MonoBehaviour {
 					//tell player this tile is interactive
 					if(gameObject.tag == "Available" && PlayerInteractive == 1 && CanMoveHere == true && _gameCon.AP >=1 ){
 						gameObject.renderer.material.color = Color.blue;
-						print("mouse over interactive tile");
+//						print("mouse over interactive tile");
 					}
 					else{
 						unselectTile();
@@ -473,7 +473,7 @@ public class FloorTile_Controler : MonoBehaviour {
 					//tell player an enemy patrols this route
 					if(gameObject.tag == "Available" && AIPathChannel == 1 ||gameObject.tag == "Available" && HerosPath == 1){
 						gameObject.renderer.material.color = Color.red;
-						print ("enemy path tile");
+//						print ("enemy path tile");
 					}
 					else{
 						unselectTile();

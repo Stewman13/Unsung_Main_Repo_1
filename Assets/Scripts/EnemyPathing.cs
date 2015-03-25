@@ -31,6 +31,7 @@ public class EnemyPathing : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		_gameCon = GameObject.Find("Main Camera").GetComponent<Game_Controler>();
 		timeTakenDuringLerp = 1.0f;
 	}
 	
@@ -59,7 +60,7 @@ public class EnemyPathing : MonoBehaviour {
 			TileRight = TileUnderAI.GetComponent<FloorTile_Controler>().TileRight;
 			
 			if(TileUnderAI.GetComponent<FloorTile_Controler>().AiIsOnThisBlock == true && aiTurn == true && AIsMoves >= 1 && isLerping == false){
-				
+		
 				//TileUnderAI.GetComponent<FloorTile_Controler>().AIPathChannel = 0;
 				ChanceToMove = Random.Range(1,3);
 				if(TileForward){
@@ -144,6 +145,7 @@ public class EnemyPathing : MonoBehaviour {
 			if(percentageComplete >= 1.0f)
 			{
 				AIsMoves -= 1;
+				print("AIMoves = " + AIsMoves);
 				isLerping = false;
 			}
 		}
@@ -151,8 +153,13 @@ public class EnemyPathing : MonoBehaviour {
 
 	//tells us that it's the AI's turn
 	void isItMyTurn(){
-		if(aiTurn == false){
+		if(aiTurn == false && _gameCon.HighAlert == false){
 			AIsMoves = 1;
+			print ("A.I Is Patrolling Normally");
+		}
+		else if(aiTurn == false && _gameCon.HighAlert == true){
+			AIsMoves = 2;
+			print ("A.I. Is on High alert");
 		}
 		aiTurn = Controller.GetComponent<Game_Controler>().isAiTurn;
 		if(AIsMoves <= 0){
