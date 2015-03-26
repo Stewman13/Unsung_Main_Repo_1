@@ -12,6 +12,7 @@ public class Game_Controler : MonoBehaviour {
 	public GameObject Player;
 	public GameObject Floor;
 	public GameObject Hero;
+	public GameObject Grenade;
 	public Texture APTexture;
 
 	public int AP = 4;
@@ -53,6 +54,7 @@ public class Game_Controler : MonoBehaviour {
 	public bool InteractLightStart = false;
 	public bool InteractLaserStart = false;
 	public bool PickedUpThisTile = false;
+	public bool HighAlert = false;
 	//Interactive Audio
 	public AudioClip FailedLight;
 

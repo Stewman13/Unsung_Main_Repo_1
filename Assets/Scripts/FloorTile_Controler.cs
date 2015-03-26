@@ -31,6 +31,7 @@ public class FloorTile_Controler : MonoBehaviour {
 
 	public bool IsAThreat = false;
 	public bool CanMoveHere = false;
+	public bool isSmokeable = false;
 
 	public bool NextToPlayersTile = false;
 	private int ap;
@@ -69,6 +70,8 @@ public class FloorTile_Controler : MonoBehaviour {
 	public int Tile_InteractPickup = 0;
 
 	//Interactive Message constraints
+	public bool LightDetectingThisTile = false;
+	public bool CameraDetectingThisTile = false;
 	public bool SuccessfulLightDestroy = false;
 	public bool GrenadesPickedUp = false;
 	public bool LaserDestroyed = false;
@@ -122,6 +125,16 @@ public class FloorTile_Controler : MonoBehaviour {
 		if (LaserPlayAlarm == true){
 			BroadcastMessage("SetOffAlarm",SendMessageOptions.DontRequireReceiver);
 			LaserPlayAlarm = false;
+		}
+		//Detects player if they are in a camera or light
+		if (CameraDetectingThisTile == true && PlayerIsOnThisBlock) {
+			Player.SendMessage ("Alert");
+		}
+		if (LightDetectingThisTile == true && PlayerIsOnThisBlock && _gameCon.isAiTurn == true) {
+			_gameCon.HighAlert = true;
+		}
+		if (LightDetectingThisTile == false && PlayerIsOnThisBlock && _gameCon.isAiTurn == true) {
+			_gameCon.HighAlert = false;
 		}
 	}
 
@@ -374,6 +387,15 @@ public class FloorTile_Controler : MonoBehaviour {
 				}
 			}
 		}
+		if (Input.GetButtonDown("Fire2") && _gameCon.isPlayersTurn == true && _gameCon.GrenadeCount > 0) {
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast(ray, out HitMe,Mathf.Infinity,layerMask)){
+				if(HitMe.collider.gameObject == ThisTile && isSmokeable == true && ap >= 1){
+					_gameCon.GrenadeCount -= 1;
+					GameObject SmokeGrenade = Instantiate (_gameCon.Grenade, Node.transform.position, Node.transform.rotation) as GameObject;
+				}
+			}
+		}
 	}
 	//This gathers the required information to move, before the fixd update begins.
 	void StartLerping(){
@@ -463,7 +485,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	void unselectTile(){
 		MouseOverTile = false;
 	}
-	
+
 	//fixes a bug with selectable tiles
 	IEnumerator WaitAndGo(float waitTime) {
 		yield return new WaitForSeconds(waitTime);
@@ -497,9 +519,19 @@ public class FloorTile_Controler : MonoBehaviour {
 			ThisTile.renderer.material.color = Color.green;
 		}
 	}
+	void Smokable(){
+		isSmokeable = true;
+	}
+	void HeroOnMe(){
+		HeroIsOnThisBlock = true;
+	}
 	void DeMapped(){
 		IsAThreat = false;
 		CanMoveHere = false;
+		//isSmokeable = false;
+	}
+	void LightOff(){
+		LightDetectingThisTile = false;
 	}
 
 	void NextStage(){
