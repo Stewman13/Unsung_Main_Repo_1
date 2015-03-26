@@ -16,7 +16,7 @@ public class HeroController : MonoBehaviour {
 	public GameObject TileRight;
 	public bool herosTurn;
 
-	public int herosMoves = 2;
+	public int herosMoves;
 
 	public bool waiting = false;
 
@@ -32,6 +32,7 @@ public class HeroController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		timeTakenDuringLerp = 1.0f;
+		_gameCon = GameObject.Find("Main Camera").GetComponent<Game_Controler>();
 	}
 	
 	// Update is called once per frame
@@ -56,9 +57,9 @@ public class HeroController : MonoBehaviour {
 			TileRight = TileUnderHero.GetComponent<FloorTile_Controler>().TileRight;
 
 			//TEMPFIX FOR HERO BUG!!!!!!!!!!!!!
-			if(herosTurn == true){
-				StartCoroutine(EndTurn(3.0F));
-			}
+		//	if(herosTurn == true){
+		//		StartCoroutine(EndTurn(3.0F));
+		//	}
 			//tempfix end.
 
 
@@ -154,7 +155,6 @@ public class HeroController : MonoBehaviour {
 				herosMoves -= 1;
 				isLerping = false;
 				print("Hero Lerp Complete");
-				floor.BroadcastMessage ("HeroNotHere");
 				StartCoroutine(Wait(0.5F));
 			}
 		}
@@ -162,29 +162,37 @@ public class HeroController : MonoBehaviour {
 
 	IEnumerator Wait(float waitTime) {
 		yield return new WaitForSeconds(waitTime);
+		floor.BroadcastMessage ("HeroNotHere");
 		waiting = false;
-	}
-
-	IEnumerator EndTurn(float waitTime){
-		yield return new WaitForSeconds(waitTime);
-		if(herosTurn == true){
+		if(herosMoves == 1 && herosTurn == true){
+			TileUnderHero.SendMessage ("HeroOnMe");
+		}
+		if(herosMoves <= 0 && herosTurn == true){
 			herosMoves = 0;
 		}
 	}
+
+//	IEnumerator EndTurn(float waitTime){
+//		yield return new WaitForSeconds(waitTime);
+//		if(herosTurn == true){
+//			herosMoves = 0;
+//		}
+//	}
 
 	//tells us that it's the heros turn
 	void isItMyTurn(){
 		herosTurn = Controller.GetComponent<Game_Controler>().isAiTurn;
 		if(herosTurn == true){
-			Controller.GetComponent<Game_Controler>().DiceIcon = true;
+			_gameCon.DiceIcon = true;
 			print ("HerosTurn " + "Moves remaining " + herosMoves);
 		}
-			if(herosMoves <= 0 && herosTurn == true){
-				herosMoves = 0;
-				herosTurn = false;
-				Controller.GetComponent<Game_Controler>().DiceIcon = false;
-				Controller.SendMessage ("ActivatePlayerTurn");
-				print ("Hero: Ended turn successfully");
+		if(herosMoves <= 0 && herosTurn == true){
+			herosMoves = 0;
+			herosTurn = false;
+			_gameCon.DiceIcon = false;
+			TileUnderHero.SendMessage ("HeroOnMe");
+			Controller.SendMessage ("ActivatePlayerTurn");
+			print ("Hero: Ended turn successfully");
 			}
 		}
 	}
