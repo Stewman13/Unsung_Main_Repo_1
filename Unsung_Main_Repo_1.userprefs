@@ -1,9 +1,14 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ThreatMapper.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Game_Controler.cs">
     <Files>
+      <File FileName="Assets\Scripts\DestroyOnLoad\Smoke_Destroy.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Game_Controler.cs" Line="407" Column="40" />
       <File FileName="Assets\Scripts\ThreatMapper.cs" Line="217" Column="19" />
+      <File FileName="Assets\Scripts\InteractiveDestroy.cs" Line="60" Column="27" />
+      <File FileName="Assets\Scripts\FloorTile_Controler.cs" Line="467" Column="7" />
+      <File FileName="Assets\Audio\BGMLevel1.cs" Line="9" Column="4" />
+      <File FileName="Assets\Audio\AudioSelector.cs" Line="43" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
