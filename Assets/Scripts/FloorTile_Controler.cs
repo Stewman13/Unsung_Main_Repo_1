@@ -71,6 +71,7 @@ public class FloorTile_Controler : MonoBehaviour {
 
 	public bool LightDetectingThisTile = false;
 	public bool CameraDetectingThisTile = false;
+	public bool LaserDetectingthisTile = false;
 
 	//Interactive Message constraints
 	public bool SuccessfulLightDestroy = false;
@@ -133,8 +134,18 @@ public class FloorTile_Controler : MonoBehaviour {
 		}
 		if (LightDetectingThisTile == true && PlayerIsOnThisBlock && _gameCon.isAiTurn == true) {
 			_gameCon.HighAlert = true;
+
 		}
 		if (LightDetectingThisTile == false && PlayerIsOnThisBlock && _gameCon.isAiTurn == true) {
+			_gameCon.HighAlert = false;
+		
+		}
+
+		//setting off the laser will put the enmies in high alert
+		if (LaserDetectingthisTile == true && PlayerIsOnThisBlock && _gameCon.isAiTurn == true && LightDetectingThisTile == false) {
+			_gameCon.HighAlert = true;
+		}
+		if (LaserDetectingthisTile == false && PlayerIsOnThisBlock && _gameCon.isAiTurn == true && LightDetectingThisTile == false) {
 			_gameCon.HighAlert = false;
 		}
 	}
@@ -312,6 +323,7 @@ public class FloorTile_Controler : MonoBehaviour {
 			}
 			if(HitUp.collider.tag == "Hero"){
 				HeroIsOnThisBlock = true;
+				print ("Hero is on this block"); //check if this print is in sinc with the AI high alert print
 				gameObject.tag = "UnAvailable";
 				NextToPlayersTile = false;
 			}

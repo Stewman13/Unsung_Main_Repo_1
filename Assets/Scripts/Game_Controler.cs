@@ -56,7 +56,10 @@ public class Game_Controler : MonoBehaviour {
 	public bool PickedUpThisTile = false;
 	public bool HighAlert = false;
 	//Interactive Audio
-	public AudioClip FailedLight;
+	public AudioClip SuccessPlaceholder01;
+	public AudioClip FailedPlaceholder01;
+	public AudioClip SuccessAlertPlaceholder01;
+	public AudioClip FailedAlertPlaceholder01;
 
 
 	public int SneakMovementCost = 3;
@@ -102,6 +105,8 @@ public class Game_Controler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		print ("high alert = "+HighAlert);
+
 		Stances();
 		Turns ();
 		HeroTurn();
@@ -307,6 +312,7 @@ public class Game_Controler : MonoBehaviour {
 								TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive = 0;
 								TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLight = 0;
 								TileUnderPlayer.GetComponent<FloorTile_Controler>().SuccessfulLightDestroy = true;
+								AudioSource.PlayClipAtPoint (SuccessPlaceholder01, Camera.main.camera.transform.position, 0.5f);
 								InteractLightStart = false;
 								print("Player Deactivated Light");
 							}
@@ -315,7 +321,7 @@ public class Game_Controler : MonoBehaviour {
 								TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive = 0;
 								TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLight = 0;
 								InteractLightStart = false;
-								AudioSource.PlayClipAtPoint (FailedLight, Camera.main.camera.transform.position, 0.5f);
+								AudioSource.PlayClipAtPoint (FailedPlaceholder01, Camera.main.camera.transform.position, 0.5f);
 								print("Player Failed To Deactivated Light");
 							}
 
@@ -341,6 +347,7 @@ public class Game_Controler : MonoBehaviour {
 						TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive = 0;
 						TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLaser = 0;
 						TileUnderPlayer.GetComponent<FloorTile_Controler>().LaserDestroyed = true;
+						AudioSource.PlayClipAtPoint (SuccessPlaceholder01, Camera.main.camera.transform.position, 0.5f);
 						InteractLaserStart = false;
 						print("Player Deactivated Laser");
 					}
@@ -348,6 +355,7 @@ public class Game_Controler : MonoBehaviour {
 						AP --;
 						TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive = 0;
 						TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLaser = 0;
+						AudioSource.PlayClipAtPoint (FailedPlaceholder01, Camera.main.camera.transform.position, 0.5f);
 						InteractLaserStart = false;
 						//negative feedback here
 						//negative result here
@@ -355,7 +363,7 @@ public class Game_Controler : MonoBehaviour {
 					}
 				}
 			}
-			if (GUI.Button(new Rect (Screen.width/40 + 150, Screen.height/100 + 100, buttonWidth + 200, buttonHeight + 10), "50% Chance To Set Off Alarm, [-1 AP]")){
+			if (GUI.Button(new Rect (Screen.width/40 + 150, Screen.height/100 + 100, buttonWidth + 200, buttonHeight + 10), "70% Chance To Trigger Alarm, [-1 AP]")){
 			DiceRoll();
 			if (P_InteractLaser == true && isPlayersTurn == true && InteractLaserStart == true){
 				if (DiceTotal >= 4){
@@ -363,8 +371,9 @@ public class Game_Controler : MonoBehaviour {
 					TileUnderPlayer.GetComponent<FloorTile_Controler>().PlayerInteractive = 0;
 					TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLaser = 0;
 					TileUnderPlayer.GetComponent<FloorTile_Controler>().LaserPlayAlarm = true;
+					AudioSource.PlayClipAtPoint (SuccessAlertPlaceholder01, Camera.main.camera.transform.position, 0.1f);
 					InteractLaserStart = false;
-					print("Player Set Off Alarm");
+					print("Player Triggered Alarm");
 				}
 				if (DiceTotal <= 3 ){
 					AP --;
@@ -372,8 +381,9 @@ public class Game_Controler : MonoBehaviour {
 					TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLaser = 0;
 					InteractLaserStart = false;
 					//negative feedback here
-					//negative result here
-					print("Player Failed To Set Off Alarm");
+					AudioSource.PlayClipAtPoint (FailedAlertPlaceholder01, Camera.main.camera.transform.position, 0.5f);
+					//negative result here 
+					print("Player Failed To Trigger Alarm");
 				}
 			}
 		}
