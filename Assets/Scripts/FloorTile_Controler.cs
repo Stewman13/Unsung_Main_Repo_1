@@ -530,11 +530,6 @@ public class FloorTile_Controler : MonoBehaviour {
 		//isSmokeable = false;
 	}
 
-	void LightOff(){
-		print ("did this receive");
-		LightDetectingThisTile = false;
-	}
-
 	void NextStage(){
 		if(LevelEnd == 1 && HeroIsOnThisBlock == true){
 			Application.LoadLevel (4);
