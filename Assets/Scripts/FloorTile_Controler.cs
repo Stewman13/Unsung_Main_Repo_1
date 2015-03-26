@@ -111,6 +111,7 @@ public class FloorTile_Controler : MonoBehaviour {
 			RayFromMouse();
 			NextStage();
 			HeroAction();
+			PlayerDetection();
 			//checks to send message, will destroy light source
 			MessageCheck();
 			DeMapped();
@@ -126,16 +127,6 @@ public class FloorTile_Controler : MonoBehaviour {
 		if (LaserPlayAlarm == true){
 			BroadcastMessage("SetOffAlarm",SendMessageOptions.DontRequireReceiver);
 			LaserPlayAlarm = false;
-		}
-		//Detects player if they are in a camera or light
-		if (CameraDetectingThisTile == true && PlayerIsOnThisBlock) {
-			Player.SendMessage ("Alert");
-		}
-		if (LightDetectingThisTile == true && PlayerIsOnThisBlock && _gameCon.isAiTurn == true) {
-			_gameCon.HighAlert = true;
-		}
-		if (LightDetectingThisTile == false && PlayerIsOnThisBlock && _gameCon.isAiTurn == true) {
-			_gameCon.HighAlert = false;
 		}
 	}
 
@@ -486,6 +477,16 @@ public class FloorTile_Controler : MonoBehaviour {
 	void unselectTile(){
 		MouseOverTile = false;
 	}
+
+	//Detects the player if in light or cameras
+	void PlayerDetection(){
+		if (CameraDetectingThisTile == true && PlayerIsOnThisBlock) {
+			Player.SendMessage ("Alert");
+		}
+		if (LightDetectingThisTile == true && PlayerIsOnThisBlock) {
+			Player.SendMessage ("Alert");
+		}
+	}
 	
 	//fixes a bug with selectable tiles
 	IEnumerator WaitAndGo(float waitTime) {
@@ -530,6 +531,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	}
 
 	void LightOff(){
+		print ("did this receive");
 		LightDetectingThisTile = false;
 	}
 

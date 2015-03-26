@@ -9,8 +9,6 @@ public class Player_Controller : MonoBehaviour {
 	public GameObject Controller;
 	private Game_Controler _gameCon;
 	private FloorTile_Controler _tileCon;
-	private bool RecivingLight = false;
-	public int TimeInLight = 0;
 
 	public int TurnsInLight = 0;
 
@@ -37,6 +35,7 @@ public class Player_Controller : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		whereAmI();
+
 	}
 
 	//player character is outside camera, begin game over.
@@ -123,6 +122,9 @@ public class Player_Controller : MonoBehaviour {
 		Instantiate (PlayerAlertIcon, gameObject.transform.position, PlayerAlertIcon.transform.rotation);		
 	}
 
+	void inLight(){
+		//THIS NEEDS TO HAVE SOMETHING DONE TO IT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	}
 
 	void Alert(){
 		StartCoroutine(PlayerDetected());
