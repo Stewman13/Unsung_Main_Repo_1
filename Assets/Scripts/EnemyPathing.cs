@@ -155,9 +155,11 @@ public class EnemyPathing : MonoBehaviour {
 	void isItMyTurn(){
 		if(aiTurn == false && _gameCon.HighAlert == false){
 			AIsMoves = 1;
+			print ("A.I Is Patrolling Normally");
 		}
 		else if(aiTurn == false && _gameCon.HighAlert == true){
 			AIsMoves = 2;
+			print ("A.I. Is on High alert");
 		}
 		aiTurn = Controller.GetComponent<Game_Controler>().isAiTurn;
 		if(AIsMoves <= 0){
