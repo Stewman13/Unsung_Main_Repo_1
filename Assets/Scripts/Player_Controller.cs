@@ -9,12 +9,6 @@ public class Player_Controller : MonoBehaviour {
 	public GameObject Controller;
 	private Game_Controler _gameCon;
 	private FloorTile_Controler _tileCon;
-
-	public int TurnsInLight = 0;
-
-	public AudioClip AlertSound;
-	public GameObject AlertIcon;
-	private bool AlertPlaying = false;
 	
 //	public GameObject TileForward;
 //	public GameObject TileBack;
@@ -112,7 +106,7 @@ public class Player_Controller : MonoBehaviour {
 				
 					//Debug.Log("Checking end of TileUnderPlayer");
 					}
-				}
+			}
 			}
 		}
 
@@ -120,26 +114,6 @@ public class Player_Controller : MonoBehaviour {
 		float delayTime = 2.0f;
 		yield return new WaitForSeconds (delayTime);
 		Instantiate (PlayerAlertIcon, gameObject.transform.position, PlayerAlertIcon.transform.rotation);		
-	}
-
-	void inLight(){
-		//THIS NEEDS TO HAVE SOMETHING DONE TO IT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	}
-
-	void Alert(){
-		StartCoroutine(PlayerDetected());
-	}
-
-	public IEnumerator PlayerDetected(){
-		if (AlertPlaying == false) {
-			AlertPlaying = true;
-			SpottedByEnemyFirst = true;
-			float WaitForNotification = 2.0f;
-			AudioSource.PlayClipAtPoint (AlertSound, Camera.main.transform.position, 0.3f);
-			Instantiate (AlertIcon, gameObject.transform.position, AlertIcon.transform.rotation);
-			yield return new WaitForSeconds (WaitForNotification);
-			Application.LoadLevel ("Defeat");	
-		}
 	}
 }
 
