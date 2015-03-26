@@ -6,7 +6,7 @@ public class BGMLevel1 : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		audio.Play();
-		print ("BGM Play");
+	//	print ("BGM Play");
 
 	}
 	

@@ -16,6 +16,8 @@ public class InteractiveDestroy : MonoBehaviour {
 	public AudioClip FailInteractive;
 	public bool OnePlayAudio;
 
+	public GameObject tile01,tile02,tile03,tile04;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -54,6 +56,10 @@ public class InteractiveDestroy : MonoBehaviour {
 	public IEnumerator DestroyObject(){
 		if (IsLightSource == true && OnePlayAudio == false){
 			AudioSource.PlayClipAtPoint(SuccessLight, gameObject.transform.position,0.5f);
+			tile01.SendMessage("LightOff", SendMessageOptions.DontRequireReceiver);
+			tile02.SendMessage("LightOff", SendMessageOptions.DontRequireReceiver);
+			tile03.SendMessage("LightOff", SendMessageOptions.DontRequireReceiver);
+			tile04.SendMessage("LightOff", SendMessageOptions.DontRequireReceiver);
 		}
 		OnePlayAudio =true;
 		float delayTime = 2.0f;
