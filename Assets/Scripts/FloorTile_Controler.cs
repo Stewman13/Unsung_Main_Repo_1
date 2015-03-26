@@ -504,9 +504,6 @@ public class FloorTile_Controler : MonoBehaviour {
 		yield return new WaitForSeconds(waitTime);
 		Floor.BroadcastMessage ("NotNextToPlayer");
 	}
-	void HeroOnMe(){
-		HeroIsOnThisBlock = true;
-	}
 	//message reciver
 	void NextToPlayer(){
 		NextToPlayersTile = true;
