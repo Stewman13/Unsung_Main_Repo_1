@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\BGM.cs" />
      <Compile Include="Assets\Scripts\DestroyOnLoad\AlertIcon.cs" />
      <Compile Include="Assets\Scripts\DestroyOnLoad\PlayerAlertIcon.cs" />
+     <Compile Include="Assets\Scripts\DestroyOnLoad\Smoke_Destroy.cs" />
      <Compile Include="Assets\Scripts\EnemyPathing.cs" />
      <Compile Include="Assets\Scripts\FloorTile_Controler.cs" />
      <Compile Include="Assets\Scripts\GUIManager.cs" />
@@ -63,6 +64,7 @@
      <Compile Include="Assets\Scripts\MenuOptions.cs" />
      <Compile Include="Assets\Scripts\MovementMapper.cs" />
      <Compile Include="Assets\Scripts\Player_Controller.cs" />
+     <Compile Include="Assets\Scripts\Smoke_Caster.cs" />
      <Compile Include="Assets\Scripts\SoundTrigger.cs" />
      <Compile Include="Assets\Scripts\ThreatMapper.cs" />
      <Compile Include="Assets\Scripts\TransperantWalls.cs" />
