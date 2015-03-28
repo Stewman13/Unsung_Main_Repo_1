@@ -52,6 +52,8 @@ public class FloorTile_Controler : MonoBehaviour {
 	public RaycastHit HitLeft;
 	public RaycastHit HitRight;
 
+	private Color newColour;
+
 	//Stuff For Lerping
 	private float timeStartedLerping;
 	public bool isLerping;
@@ -96,7 +98,7 @@ public class FloorTile_Controler : MonoBehaviour {
 //		Tile_InteractPickup = false;
 		NextToPlayersTile = false;
         _gameCon = GameObject.Find("Main Camera").GetComponent<Game_Controler>();
-
+		Run();
 	}
 
 	// Run every update
@@ -114,6 +116,13 @@ public class FloorTile_Controler : MonoBehaviour {
 			MessageCheck();
 			DeMapped();
 		}
+	}
+
+	void Run(){
+		newColour = ThisTile.renderer.material.color;
+		newColour.a = 0.0f;
+		ThisTile.renderer.material.color = newColour;
+		ThisTile.renderer.material.shader = Shader.Find("Transparent/Diffuse");
 	}
 
 	//sends message to destroy light source
@@ -342,10 +351,15 @@ public class FloorTile_Controler : MonoBehaviour {
 	//checks the tag of this tile, then sets colour accordingly
 	void AvailabilityChecker(){
 		if(gameObject.tag == "UnAvailable" ){
+			newColour.a = 1.0f;
+			ThisTile.renderer.material.color = newColour;
+			ThisTile.renderer.material.shader = Shader.Find("Diffuse");
 			gameObject.renderer.material.color = Color.grey;
 		}
-		if(gameObject.tag == "Available" && NextToPlayersTile == false && MouseOverTile == false && IsAThreat == false && CanMoveHere == false && PlayerInteractive == 0 && HerosPath == 0){
-			gameObject.renderer.material.color = Color.white;
+		if(gameObject.tag == "Available" && NextToPlayersTile == false && MouseOverTile == false && IsAThreat == false && CanMoveHere == false){
+			newColour.a = 0.0f;
+			ThisTile.renderer.material.color = newColour;
+			ThisTile.renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		}
 //		if(gameObject.tag == "Available" && NextToPlayersTile == true && MouseOverTile == false && IsAThreat == false && PlayerInteractive == 0 && HerosPath == 0){
 //			if (colourDelay == false){
@@ -444,6 +458,9 @@ public class FloorTile_Controler : MonoBehaviour {
 					Floor.BroadcastMessage("unselectTile");
 					MouseOverTile = true;
 					if(gameObject.tag == "Available" && PlayerInteractive == 0 && CanMoveHere == false){
+						newColour.a = 0.0f;
+						ThisTile.renderer.material.color = newColour;
+						ThisTile.renderer.material.shader = Shader.Find("Transparent/Diffuse");
 						gameObject.renderer.material.color = Color.white;
 					//	print("mouse over available empty tile");
 					}
@@ -453,6 +470,9 @@ public class FloorTile_Controler : MonoBehaviour {
 
 					//tell player they can move to this tile
 					if(gameObject.tag == "Available" && PlayerInteractive == 0 && CanMoveHere == true && _gameCon.AP >=0 ){
+						newColour.a = 1.0f;
+						ThisTile.renderer.material.color = newColour;
+						ThisTile.renderer.material.shader = Shader.Find("Diffuse");
 						gameObject.renderer.material.color = Color.green;
 					//	print("mouse over available empty tile");
 					}
@@ -462,6 +482,9 @@ public class FloorTile_Controler : MonoBehaviour {
 
 					//tell player this tile is interactive
 					if(gameObject.tag == "Available" && PlayerInteractive == 1 && CanMoveHere == true && _gameCon.AP >=1 ){
+						newColour.a = 1.0f;
+						ThisTile.renderer.material.color = newColour;
+						ThisTile.renderer.material.shader = Shader.Find("Diffuse");
 						gameObject.renderer.material.color = Color.blue;
 					//	print("mouse over interactive tile");
 					}
@@ -471,6 +494,9 @@ public class FloorTile_Controler : MonoBehaviour {
 
 					//tell player an enemy patrols this route
 					if(gameObject.tag == "Available" && AIPathChannel == 1 ||gameObject.tag == "Available" && HerosPath == 1){
+						newColour.a = 1.0f;
+						ThisTile.renderer.material.color = newColour;
+						ThisTile.renderer.material.shader = Shader.Find("Diffuse");
 						gameObject.renderer.material.color = Color.red;
 					//	print ("enemy path tile");
 					}
@@ -511,11 +537,17 @@ public class FloorTile_Controler : MonoBehaviour {
 	}
 	void ThreatMapped(){
 		IsAThreat = true;
+		newColour.a = 1.0f;
+		ThisTile.renderer.material.color = newColour;
+		ThisTile.renderer.material.shader = Shader.Find("Diffuse");
 		ThisTile.renderer.material.color = Color.red;
 	}
 	void MovementMapped(){
 		CanMoveHere = true;
 		if (IsAThreat == false) {
+			newColour.a = 1.0f;
+			ThisTile.renderer.material.color = newColour;
+			ThisTile.renderer.material.shader = Shader.Find("Diffuse");
 			ThisTile.renderer.material.color = Color.green;
 		}
 	}

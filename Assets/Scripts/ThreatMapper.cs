@@ -62,7 +62,7 @@ public class ThreatMapper : MonoBehaviour {
 					break;
 				}
 				if (rendForward && hitForward.collider.tag == "Available") {
-					hitForward.collider.SendMessage ("ThreatMapped");
+					hitForward.collider.SendMessage ("ThreatMapped",SendMessageOptions.DontRequireReceiver);
 				}
 				a++;
 			}
@@ -73,7 +73,7 @@ public class ThreatMapper : MonoBehaviour {
 					break;
 				}
 				if (rendBack && hitBack.collider.tag == "Available") {
-					hitBack.collider.SendMessage ("ThreatMapped");
+					hitBack.collider.SendMessage ("ThreatMapped",SendMessageOptions.DontRequireReceiver);
 				}
 				b++;
 			}
@@ -84,7 +84,7 @@ public class ThreatMapper : MonoBehaviour {
 					break;
 				}
 				if (rendLeft && hitLeft.collider.tag == "Available") {
-					hitLeft.collider.SendMessage ("ThreatMapped");
+					hitLeft.collider.SendMessage ("ThreatMapped",SendMessageOptions.DontRequireReceiver);
 				}
 				c++;
 			}
@@ -95,7 +95,7 @@ public class ThreatMapper : MonoBehaviour {
 					break;
 				}
 				if (rendRight && hitRight.collider.tag == "Available") {
-					hitRight.collider.SendMessage ("ThreatMapped");
+					hitRight.collider.SendMessage ("ThreatMapped",SendMessageOptions.DontRequireReceiver);
 				}
 				d++;
 			}
@@ -124,7 +124,7 @@ public class ThreatMapper : MonoBehaviour {
 					break;
 				}
 				if (rendForward && hitForward.collider.tag == "Available") {
-					hitForward.collider.SendMessage ("ThreatMapped");
+					hitForward.collider.SendMessage ("ThreatMapped",SendMessageOptions.DontRequireReceiver);
 				}
 				a++;
 			}
@@ -135,7 +135,7 @@ public class ThreatMapper : MonoBehaviour {
 					break;
 				}
 				if (rendBack && hitBack.collider.tag == "Available") {
-					hitBack.collider.SendMessage ("ThreatMapped");
+					hitBack.collider.SendMessage ("ThreatMapped",SendMessageOptions.DontRequireReceiver);
 				}
 				b++;
 			}
@@ -146,7 +146,7 @@ public class ThreatMapper : MonoBehaviour {
 					break;
 				}
 				if (rendLeft && hitLeft.collider.tag == "Available") {
-					hitLeft.collider.SendMessage ("ThreatMapped");
+					hitLeft.collider.SendMessage ("ThreatMapped",SendMessageOptions.DontRequireReceiver);
 				}
 				c++;
 			}
@@ -157,7 +157,7 @@ public class ThreatMapper : MonoBehaviour {
 					break;
 				}
 				if (rendRight && hitRight.collider.tag == "Available") {
-					hitRight.collider.SendMessage ("ThreatMapped");
+					hitRight.collider.SendMessage ("ThreatMapped",SendMessageOptions.DontRequireReceiver);
 				}
 				d++;
 			}
@@ -187,7 +187,7 @@ public class ThreatMapper : MonoBehaviour {
 					break;
 				}
 				if (rendForward && hitForward.collider.tag == "Available") {
-					hitForward.collider.SendMessage ("ThreatMapped");
+					hitForward.collider.SendMessage ("ThreatMapped",SendMessageOptions.DontRequireReceiver);
 				}
 				a++;
 			}
@@ -198,7 +198,7 @@ public class ThreatMapper : MonoBehaviour {
 					break;
 				}
 				if (rendBack && hitBack.collider.tag == "Available") {
-					hitBack.collider.SendMessage ("ThreatMapped");
+					hitBack.collider.SendMessage ("ThreatMapped",SendMessageOptions.DontRequireReceiver);
 				}
 				b++;
 			}
@@ -209,7 +209,7 @@ public class ThreatMapper : MonoBehaviour {
 					break;
 				}
 				if (rendLeft && hitLeft.collider.tag == "Available") {
-					hitLeft.collider.SendMessage ("ThreatMapped");
+					hitLeft.collider.SendMessage ("ThreatMapped",SendMessageOptions.DontRequireReceiver);
 				}
 				c++;
 			}
@@ -220,7 +220,7 @@ public class ThreatMapper : MonoBehaviour {
 					break;
 				}
 				if (rendRight && hitRight.collider.tag == "Available") {
-					hitRight.collider.SendMessage ("ThreatMapped");
+					hitRight.collider.SendMessage ("ThreatMapped",SendMessageOptions.DontRequireReceiver);
 				}
 				d++;
 			}
