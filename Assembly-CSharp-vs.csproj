@@ -50,6 +50,7 @@
      <Compile Include="Assets\Audio\BGMLevel1.cs" />
      <Compile Include="Assets\Scripts\AI_Player_Detection.cs" />
      <Compile Include="Assets\Scripts\BGM.cs" />
+     <Compile Include="Assets\Scripts\ChangeScene.cs" />
      <Compile Include="Assets\Scripts\DestroyOnLoad\AlertIcon.cs" />
      <Compile Include="Assets\Scripts\DestroyOnLoad\PlayerAlertIcon.cs" />
      <Compile Include="Assets\Scripts\DestroyOnLoad\Smoke_Destroy.cs" />
