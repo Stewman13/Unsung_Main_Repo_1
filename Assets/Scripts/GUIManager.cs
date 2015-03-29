@@ -27,6 +27,9 @@ public class GUIManager : MonoBehaviour {
     public Texture2D smokeGrenade;
     public Vector3 stancePos;
     public GUIStyle gameFont;
+    public GameObject sneakStance;
+    public GameObject walkStance;
+    public GameObject runStance;
 
     private Game_Controler _gameCon;
     private int _buttonWidth = 200;
@@ -55,21 +58,21 @@ public class GUIManager : MonoBehaviour {
     {
         if (_gameCon.playerWalking == true)
         {
-            _isWalking = true;
-            _isSneaking = false;
-            _isRunning = false;
+            sneakStance.SetActive(false);
+            walkStance.SetActive(true);
+            runStance.SetActive(false);
         }
         else if (_gameCon.playerSneaking == true)
         {
-            _isWalking = false;
-            _isSneaking = true;
-            _isRunning = false;
+            sneakStance.SetActive(true);
+            walkStance.SetActive(false);
+            runStance.SetActive(false);
         }
         else
         {
-            _isWalking = false;
-            _isSneaking = false;
-            _isRunning = true;
+            sneakStance.SetActive(false);
+            walkStance.SetActive(false);
+            runStance.SetActive(true);
         }
 	}
 
