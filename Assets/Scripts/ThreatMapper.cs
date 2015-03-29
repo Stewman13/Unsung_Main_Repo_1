@@ -5,8 +5,11 @@ public class ThreatMapper : MonoBehaviour {
 
 	
 	public int SneakSpotDistance;
+	public int SneakSpotDistanceTwo;
 	public int RunSpotDistance;
+	public int RunSpotDistanceTwo;
 	public int WalkSpotDistance;
+	public int WalkSpotDistanceTwo;
 
 	public RaycastHit HitBack;
 	public RaycastHit HitForward;
@@ -24,6 +27,9 @@ public class ThreatMapper : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		_gameCon = GameObject.Find("Main Camera").GetComponent<Game_Controler>();
+		SneakSpotDistanceTwo = SneakSpotDistance;
+		RunSpotDistanceTwo = RunSpotDistance;
+		WalkSpotDistanceTwo = WalkSpotDistance;
 	}
 	
 	// Update is called once per frame
@@ -225,5 +231,15 @@ public class ThreatMapper : MonoBehaviour {
 				d++;
 			}
         }
+	}
+	void Alert(){
+		SneakSpotDistance = SneakSpotDistanceTwo * 2;
+		RunSpotDistance = RunSpotDistanceTwo * 2;
+		WalkSpotDistance = WalkSpotDistanceTwo * 2;
+	}
+	void UnAlert(){
+		SneakSpotDistance = SneakSpotDistanceTwo;
+		RunSpotDistance = RunSpotDistanceTwo;
+		WalkSpotDistance = WalkSpotDistanceTwo;
 	}
 }

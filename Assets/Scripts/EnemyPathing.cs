@@ -3,12 +3,13 @@ using System.Collections;
 
 public class EnemyPathing : MonoBehaviour {
 
-	public GameObject AI;//Hero
+	public GameObject AI;
 	public GameObject TileUnderAI;
 	public GameObject Controller;
 	private Game_Controler _gameCon;
 	private FloorTile_Controler _tileCon;
 
+	public GameObject ThreatMap;
 	public GameObject TileForward;
 	public GameObject TileBack;
 	public GameObject TileLeft;
@@ -31,6 +32,7 @@ public class EnemyPathing : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		_gameCon = GameObject.Find("Main Camera").GetComponent<Game_Controler>();
 		timeTakenDuringLerp = 1.0f;
 	}
 	
@@ -151,8 +153,17 @@ public class EnemyPathing : MonoBehaviour {
 
 	//tells us that it's the AI's turn
 	void isItMyTurn(){
-		if(aiTurn == false){
+		if(aiTurn == false && _gameCon.HighAlert == false){
 			AIsMoves = 1;
+			ThreatMap.SendMessage ("UnAlert");
+			this.SendMessageUpwards ("UnAlert");
+			print ("A.I Is Patrolling Normally");
+		}
+		else if(aiTurn == false && _gameCon.HighAlert == true){
+			AIsMoves = 2;
+			ThreatMap.SendMessage ("Alert");
+			this.SendMessageUpwards ("Alert");
+			print ("A.I. Is on High alert");
 		}
 		aiTurn = Controller.GetComponent<Game_Controler>().isAiTurn;
 		if(AIsMoves <= 0){
