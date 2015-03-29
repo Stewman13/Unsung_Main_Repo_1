@@ -9,8 +9,11 @@ public class AI_Player_Detection : MonoBehaviour {
 	//public LineRenderer LineCastBack;
 	
 	public int SneakSpotDistance;
+	public int SneakSpotDistanceTwo;
 	public int RunSpotDistance;
+	public int RunSpotDistanceTwo;
 	public int WalkSpotDistance;
+	public int WalkSpotDistanceTwo;
 	public AudioClip AlertSound;
 	public GameObject AlertIcon;
 	private bool AlertPlaying = false;
@@ -32,6 +35,9 @@ public class AI_Player_Detection : MonoBehaviour {
 	void Start () {
 		AlertPlaying = false;
 		_gameCon = GameObject.Find("Main Camera").GetComponent<Game_Controler>();
+		SneakSpotDistanceTwo = SneakSpotDistance;
+		RunSpotDistanceTwo = RunSpotDistance;
+		WalkSpotDistanceTwo = WalkSpotDistance;
 	}
 	
 	// Update is called once per frame
@@ -225,5 +231,14 @@ public class AI_Player_Detection : MonoBehaviour {
 		Application.LoadLevel ("Defeat");	
 		AlertPlaying = false; 
 	}
-	
+	void Alert(){
+		SneakSpotDistance = SneakSpotDistanceTwo * 2;
+		RunSpotDistance = RunSpotDistanceTwo * 2;
+		WalkSpotDistance = WalkSpotDistanceTwo * 2;
+	}
+	void UnAlert(){
+		SneakSpotDistance = SneakSpotDistanceTwo;
+		RunSpotDistance = RunSpotDistanceTwo;
+		WalkSpotDistance = WalkSpotDistanceTwo;
+	}
 }

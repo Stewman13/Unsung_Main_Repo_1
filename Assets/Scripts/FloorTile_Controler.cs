@@ -139,10 +139,10 @@ public class FloorTile_Controler : MonoBehaviour {
 		if (CameraDetectingThisTile == true && PlayerIsOnThisBlock) {
 			Player.SendMessage ("Alert");
 		}
-		if (LightDetectingThisTile == true && PlayerIsOnThisBlock && _gameCon.isAiTurn == true) {
+		if (LightDetectingThisTile == true && PlayerIsOnThisBlock) {
 			_gameCon.HighAlert = true;
 		}
-		if (LightDetectingThisTile == false && PlayerIsOnThisBlock && _gameCon.isAiTurn == true) {
+		if (LightDetectingThisTile == false && PlayerIsOnThisBlock) {
 			_gameCon.HighAlert = false;
 		}
 	}
