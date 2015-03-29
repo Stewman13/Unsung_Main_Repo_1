@@ -96,23 +96,6 @@ public class GUIManager : MonoBehaviour {
                 Application.Quit();
             }
             GUI.EndGroup();
-        }
-		if (PlayerOutOfCamera == false){
-	        if (_isWalking)
-	        {
-	            GUI.DrawTexture(new Rect(150, (Screen.height - walking.height) - 60, walking.width, walking.height), walking);        
-	        }
-	        else if (_isSneaking)
-	        {
-	            GUI.DrawTexture(new Rect(120, (Screen.height - sneaking.height) - 60, sneaking.width, sneaking.height), sneaking);
-	        }
-	        else
-	        {
-	            GUI.DrawTexture(new Rect(70, (Screen.height - running.height) - 60, running.width, running.height), running);
-	        }
-
-	        GUI.DrawTexture(new Rect(350, (Screen.height - smokeGrenade.height) - 60, smokeGrenade.width, smokeGrenade.height), smokeGrenade);
-			GUI.Label(new Rect(425, Screen.height - 130, 200, 30), _gameCon.GrenadeCount + " Smoke Grenades", gameFont);
-		}
+        }		
     }
 }
