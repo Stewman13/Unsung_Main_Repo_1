@@ -60,7 +60,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	public float journeyLength;
 	private Vector3 startPosition;
 	private Vector3 endPosition;
-	private float timeTakenDuringLerp;
+	public float timeTakenDuringLerp;
 
 	public int DeductAP;
 
@@ -150,6 +150,24 @@ public class FloorTile_Controler : MonoBehaviour {
 	void StanceMoveSpeed(){
 		journeyLength = Vector3.Distance(Player.transform.position, Node.transform.position);
 
+		if(_gameCon.playerWalking == true){
+			if(journeyLength >= 0.9 && journeyLength < 1.9 && isLerping == true && Set == false){
+				timeTakenDuringLerp = 1.75f;
+				DeductAP = 2;
+				if(Set == false){
+					_gameCon.AP -= DeductAP;
+				}
+				Set = true;
+			}
+			if(journeyLength >= 1.9 && journeyLength < 2.9 && isLerping == true && Set == false){
+				timeTakenDuringLerp = 2.25f;
+				DeductAP = 4;
+				if(Set == false){
+					_gameCon.AP -= DeductAP;
+				}
+				Set = true;
+			}
+		}
 		if(_gameCon.playerRunning == true){
 			if(journeyLength >= 0.9 && journeyLength < 1.9 && isLerping == true && Set == false){
 				timeTakenDuringLerp = 0.5f;
@@ -195,10 +213,6 @@ public class FloorTile_Controler : MonoBehaviour {
 				_gameCon.AP -= DeductAP;
 			}
 			Set = true;
-		}
-		//Being REMOVED!
-		if(_gameCon.playerWalking == true){
-			timeTakenDuringLerp = 1.0f;
 		}
 	}
 

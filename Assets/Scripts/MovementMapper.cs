@@ -17,7 +17,8 @@ public class MovementMapper : MonoBehaviour {
 	public Vector3 Right;
 	public Vector3 Forward;
 	public Vector3 Back;
-	
+	private Color newColour;
+
 	private Game_Controler _gameCon;
 	private FloorTile_Controler _tileCon;
 	
@@ -52,7 +53,7 @@ public class MovementMapper : MonoBehaviour {
 		}
 		//movemnet for Walk
 		if(_gameCon.AP > _gameCon.WalkMovementCost){
-			WalkSpotDistance = _gameCon.WalkMovementCost;
+			WalkSpotDistance = 2.0f;
 		}
 		if(_gameCon.AP <= _gameCon.WalkMovementCost){
 			WalkSpotDistance = 1.0f;
@@ -87,7 +88,9 @@ public class MovementMapper : MonoBehaviour {
 				RaycastHit hitForward = hitsForward[a];
 				Renderer rendForward = hitForward.transform.GetComponent<Renderer>();
 				if(rendForward && hitForward.collider.tag == "Available" && _gameCon.AP <= 0 && _gameCon.PlayerInteractive == 0){
-					rendForward.material.color = Color.white;
+					newColour.a = 0.0f;
+					rendForward.material.color = newColour;
+					rendForward.material.shader = Shader.Find("Transparent/Diffuse");
 				}
 				if (rendForward && (hitForward.collider.tag == "UnAvailable" || hitForward.collider.tag == "Wall")) {
 					break;
@@ -101,7 +104,9 @@ public class MovementMapper : MonoBehaviour {
 				RaycastHit hitBack = hitsBack[b];
 				Renderer rendBack = hitBack.transform.GetComponent<Renderer>();
 				if(rendBack && hitBack.collider.tag == "Available" && _gameCon.AP <= 0 && _gameCon.PlayerInteractive == 0){
-					rendBack.material.color = Color.white;
+					newColour.a = 0.0f;
+					rendBack.material.color = newColour;
+					rendBack.material.shader = Shader.Find("Transparent/Diffuse");
 				}
 				if (rendBack && (hitBack.collider.tag == "UnAvailable" || hitBack.collider.tag == "Wall")) {
 					break;
@@ -115,7 +120,9 @@ public class MovementMapper : MonoBehaviour {
 				RaycastHit hitLeft = hitsLeft[c];
 				Renderer rendLeft = hitLeft.transform.GetComponent<Renderer>();
 				if(rendLeft && hitLeft.collider.tag == "Available" && _gameCon.AP <= 0 && _gameCon.PlayerInteractive == 0){
-					rendLeft.material.color = Color.white;
+					newColour.a = 0.0f;
+					rendLeft.material.color = newColour;
+					rendLeft.material.shader = Shader.Find("Transparent/Diffuse");
 				}
 				if (rendLeft && (hitLeft.collider.tag == "UnAvailable" || hitLeft.collider.tag == "Wall")) {
 					break;
@@ -129,7 +136,9 @@ public class MovementMapper : MonoBehaviour {
 				RaycastHit hitRight = hitsRight[d];
 				Renderer rendRight = hitRight.transform.GetComponent<Renderer>();
 				if(rendRight && hitRight.collider.tag == "Available" && _gameCon.AP <= 0 && _gameCon.PlayerInteractive == 0){
-					rendRight.material.color = Color.white;
+					newColour.a = 0.0f;
+					rendRight.material.color = newColour;
+					rendRight.material.shader = Shader.Find("Transparent/Diffuse");
 				}
 				if (rendRight && (hitRight.collider.tag == "UnAvailable" || hitRight.collider.tag == "Wall")) {
 					break;
@@ -161,7 +170,9 @@ public class MovementMapper : MonoBehaviour {
 				RaycastHit hitForward = hitsForward[a];
 				Renderer rendForward = hitForward.transform.GetComponent<Renderer>();
 				if(rendForward && hitForward.collider.tag == "Available" && _gameCon.AP <= 0){
-					rendForward.material.color = Color.white;
+					newColour.a = 0.0f;
+					rendForward.material.color = newColour;
+					rendForward.material.shader = Shader.Find("Transparent/Diffuse");
 				}
 				if (rendForward && (hitForward.collider.tag == "UnAvailable" || hitForward.collider.tag == "Wall")) {
 					break;
@@ -174,6 +185,11 @@ public class MovementMapper : MonoBehaviour {
 			while (b < hitsBack.Length) {
 				RaycastHit hitBack = hitsBack[b];
 				Renderer rendBack = hitBack.transform.GetComponent<Renderer>();
+				if(rendBack && hitBack.collider.tag == "Available" && _gameCon.AP <= 0){
+					newColour.a = 0.0f;
+					rendBack.material.color = newColour;
+					rendBack.material.shader = Shader.Find("Transparent/Diffuse");
+				}
 				if (rendBack && (hitBack.collider.tag == "UnAvailable" || hitBack.collider.tag == "Wall")) {
 					break;
 				}
@@ -185,6 +201,11 @@ public class MovementMapper : MonoBehaviour {
 			while (c < hitsLeft.Length) {
 				RaycastHit hitLeft = hitsLeft[c];
 				Renderer rendLeft = hitLeft.transform.GetComponent<Renderer>();
+				if(rendLeft && hitLeft.collider.tag == "Available" && _gameCon.AP <= 0){
+					newColour.a = 0.0f;
+					rendLeft.material.color = newColour;
+					rendLeft.material.shader = Shader.Find("Transparent/Diffuse");
+				}
 				if (rendLeft && (hitLeft.collider.tag == "UnAvailable" || hitLeft.collider.tag == "Wall")) {
 					break;
 				}
@@ -196,6 +217,11 @@ public class MovementMapper : MonoBehaviour {
 			while (d < hitsRight.Length) {
 				RaycastHit hitRight = hitsRight[d];
 				Renderer rendRight = hitRight.transform.GetComponent<Renderer>();
+				if(rendRight && hitRight.collider.tag == "Available" && _gameCon.AP <= 0 && _gameCon.PlayerInteractive == 0){
+					newColour.a = 0.0f;
+					rendRight.material.color = newColour;
+					rendRight.material.shader = Shader.Find("Transparent/Diffuse");
+				}
 				if (rendRight && (hitRight.collider.tag == "UnAvailable" || hitRight.collider.tag == "Wall")) {
 					break;
 				}
@@ -227,7 +253,9 @@ public class MovementMapper : MonoBehaviour {
 				RaycastHit hitForward = hitsForward[a];
 				Renderer rendForward = hitForward.transform.GetComponent<Renderer>();
 				if(rendForward && hitForward.collider.tag == "Available" && _gameCon.AP <= 0 && _gameCon.PlayerInteractive == 0){
-					rendForward.material.color = Color.white;
+					newColour.a = 0.0f;
+					rendForward.material.color = newColour;
+					rendForward.material.shader = Shader.Find("Transparent/Diffuse");
 				}
 				if (rendForward && (hitForward.collider.tag == "UnAvailable" || hitForward.collider.tag == "Wall")) {
 					break;
@@ -241,7 +269,9 @@ public class MovementMapper : MonoBehaviour {
 				RaycastHit hitBack = hitsBack[b];
 				Renderer rendBack = hitBack.transform.GetComponent<Renderer>();
 				if(rendBack && hitBack.collider.tag == "Available" && _gameCon.AP <= 0 && _gameCon.PlayerInteractive == 0){
-					rendBack.material.color = Color.white;
+					newColour.a = 0.0f;
+					rendBack.material.color = newColour;
+					rendBack.material.shader = Shader.Find("Transparent/Diffuse");
 				}
 				if (rendBack && (hitBack.collider.tag == "UnAvailable" || hitBack.collider.tag == "Wall")) {
 					break;
@@ -255,7 +285,9 @@ public class MovementMapper : MonoBehaviour {
 				RaycastHit hitLeft = hitsLeft[c];
 				Renderer rendLeft = hitLeft.transform.GetComponent<Renderer>();
 				if(rendLeft && hitLeft.collider.tag == "Available" && _gameCon.AP <= 0 && _gameCon.PlayerInteractive == 0){
-					rendLeft.material.color = Color.white;
+					newColour.a = 0.0f;
+					rendLeft.material.color = newColour;
+					rendLeft.material.shader = Shader.Find("Transparent/Diffuse");
 				}
 				if (rendLeft && (hitLeft.collider.tag == "UnAvailable" || hitLeft.collider.tag == "Wall")) {
 					break;
@@ -269,7 +301,9 @@ public class MovementMapper : MonoBehaviour {
 				RaycastHit hitRight = hitsRight[d];
 				Renderer rendRight = hitRight.transform.GetComponent<Renderer>();
 				if(rendRight && hitRight.collider.tag == "Available" && _gameCon.AP <= 0 && _gameCon.PlayerInteractive == 0){
-					rendRight.material.color = Color.white;
+					newColour.a = 0.0f;
+					rendRight.material.color = newColour;
+					rendRight.material.shader = Shader.Find("Transparent/Diffuse");
 				}
 				if (rendRight && (hitRight.collider.tag == "UnAvailable" || hitRight.collider.tag == "Wall")) {
 					break;
