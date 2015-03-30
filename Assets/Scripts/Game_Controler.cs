@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Game_Controler : MonoBehaviour {
 
@@ -75,6 +76,8 @@ public class Game_Controler : MonoBehaviour {
 
 	public string Stance = "Standard"; //others are, "stealth" and "Running"
 
+    public Text grenadeFeedback;
+
 	public enum PlayerStances 
 	{
 		Walk,
@@ -102,6 +105,9 @@ public class Game_Controler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        grenadeFeedback.text = "Smoke Bang x " + GrenadeCount; 
+
 		Stances();
 		Turns ();
 		HeroTurn();
