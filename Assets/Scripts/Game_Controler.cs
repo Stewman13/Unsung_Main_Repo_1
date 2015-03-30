@@ -17,6 +17,7 @@ public class Game_Controler : MonoBehaviour {
 	public Texture APTexture;
 
 	public int AP = 4;
+    public int wireCutterCount = 0;
 
 	//Used when the random chance is happening
 	public GameObject DiceIconPre;
@@ -78,6 +79,7 @@ public class Game_Controler : MonoBehaviour {
 
     public Text grenadeFeedback;
     public Text apFeedback;
+    public Text wireCutterFeedback;
 
 	public enum PlayerStances 
 	{
@@ -107,8 +109,9 @@ public class Game_Controler : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        grenadeFeedback.text = "Smoke Bang x " + GrenadeCount;
+        grenadeFeedback.text = " x " + GrenadeCount;
         apFeedback.text = "AP x " + AP;
+        wireCutterFeedback.text = " x " + wireCutterCount;
 
 		Stances();
 		Turns ();
