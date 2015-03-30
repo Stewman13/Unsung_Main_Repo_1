@@ -97,7 +97,7 @@ public class GUIManager : MonoBehaviour {
             }
             GUI.EndGroup();
         }
-		/*if (PlayerOutOfCamera == false){
+		if (PlayerOutOfCamera == false){
 	        if (_isWalking)
 	        {
 	            GUI.DrawTexture(new Rect(150, (Screen.height - walking.height) - 60, walking.width, walking.height), walking);        
@@ -113,6 +113,6 @@ public class GUIManager : MonoBehaviour {
 
 	        GUI.DrawTexture(new Rect(350, (Screen.height - smokeGrenade.height) - 60, smokeGrenade.width, smokeGrenade.height), smokeGrenade);
 			GUI.Label(new Rect(425, Screen.height - 130, 200, 30), _gameCon.GrenadeCount + " Smoke Grenades", gameFont);
-		}*/
+		}
     }
 }

@@ -48,15 +48,8 @@
   <ItemGroup>
      <Compile Include="Assets\Audio\AudioSelector.cs" />
      <Compile Include="Assets\Audio\BGMLevel1.cs" />
-     <Compile Include="Assets\Particle Effects\Keep\Scripts\CFX2_AutoRotate.cs" />
-     <Compile Include="Assets\Particle Effects\Keep\Scripts\CFX_AutoDestructShuriken.cs" />
-     <Compile Include="Assets\Particle Effects\Keep\Scripts\CFX_AutodestructWhenNoChildren.cs" />
-     <Compile Include="Assets\Particle Effects\Keep\Scripts\CFX_InspectorHelp.cs" />
-     <Compile Include="Assets\Particle Effects\Keep\Scripts\CFX_LightIntensityFade.cs" />
-     <Compile Include="Assets\Particle Effects\Keep\Scripts\CFX_ShurikenThreadFix.cs" />
      <Compile Include="Assets\Scripts\AI_Player_Detection.cs" />
      <Compile Include="Assets\Scripts\BGM.cs" />
-     <Compile Include="Assets\Scripts\ChangeScene.cs" />
      <Compile Include="Assets\Scripts\DestroyOnLoad\AlertIcon.cs" />
      <Compile Include="Assets\Scripts\DestroyOnLoad\PlayerAlertIcon.cs" />
      <Compile Include="Assets\Scripts\DestroyOnLoad\Smoke_Destroy.cs" />
@@ -75,8 +68,6 @@
      <Compile Include="Assets\Scripts\SoundTrigger.cs" />
      <Compile Include="Assets\Scripts\ThreatMapper.cs" />
      <Compile Include="Assets\Scripts\TransperantWalls.cs" />
-     <None Include="Assets\Particle Effects\Keep\Shaders\CFX2 Particle Alpha Blend Add.shader" />
-     <None Include="Assets\Particle Effects\Keep\Shaders\CFX2 Particle Alpha Blend Tint.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
  </Reference>
