@@ -35,8 +35,11 @@ public class Player_Controller : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		whereAmI();
+	//	PlayerAnimation();
 
 	}
+
+
 
 	//player character is outside camera, begin game over.
 	void OnBecameInvisible(){

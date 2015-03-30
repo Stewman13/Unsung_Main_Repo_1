@@ -1,0 +1,117 @@
+fileFormatVersion: 2
+guid: 89b142726b2f41d43a0c7714b18bcd65
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Hero Model
+    100002: //RootNode
+    100004: Unsung_HeroHub007
+    100006: Unsung_HeroHub008
+    100008: Unsung_HeroHub009
+    100010: Unsung_HeroLArm1
+    100012: Unsung_HeroLArm2
+    100014: Unsung_HeroLArmCollarbone
+    100016: Unsung_HeroLArmPalm
+    100018: Unsung_HeroLLeg1
+    100020: Unsung_HeroLLeg2
+    100022: Unsung_HeroLLegAnkle
+    100024: Unsung_HeroLLegPlatform
+    100026: Unsung_HeroPalmBone001
+    100028: Unsung_HeroPalmBone001 1
+    100030: Unsung_HeroRArm1
+    100032: Unsung_HeroRArm2
+    100034: Unsung_HeroRArmCollarbone
+    100036: Unsung_HeroRArmPalm
+    100038: Unsung_HeroRLeg1
+    100040: Unsung_HeroRLeg2
+    100042: Unsung_HeroRLegAnkle
+    100044: Unsung_HeroRLegPlatform
+    100046: Unsung_HeroSpine1
+    100048: Unsung_HeroSpine1 1
+    100050: Unsung_HeroSpine2
+    100052: Unsung_HeroSpine2 1
+    400000: Hero Model
+    400002: //RootNode
+    400004: Unsung_HeroHub007
+    400006: Unsung_HeroHub008
+    400008: Unsung_HeroHub009
+    400010: Unsung_HeroLArm1
+    400012: Unsung_HeroLArm2
+    400014: Unsung_HeroLArmCollarbone
+    400016: Unsung_HeroLArmPalm
+    400018: Unsung_HeroLLeg1
+    400020: Unsung_HeroLLeg2
+    400022: Unsung_HeroLLegAnkle
+    400024: Unsung_HeroLLegPlatform
+    400026: Unsung_HeroPalmBone001
+    400028: Unsung_HeroPalmBone001 1
+    400030: Unsung_HeroRArm1
+    400032: Unsung_HeroRArm2
+    400034: Unsung_HeroRArmCollarbone
+    400036: Unsung_HeroRArmPalm
+    400038: Unsung_HeroRLeg1
+    400040: Unsung_HeroRLeg2
+    400042: Unsung_HeroRLegAnkle
+    400044: Unsung_HeroRLegPlatform
+    400046: Unsung_HeroSpine1
+    400048: Unsung_HeroSpine1 1
+    400050: Unsung_HeroSpine2
+    400052: Unsung_HeroSpine2 1
+    4300000: Hero Model
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Hero Model
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 

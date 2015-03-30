@@ -1,0 +1,127 @@
+fileFormatVersion: 2
+guid: 2b82042714f55e1409eadf06820e41ce
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Bard_Guitar
+    100002: Bard_Model
+    100004: //RootNode
+    100006: Unsung_Player
+    100008: Unsung_PlayerHub001
+    100010: Unsung_PlayerHub002
+    100012: Unsung_PlayerHub003
+    100014: Unsung_PlayerLArm1
+    100016: Unsung_PlayerLArm2
+    100018: Unsung_PlayerLArmCollarbone
+    100020: Unsung_PlayerLArmPalm
+    100022: Unsung_PlayerLArmUpVectorNode
+    100024: Unsung_PlayerLLeg1
+    100026: Unsung_PlayerLLeg2
+    100028: Unsung_PlayerLLegAnkle
+    100030: Unsung_PlayerLLegPlatform
+    100032: Unsung_PlayerRArm1
+    100034: Unsung_PlayerRArm2
+    100036: Unsung_PlayerRArmCollarbone
+    100038: Unsung_PlayerRArmPalm
+    100040: Unsung_PlayerRLeg1
+    100042: Unsung_PlayerRLeg2
+    100044: Unsung_PlayerRLegAnkle
+    100046: Unsung_PlayerRLegPlatform
+    100048: Unsung_PlayerSpine1
+    100050: Unsung_PlayerSpine1 1
+    100052: Unsung_PlayerSpine2
+    100054: Unsung_PlayerSpine2 1
+    100056: Unsung_PlayerSpine3
+    100058: Unsung_PlayerSpine4
+    100060: Unsung_PlayerSpine5
+    400000: Bard_Guitar
+    400002: Bard_Model
+    400004: //RootNode
+    400006: Unsung_Player
+    400008: Unsung_PlayerHub001
+    400010: Unsung_PlayerHub002
+    400012: Unsung_PlayerHub003
+    400014: Unsung_PlayerLArm1
+    400016: Unsung_PlayerLArm2
+    400018: Unsung_PlayerLArmCollarbone
+    400020: Unsung_PlayerLArmPalm
+    400022: Unsung_PlayerLArmUpVectorNode
+    400024: Unsung_PlayerLLeg1
+    400026: Unsung_PlayerLLeg2
+    400028: Unsung_PlayerLLegAnkle
+    400030: Unsung_PlayerLLegPlatform
+    400032: Unsung_PlayerRArm1
+    400034: Unsung_PlayerRArm2
+    400036: Unsung_PlayerRArmCollarbone
+    400038: Unsung_PlayerRArmPalm
+    400040: Unsung_PlayerRLeg1
+    400042: Unsung_PlayerRLeg2
+    400044: Unsung_PlayerRLegAnkle
+    400046: Unsung_PlayerRLegPlatform
+    400048: Unsung_PlayerSpine1
+    400050: Unsung_PlayerSpine1 1
+    400052: Unsung_PlayerSpine2
+    400054: Unsung_PlayerSpine2 1
+    400056: Unsung_PlayerSpine3
+    400058: Unsung_PlayerSpine4
+    400060: Unsung_PlayerSpine5
+    4300000: Bard_Model
+    4300002: Bard_Guitar
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Bard_Guitar
+    13700002: Bard_Model
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 

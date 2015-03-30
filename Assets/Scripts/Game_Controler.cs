@@ -81,6 +81,15 @@ public class Game_Controler : MonoBehaviour {
     public Text apFeedback;
     public Text wireCutterFeedback;
 
+	//Just all the damn audio from Sam that I can implement at 6.20am 
+	public AudioClip WalkButtonAud;
+	public AudioClip RunButtonAud;
+	public AudioClip SneakButtonAud;
+	public AudioClip DiceRollAud001, DiceRollAud002, DiceRollAud003 ;
+	public AudioClip LaserAlarm;
+	public AudioClip EndTurnAud;
+
+
 	public enum PlayerStances 
 	{
 		Walk,
@@ -108,7 +117,6 @@ public class Game_Controler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
         grenadeFeedback.text = " x " + GrenadeCount;
         apFeedback.text = "AP x " + AP;
         wireCutterFeedback.text = " x " + wireCutterCount;
@@ -279,6 +287,7 @@ public class Game_Controler : MonoBehaviour {
 		//Grenade
 		if (P_InteractPickup == true && isPlayersTurn == true && PickupGrenadeStart == true && AP >= 1){
 			GUI.Box(new Rect(Screen.width/50f, Screen.height/100, 500, 400),"Interactive: Pickup Smoke Grenade");
+			AudioSource.PlayClipAtPoint(DiceRollAud002, gameObject.transform.position);
 
 			if (GUI.Button(new Rect (Screen.width/50 + 150, Screen.height/100 + 70, buttonWidth + 200, buttonHeight + 10),"90% Chance To Pickup, [-1 Action Points]")){
 				AP --;
@@ -301,6 +310,7 @@ public class Game_Controler : MonoBehaviour {
 		if (P_InteractLight == true && isPlayersTurn == true && InteractLightStart == true && AP >= 1){
 				GUI.Box(new Rect(Screen.width/50f, Screen.height/100, 500, 400),"Interactive: Light Switch");
 				if (GUI.Button(new Rect (Screen.width/40 + 150, Screen.height/100 + 70, buttonWidth + 200, buttonHeight + 10), "60% Chance To Turn Off Light, [-1 AP]")){
+				AudioSource.PlayClipAtPoint(DiceRollAud003, gameObject.transform.position);
 				DiceRoll();
 					if (P_InteractLight == true && isPlayersTurn == true && InteractLightStart == true){
 							if (DiceTotal >= 5){
@@ -337,6 +347,7 @@ public class Game_Controler : MonoBehaviour {
 			GUI.Box(new Rect(Screen.width/50f, Screen.height/100, 500, 400),"Interactive: Laser Switch");
 			if (GUI.Button(new Rect (Screen.width/40 + 150, Screen.height/100 + 70, buttonWidth + 200, buttonHeight + 10), "70% Chance To Turn Off Laser, [-1 AP]")){
 				DiceRoll();
+				AudioSource.PlayClipAtPoint(DiceRollAud001, gameObject.transform.position);
 				if (P_InteractLaser == true && isPlayersTurn == true && InteractLaserStart == true){
 					if (DiceTotal >= 4){
 						AP --;
@@ -359,6 +370,7 @@ public class Game_Controler : MonoBehaviour {
 			}
 			if (GUI.Button(new Rect (Screen.width/40 + 150, Screen.height/100 + 100, buttonWidth + 200, buttonHeight + 10), "50% Chance To Set Off Alarm, [-1 AP]")){
 			DiceRoll();
+				AudioSource.PlayClipAtPoint(DiceRollAud001, gameObject.transform.position);
 			if (P_InteractLaser == true && isPlayersTurn == true && InteractLaserStart == true){
 				if (DiceTotal >= 4){
 					AP --;
@@ -366,6 +378,7 @@ public class Game_Controler : MonoBehaviour {
 					TileUnderPlayer.GetComponent<FloorTile_Controler>().Tile_InteractLaser = 0;
 					TileUnderPlayer.GetComponent<FloorTile_Controler>().LaserPlayAlarm = true;
 					InteractLaserStart = false;
+						AudioSource.PlayClipAtPoint(LaserAlarm, gameObject.transform.position);
 					print("Player Set Off Alarm");
 				}
 				if (DiceTotal <= 3 ){
@@ -513,12 +526,14 @@ public class Game_Controler : MonoBehaviour {
             {
                 if (currentStance == PlayerStances.Walk)
                 {
+					AudioSource.PlayClipAtPoint(SneakButtonAud, gameObject.transform.position,0.5f);
                     currentStance = PlayerStances.Sneak;
                     AP -= 1;
                 }
                 else if (currentStance == PlayerStances.Run)
                 {
                     currentStance = PlayerStances.Sneak;
+					AudioSource.PlayClipAtPoint(SneakButtonAud, gameObject.transform.position,0.5f);
                     AP -= 1;
                 }
             }
@@ -535,10 +550,12 @@ public class Game_Controler : MonoBehaviour {
                 if (currentStance == PlayerStances.Sneak && AP >= 1)
                 {
                     currentStance = PlayerStances.Walk;
+					AudioSource.PlayClipAtPoint(WalkButtonAud, gameObject.transform.position,0.5f);
                 }
                 else if (currentStance == PlayerStances.Run && AP >= 1)
                 {
                     currentStance = PlayerStances.Walk;
+					AudioSource.PlayClipAtPoint(WalkButtonAud, gameObject.transform.position,0.5f);
                 }
             }
         }
@@ -554,11 +571,13 @@ public class Game_Controler : MonoBehaviour {
                 if (currentStance == PlayerStances.Sneak)
                 {
                     currentStance = PlayerStances.Run;
+					AudioSource.PlayClipAtPoint(RunButtonAud, gameObject.transform.position,0.5f);
                     AP -= 1;
                 }
                 else if (currentStance == PlayerStances.Walk)
                 {
                     currentStance = PlayerStances.Run;
+					AudioSource.PlayClipAtPoint(RunButtonAud, gameObject.transform.position,0.5f);
                     AP -= 1;
                 }
             }
@@ -575,6 +594,7 @@ public class Game_Controler : MonoBehaviour {
             {
                 if (isPlayersTurn == true && isAiTurn == false && isLerping == false)
                 {
+					AudioSource.PlayClipAtPoint(EndTurnAud, gameObject.transform.position,0.5f);
                     Hero.GetComponent<HeroController>().herosMoves = Random.Range(1, 3);
                     currentTurn = PossibleTurns.AiTurn;
                     Floor.BroadcastMessage("unselectTile");
@@ -588,6 +608,7 @@ public class Game_Controler : MonoBehaviour {
             {
                 if (isPlayersTurn == true && isAiTurn == false && isLerping == false)
                 {
+					AudioSource.PlayClipAtPoint(EndTurnAud, gameObject.transform.position);
                     Hero.GetComponent<HeroController>().herosMoves = Random.Range(1, 3);
                     currentTurn = PossibleTurns.AiTurn;
                     Floor.BroadcastMessage("unselectTile");

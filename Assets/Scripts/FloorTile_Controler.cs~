@@ -30,6 +30,8 @@ public class FloorTile_Controler : MonoBehaviour {
 	public bool MouseOverTile = false;
 
 	public bool IsAThreat = false;
+	public bool CanMoveHere = false;
+	public bool isSmokeable = false;
 
 	public bool NextToPlayersTile = false;
 	private int ap;
@@ -41,30 +43,43 @@ public class FloorTile_Controler : MonoBehaviour {
 	public int PlayerInteractive = 0;
 	public int LevelEnd = 0;
 
+	public int ScoreWorth = 0;
+	public bool WorthPointsIfOn = false;
+	public bool HerosActionMomentHere = false;
+
 	public RaycastHit HitBack;
 	public RaycastHit HitForward;
 	public RaycastHit HitLeft;
 	public RaycastHit HitRight;
 
+	private Color newColour;
+
 	//Stuff For Lerping
 	private float timeStartedLerping;
-	private bool isLerping;
-	private float journeyLength;
+	public bool isLerping;
+	public float journeyLength;
 	private Vector3 startPosition;
 	private Vector3 endPosition;
-	private float timeTakenDuringLerp;
+	public float timeTakenDuringLerp;
+
+	public int DeductAP;
 
 	//Tile can be interacted with player
+	//private bool colourDelay = false;
 	public int Tile_InteractLight = 0; 
 	public int Tile_InteractCamera = 0;
 	public int Tile_InteractLaser = 0;
 	public int Tile_InteractPickup = 0;
 
 	//Interactive Message constraints
+	public bool LightDetectingThisTile = false;
+	public bool CameraDetectingThisTile = false;
 	public bool SuccessfulLightDestroy = false;
 	public bool GrenadesPickedUp = false;
 	public bool LaserDestroyed = false;
 	public bool LaserPlayAlarm = false;
+
+	public bool Set = false;
 
 	void Start(){
 		//set bools to false, so there's no bugs
@@ -83,7 +98,7 @@ public class FloorTile_Controler : MonoBehaviour {
 //		Tile_InteractPickup = false;
 		NextToPlayersTile = false;
         _gameCon = GameObject.Find("Main Camera").GetComponent<Game_Controler>();
-
+		Run();
 	}
 
 	// Run every update
@@ -96,11 +111,18 @@ public class FloorTile_Controler : MonoBehaviour {
 			StanceMoveSpeed();
 			RayFromMouse();
 			NextStage();
-
+			HeroAction();
 			//checks to send message, will destroy light source
 			MessageCheck();
 			DeMapped();
 		}
+	}
+
+	void Run(){
+		newColour = ThisTile.renderer.material.color;
+		newColour.a = 0.0f;
+		ThisTile.renderer.material.color = newColour;
+		ThisTile.renderer.material.shader = Shader.Find("Transparent/Diffuse");
 	}
 
 	//sends message to destroy light source
@@ -113,17 +135,84 @@ public class FloorTile_Controler : MonoBehaviour {
 			BroadcastMessage("SetOffAlarm",SendMessageOptions.DontRequireReceiver);
 			LaserPlayAlarm = false;
 		}
+		//Detects player if they are in a camera or light
+		if (CameraDetectingThisTile == true && PlayerIsOnThisBlock) {
+			Player.SendMessage ("Alert");
+		}
+		if (LightDetectingThisTile == true && PlayerIsOnThisBlock) {
+			_gameCon.HighAlert = true;
+		}
+		if (LightDetectingThisTile == false && PlayerIsOnThisBlock) {
+			_gameCon.HighAlert = false;
+		}
 	}
 
 	void StanceMoveSpeed(){
-		if(_gameCon.playerRunning == true){
-			timeTakenDuringLerp = 0.5f;
-		}
-		if(_gameCon.playerSneaking == true){
-			timeTakenDuringLerp = 1.5f;
-		}
+		journeyLength = Vector3.Distance(Player.transform.position, Node.transform.position);
+
 		if(_gameCon.playerWalking == true){
-			timeTakenDuringLerp = 1.0f;
+			if(journeyLength >= 0.9 && journeyLength < 1.9 && isLerping == true && Set == false){
+				timeTakenDuringLerp = 1.75f;
+				DeductAP = 2;
+				if(Set == false){
+					_gameCon.AP -= DeductAP;
+				}
+				Set = true;
+			}
+			if(journeyLength >= 1.9 && journeyLength < 2.9 && isLerping == true && Set == false){
+				timeTakenDuringLerp = 2.25f;
+				DeductAP = 4;
+				if(Set == false){
+					_gameCon.AP -= DeductAP;
+				}
+				Set = true;
+			}
+		}
+		if(_gameCon.playerRunning == true){
+			if(journeyLength >= 0.9 && journeyLength < 1.9 && isLerping == true && Set == false){
+				timeTakenDuringLerp = 0.5f;
+				print ("length 1-2");
+				DeductAP = 1;
+				if(Set == false){
+					_gameCon.AP -= DeductAP;
+				}
+				Set = true;
+			}
+			if(journeyLength >= 1.9 && journeyLength < 2.9 && isLerping == true && Set == false){
+				timeTakenDuringLerp = 1.0f;
+				print ("length 2-3");
+				DeductAP = 2;
+				if(Set == false){
+					_gameCon.AP -= DeductAP;
+				}
+				Set = true;
+			}
+			if(journeyLength >= 2.9 && journeyLength < 3.9 && isLerping == true && Set == false){
+				timeTakenDuringLerp = 1.5f;
+				print ("length 3-4");
+				DeductAP = 3;
+				if(Set == false){
+					_gameCon.AP -= DeductAP;
+				}
+				Set = true;
+			}
+			if(journeyLength >= 3.9 && journeyLength < 5 && isLerping == true && Set == false){
+				timeTakenDuringLerp = 2.0f;
+				print ("length 4-5");
+				DeductAP = 4;
+				if(Set == false){
+					_gameCon.AP -= DeductAP;
+				}
+				Set = true;
+			}
+		}
+		if(_gameCon.playerSneaking == true && Set == false && isLerping == true){
+			timeTakenDuringLerp = 1.5f;
+			DeductAP = 3;
+			if(Set == false){
+				_gameCon.AP -= DeductAP;
+			}
+			Set = true;
 		}
 	}
 
@@ -275,33 +364,38 @@ public class FloorTile_Controler : MonoBehaviour {
 
 	//checks the tag of this tile, then sets colour accordingly
 	void AvailabilityChecker(){
-		if(gameObject.tag == "UnAvailable"){
+		if(gameObject.tag == "UnAvailable" ){
+			newColour.a = 1.0f;
+			ThisTile.renderer.material.color = newColour;
+			ThisTile.renderer.material.shader = Shader.Find("Diffuse");
 			gameObject.renderer.material.color = Color.grey;
 		}
-		if(gameObject.tag == "Available" && MouseOverTile == false && IsAThreat == false){
-			gameObject.renderer.material.color = Color.white;
+		if(gameObject.tag == "Available" && NextToPlayersTile == false && MouseOverTile == false && IsAThreat == false && CanMoveHere == false){
+			newColour.a = 0.0f;
+			ThisTile.renderer.material.color = newColour;
+			ThisTile.renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		}
+//		if(gameObject.tag == "Available" && NextToPlayersTile == true && MouseOverTile == false && IsAThreat == false && PlayerInteractive == 0 && HerosPath == 0){
+//			if (colourDelay == false){
+//			//StartCoroutine(NextToPlayerColourDelay());
+//			}
 
-
-		//TESTING TO SEE IF THE TILES ARE SETUP PROPERLY
-//		if (_gameCon.isPlayersTurn == true){
-////			if(gameObject.tag == "Available" && PlayerInteractive == 0){
-////				gameObject.renderer.material.color = Color.blue;
-////			}
-//			
-//			if(gameObject.tag == "Available" && PlayerInteractive == 1){
-//				gameObject.renderer.material.color = Color.green;
-//			}
-//			
-//			if(gameObject.tag == "Available" && AIPathChannel == 1 || gameObject.tag == "Available" && HerosPath == 1){
-//				gameObject.renderer.material.color = Color.red;
-//			}
-//		if(gameObject.tag == "Available" && _gameCon.isPlayersTurn == false){
-//			gameObject.renderer.material.color = Color.white;
-//			}
-//		}
 
 	}
+
+	//This is for the green colour delay placeholder
+//	public IEnumerator NextToPlayerColourDelay(){
+//		colourDelay = true;
+//		float greenDelay = 1.5f;
+//		float whiteDelay = 1.5f;
+//		gameObject.renderer.material.color = Color.green;
+//		yield return new WaitForSeconds (whiteDelay);
+//		gameObject.renderer.material.color = Color.white;
+//		yield return new WaitForSeconds(greenDelay);
+//		colourDelay = false;
+
+
+
 
 	//Uses Raycast collison with layer 8 (Tiles) then moves player to clicked tile.
 	//Note, this also only allows movement to an adjacent tile.
@@ -313,17 +407,38 @@ public class FloorTile_Controler : MonoBehaviour {
 		if (Input.GetButtonDown("Fire1") && _gameCon.isPlayersTurn == true) {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(ray, out HitMe,Mathf.Infinity,layerMask)){
-				if(HitMe.collider.gameObject == ThisTile && NextToPlayersTile == true && ap >= _gameCon.CurrentMovementCost){
+				if(HitMe.collider.gameObject == ThisTile && CanMoveHere == true && ap >= _gameCon.CurrentMovementCost){
+					Set = false;
 					StartLerping();
-					Controller.SendMessage ("MovePlayer");
+					//Controller.SendMessage ("MovePlayer");
 					StartCoroutine(WaitAndGo(0.01F));
+				}
+			}
+		}
+		if (Input.GetButtonDown("Fire2") && _gameCon.isPlayersTurn == true && _gameCon.GrenadeCount > 0) {
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast(ray, out HitMe,Mathf.Infinity,layerMask)){
+				if(HitMe.collider.gameObject == ThisTile && isSmokeable == true && ap >= 1){
+					_gameCon.GrenadeCount -= 1;
+					GameObject SmokeGrenade = Instantiate (_gameCon.Grenade, Node.transform.position, Node.transform.rotation) as GameObject;
 				}
 			}
 		}
 	}
 	//This gathers the required information to move, before the fixd update begins.
 	void StartLerping(){
-		journeyLength = Vector3.Distance(Player.transform.position, Node.transform.position);
+			__Animation.inst.anim.SetBool("WalkAnimIdle",false);
+			__Animation.inst.anim.SetBool("WalkAnim",true);
+			__Animation.inst.anim.SetBool("RunAnim",false);
+			__Animation.inst.anim.SetBool("RunAnimIdle",false);
+			__Animation.inst.anim.SetBool("CrouchAnim",false);
+			__Animation.inst.anim.SetBool("CrouchAnimIdle",false);
+			__Animation.inst.anim.SetBool("Interact",false);
+			print ("walk anim");
+
+
+
+		_gameCon.isLerping = true;
 		isLerping = true;
 		timeStartedLerping = Time.time;
 
@@ -349,6 +464,7 @@ public class FloorTile_Controler : MonoBehaviour {
 			if(percentageComplete >= 1.0f)
 			{
 				isLerping = false;
+				_gameCon.isLerping = false;
 			}
 		}
 	}
@@ -362,40 +478,52 @@ public class FloorTile_Controler : MonoBehaviour {
 		if (_gameCon.isPlayersTurn == true){
 			Ray Cast = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(Cast, out OverMe,Mathf.Infinity,layerMask)){
-				if(OverMe.collider.gameObject == ThisTile && NextToPlayersTile == true && ap >= _gameCon.CurrentMovementCost){
+				if(OverMe.collider.gameObject == ThisTile && CanMoveHere == true && ap >= _gameCon.CurrentMovementCost){
 
 					Floor.BroadcastMessage("unselectTile");
 					MouseOverTile = true;
-					if(gameObject.tag == "Available" && PlayerInteractive == 0 && NextToPlayersTile == false){
+					if(gameObject.tag == "Available" && PlayerInteractive == 0 && CanMoveHere == false){
+						newColour.a = 0.0f;
+						ThisTile.renderer.material.color = newColour;
+						ThisTile.renderer.material.shader = Shader.Find("Transparent/Diffuse");
 						gameObject.renderer.material.color = Color.white;
-						print("mouse over available empty tile");
+					//	print("mouse over available empty tile");
 					}
 					else{
 						unselectTile();
 					}
 
 					//tell player they can move to this tile
-					if(gameObject.tag == "Available" && PlayerInteractive == 0 && NextToPlayersTile == true && _gameCon.AP >=0 ){
+					if(gameObject.tag == "Available" && PlayerInteractive == 0 && CanMoveHere == true && _gameCon.AP >=0 ){
+						newColour.a = 1.0f;
+						ThisTile.renderer.material.color = newColour;
+						ThisTile.renderer.material.shader = Shader.Find("Diffuse");
 						gameObject.renderer.material.color = Color.green;
-						print("mouse over available empty tile");
+					//	print("mouse over available empty tile");
 					}
 					else{
 						unselectTile();
 					}
 
 					//tell player this tile is interactive
-					if(gameObject.tag == "Available" && PlayerInteractive == 1 && NextToPlayersTile == true && _gameCon.AP >=1 ){
+					if(gameObject.tag == "Available" && PlayerInteractive == 1 && CanMoveHere == true && _gameCon.AP >=1 ){
+						newColour.a = 1.0f;
+						ThisTile.renderer.material.color = newColour;
+						ThisTile.renderer.material.shader = Shader.Find("Diffuse");
 						gameObject.renderer.material.color = Color.blue;
-						print("mouse over interactive tile");
+					//	print("mouse over interactive tile");
 					}
 					else{
 						unselectTile();
 					}
 
 					//tell player an enemy patrols this route
-					if(gameObject.tag == "Available" && AIPathChannel == 1 || gameObject.tag == "Available" && HerosPath == 1){
+					if(gameObject.tag == "Available" && AIPathChannel == 1 ||gameObject.tag == "Available" && HerosPath == 1){
+						newColour.a = 1.0f;
+						ThisTile.renderer.material.color = newColour;
+						ThisTile.renderer.material.shader = Shader.Find("Diffuse");
 						gameObject.renderer.material.color = Color.red;
-						print ("enemy path tile");
+					//	print ("enemy path tile");
 					}
 					else{
 						unselectTile();
@@ -408,7 +536,7 @@ public class FloorTile_Controler : MonoBehaviour {
 	void unselectTile(){
 		MouseOverTile = false;
 	}
-	
+
 	//fixes a bug with selectable tiles
 	IEnumerator WaitAndGo(float waitTime) {
 		yield return new WaitForSeconds(waitTime);
@@ -434,10 +562,33 @@ public class FloorTile_Controler : MonoBehaviour {
 	}
 	void ThreatMapped(){
 		IsAThreat = true;
+		newColour.a = 1.0f;
+		ThisTile.renderer.material.color = newColour;
+		ThisTile.renderer.material.shader = Shader.Find("Diffuse");
 		ThisTile.renderer.material.color = Color.red;
+	}
+	void MovementMapped(){
+		CanMoveHere = true;
+		if (IsAThreat == false) {
+			newColour.a = 1.0f;
+			ThisTile.renderer.material.color = newColour;
+			ThisTile.renderer.material.shader = Shader.Find("Diffuse");
+			ThisTile.renderer.material.color = Color.green;
+		}
+	}
+	void Smokable(){
+		isSmokeable = true;
+	}
+	void HeroOnMe(){
+		HeroIsOnThisBlock = true;
 	}
 	void DeMapped(){
 		IsAThreat = false;
+		CanMoveHere = false;
+		//isSmokeable = false;
+	}
+	void LightOff(){
+		LightDetectingThisTile = false;
 	}
 
 	void NextStage(){
@@ -449,6 +600,30 @@ public class FloorTile_Controler : MonoBehaviour {
 		}
 		if(LevelEnd == 3 && HeroIsOnThisBlock == true){
 			Application.LoadLevel (6);
+		}
+	}
+
+	//This tells the hero he is in action.
+	void HeroAction(){
+
+		if(HeroIsOnThisBlock == true && HerosActionMomentHere == true){
+			_gameCon.HeroAction = true;
+		}
+		if(HeroIsOnThisBlock == true && HerosActionMomentHere == false){
+			_gameCon.HeroAction = false;
+		}
+
+		if(PlayerIsOnThisBlock == true && WorthPointsIfOn == true && ScoreWorth == 1){
+			_gameCon.PlayersCurrentTilePoints = 1;
+		}
+		if(PlayerIsOnThisBlock == true && WorthPointsIfOn == true && ScoreWorth == 2){
+			_gameCon.PlayersCurrentTilePoints = 2;
+		}
+		if(PlayerIsOnThisBlock == true && WorthPointsIfOn == true && ScoreWorth == 3){
+			_gameCon.PlayersCurrentTilePoints = 3;
+		}
+		if(PlayerIsOnThisBlock == true && WorthPointsIfOn == false){
+			_gameCon.PlayersCurrentTilePoints = 0;
 		}
 	}
 }

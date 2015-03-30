@@ -39,6 +39,18 @@ public class HeroController : MonoBehaviour {
 	void Update () {
 		whereAmI();
 		isItMyTurn();
+		HeroAnimation();
+	}
+
+	void HeroAnimation(){
+		if (isLerping == true){
+			__Animation.inst.anim.SetBool("HeroIsLerping",true);
+			__Animation.inst.anim.SetBool("IsIdle",false);
+		}
+		if (isLerping ==false){
+			__Animation.inst.anim.SetBool("IsIdle",true);
+			__Animation.inst.anim.SetBool("HeroIsLerping",false);
+		}
 	}
 
 	void whereAmI(){
@@ -144,6 +156,7 @@ public class HeroController : MonoBehaviour {
 	{
 		if(isLerping)
 		{
+			BroadcastMessage("AnimationWalk", SendMessageOptions.DontRequireReceiver);
 			waiting = true;
 			float timeSinceStarted = Time.time - timeStartedLerping;
 			float percentageComplete = timeSinceStarted / timeTakenDuringLerp;

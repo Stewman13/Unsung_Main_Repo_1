@@ -427,6 +427,17 @@ public class FloorTile_Controler : MonoBehaviour {
 	}
 	//This gathers the required information to move, before the fixd update begins.
 	void StartLerping(){
+			__Animation.inst.anim.SetBool("WalkAnimIdle",false);
+			__Animation.inst.anim.SetBool("WalkAnim",true);
+			__Animation.inst.anim.SetBool("RunAnim",false);
+			__Animation.inst.anim.SetBool("RunAnimIdle",false);
+			__Animation.inst.anim.SetBool("CrouchAnim",false);
+			__Animation.inst.anim.SetBool("CrouchAnimIdle",false);
+			__Animation.inst.anim.SetBool("Interact",false);
+			print ("walk anim");
+
+
+
 		_gameCon.isLerping = true;
 		isLerping = true;
 		timeStartedLerping = Time.time;
