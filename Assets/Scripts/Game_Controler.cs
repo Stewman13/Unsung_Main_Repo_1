@@ -77,6 +77,7 @@ public class Game_Controler : MonoBehaviour {
 	public string Stance = "Standard"; //others are, "stealth" and "Running"
 
     public Text grenadeFeedback;
+    public Text apFeedback;
 
 	public enum PlayerStances 
 	{
@@ -106,7 +107,8 @@ public class Game_Controler : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        grenadeFeedback.text = "Smoke Bang x " + GrenadeCount; 
+        grenadeFeedback.text = "Smoke Bang x " + GrenadeCount;
+        apFeedback.text = "AP x " + AP;
 
 		Stances();
 		Turns ();
@@ -199,7 +201,7 @@ public class Game_Controler : MonoBehaviour {
 	//This sections creates/controls the GUI Display for Stances
 	void OnGUI()
 	{
-		if (isPlayerOutOfCamera == false){
+		/*if (isPlayerOutOfCamera == false){
 			//WALK STANCE BUTTON
 			if (GUI.Button(new Rect(160,Screen.height - 35, buttonWidth, buttonHeight), "Walk Stance") && isPlayersTurn == true && isPlayerOutOfCamera == false && isLerping == false) 
 			{
@@ -239,16 +241,7 @@ public class Game_Controler : MonoBehaviour {
 					currentStance = PlayerStances.Sneak;
 					AP -= 1;
 				}
-			}
-			//BLUE AP BAR
-			if (!APTexture) 
-			{
-				Debug.LogError ("Assign a texture");
-				return;
-			}
-			GUI.DrawTexture(new Rect(50, Screen.height - 60, 30, AP * -63), APTexture);
-	        GUI.Label(new Rect(55, Screen.height - 60, 30, 30), "AP");
-		}
+			}*/
 
 		//player Interactive placeholders
 		if (P_InteractPickup == true && isPlayersTurn == true){
@@ -402,7 +395,7 @@ public class Game_Controler : MonoBehaviour {
 		}
 
 		//END TURN BUTTON
-		if (isPlayerOutOfCamera == false){
+		/*if (isPlayerOutOfCamera == false){
 
 			if ( P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false )
 			{
@@ -427,7 +420,7 @@ public class Game_Controler : MonoBehaviour {
 					print ("Ended turn on an interactive tile");
 				}
 			}
-		}
+		}*/
 
 		if(isPlayerOutOfCamera == false){
 			//Player stance button feedback placeholder, for testing purposes
@@ -507,4 +500,93 @@ public class Game_Controler : MonoBehaviour {
 			Grade = "A";
 		}
 	}
+
+    public void SneakButton()
+    {
+        if (isPlayerOutOfCamera == false)
+        {
+            if (AP >= 1 && isPlayersTurn == true && isPlayerOutOfCamera == false && isLerping == false)
+            {
+                if (currentStance == PlayerStances.Walk)
+                {
+                    currentStance = PlayerStances.Sneak;
+                    AP -= 1;
+                }
+                else if (currentStance == PlayerStances.Run)
+                {
+                    currentStance = PlayerStances.Sneak;
+                    AP -= 1;
+                }
+            }
+        }
+    }
+
+    public void WalkButton()
+    {
+        if (isPlayerOutOfCamera == false)
+        {
+            if (isPlayersTurn == true && isPlayerOutOfCamera == false && isLerping == false)
+            {
+                if (currentStance == PlayerStances.Sneak && AP >= 1)
+                {
+                    currentStance = PlayerStances.Walk;
+                }
+                else if (currentStance == PlayerStances.Run && AP >= 1)
+                {
+                    currentStance = PlayerStances.Walk;
+                }
+            }
+        }
+    }
+
+    public void RunButton()
+    {
+        if (isPlayerOutOfCamera == false)
+        {
+            if (AP >= 1 && isPlayersTurn == true && isPlayerOutOfCamera == false && isLerping == false)
+            {
+                if (currentStance == PlayerStances.Sneak)
+                {
+                    currentStance = PlayerStances.Run;
+                    AP -= 1;
+                }
+                else if (currentStance == PlayerStances.Walk)
+                {
+                    currentStance = PlayerStances.Run;
+                    AP -= 1;
+                }
+            }
+        }
+    }
+
+    public void EndTurnButton()
+    {
+        if (isPlayerOutOfCamera == false)
+        {
+
+            if (P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false)
+            {
+                if (isPlayersTurn == true && isAiTurn == false && isLerping == false)
+                {
+                    Hero.GetComponent<HeroController>().herosMoves = Random.Range(1, 3);
+                    currentTurn = PossibleTurns.AiTurn;
+                    Floor.BroadcastMessage("unselectTile");
+                    print("Player: Turn ended successfully");
+                }
+            }
+            else if (P_InteractCamera == true && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false ||
+                     P_InteractCamera == false && P_InteractLaser == true && P_InteractLight == false && P_InteractPickup == false ||
+                     P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == true && P_InteractPickup == false ||
+                     P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == true)
+            {
+                if (isPlayersTurn == true && isAiTurn == false && isLerping == false)
+                {
+                    Hero.GetComponent<HeroController>().herosMoves = Random.Range(1, 3);
+                    currentTurn = PossibleTurns.AiTurn;
+                    Floor.BroadcastMessage("unselectTile");
+                    print("Ended turn on an interactive tile");
+                }
+            }
+        }
+    }
 }
