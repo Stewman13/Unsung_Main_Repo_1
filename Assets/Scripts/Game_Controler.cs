@@ -109,9 +109,9 @@ public class Game_Controler : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        grenadeFeedback.text = " x " + GrenadeCount;
-        apFeedback.text = "AP x " + AP;
-        wireCutterFeedback.text = " x " + wireCutterCount;
+        //grenadeFeedback.text = " x " + GrenadeCount;
+        //apFeedback.text = "AP x " + AP;
+        //wireCutterFeedback.text = " x " + wireCutterCount;
 
 		Stances();
 		Turns ();
