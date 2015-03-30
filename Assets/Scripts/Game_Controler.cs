@@ -394,7 +394,7 @@ public class Game_Controler : MonoBehaviour {
 						
 		}
 
-		//END TURN BUTTON
+		//END TURN BUTTON **MOVED TO FUNCTION BELOW**
 		/*if (isPlayerOutOfCamera == false){
 
 			if ( P_InteractCamera == false && P_InteractLaser == false && P_InteractLight == false && P_InteractPickup == false )
@@ -422,7 +422,7 @@ public class Game_Controler : MonoBehaviour {
 			}
 		}*/
 
-		if(isPlayerOutOfCamera == false){
+		/*if(isPlayerOutOfCamera == false){
 			//Player stance button feedback placeholder, for testing purposes
 			if (currentStance == PlayerStances.Walk && currentTurn != PossibleTurns.AiTurn)		
 				GUI.Box(new Rect(160, Screen.height- 30, buttonWidth, buttonHeight/1.3f), "");//Darken Walk button
@@ -430,7 +430,7 @@ public class Game_Controler : MonoBehaviour {
 				GUI.Box(new Rect(270, Screen.height- 30, buttonWidth, buttonHeight/1.3f), "");//Darken Run button
 			if (currentStance == PlayerStances.Sneak && currentTurn != PossibleTurns.AiTurn)
 				GUI.Box(new Rect(50, Screen.height- 30, buttonWidth, buttonHeight/1.3f), "");//Darken Sneak button
-		}
+		}*/
 }
 
 	//Pasue on 'esc' menu
@@ -501,6 +501,7 @@ public class Game_Controler : MonoBehaviour {
 		}
 	}
 
+    //Sneak Stance Button
     public void SneakButton()
     {
         if (isPlayerOutOfCamera == false)
@@ -521,6 +522,7 @@ public class Game_Controler : MonoBehaviour {
         }
     }
 
+    //Walk Stance button 
     public void WalkButton()
     {
         if (isPlayerOutOfCamera == false)
@@ -539,6 +541,7 @@ public class Game_Controler : MonoBehaviour {
         }
     }
 
+    //Run Stance button
     public void RunButton()
     {
         if (isPlayerOutOfCamera == false)
@@ -559,6 +562,7 @@ public class Game_Controler : MonoBehaviour {
         }
     }
 
+    //End Turn Button
     public void EndTurnButton()
     {
         if (isPlayerOutOfCamera == false)
